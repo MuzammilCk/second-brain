@@ -1,14 +1,5 @@
 # People
 
-Contact info, context, and interaction logs for people.
+List of people connected to the projects and research in this vault.
 
-## Pages
-
-- [[people/index|People Index]] — This page
-
-Each person gets a page with:
-- Name and contact info
-- Role/relationship context
-- Key links (GitHub, LinkedIn, email)
-- Interaction log (meetings, decisions, commitments)
-- Related projects and placements
+- **[[muzammil-ck|Muzammil Ck]]**: Core vault owner, 4th-year CSE student at MACE Kerala, and active developer of the platforms documented in this wiki.

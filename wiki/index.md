@@ -1,15 +1,14 @@
 # Wiki Index
 
-Entry point and table of contents for the knowledge base.
+Entry point and table of contents for the personal knowledge vault.
 
-## Quick Links
+## Directory Maps
 
-- [[log|Change Log]]
-- [[concepts/index|Concepts]]
-- [[projects/index|Projects]]
-- [[people/index|People]]
-- [[placements/index|Placements]]
+- **[[projects/index|Projects]]**: Active developments, including [[projects/ytclfr|ytclfr (YouTube intelligent pipeline)]], [[projects/realme|RealMe (3D Portfolio)]], and [[projects/metatune|MetaTune (AutoML Platform)]].
+- **[[concepts/index|Concepts]]**: Core engineering models like [[concepts/automl|AutoML & HPO]], [[concepts/video-intelligence|Video Intelligence Pipelines]], and [[concepts/three-physics|3D Web Physics & Rendering]].
+- **[[people/index|People]]**: Core team directory including [[people/muzammil-ck|Muzammil Ck]].
+- **[[placements/index|Placements]]**: Career achievements, travel blueprints (e.g. [[placements/odoo-hackathon|Odoo Hackathon Grand Finale]]), seminars ([[placements/neutral-ad-seminar|NeuTraL AD Seminar]]), and portal credentials ([[placements/placement-portal|KTU Placement Portal]]).
+- **[[log|Change Log]]**: Running log of modifications and vault status updates.
 
-## Navigation
-
-Start here, then follow links to explore. Use the search in your editor to find pages by keyword.
+## Navigation Info
+Click any of the [[wiki-links]] above to navigate the vault. All notes are atomic and cross-referenced.

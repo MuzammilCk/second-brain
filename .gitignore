@@ -2,3 +2,7 @@ raw/
 mirror/
 journal/
 .claude/settings.local.json
+.claude/transcripts/
+.claude/workflows/
+*.ps1
+.obsidian
