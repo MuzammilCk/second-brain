@@ -1,5 +1,6 @@
 raw/
-mirror/
+mirror/*
+!mirror/project-sync/
 journal/
 .claude/settings.local.json
 .claude/transcripts/
