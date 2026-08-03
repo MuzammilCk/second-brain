@@ -12,8 +12,11 @@ Muzammil Ck is a final-year (4th year) Computer Science Engineering student at M
 - **Projects**:
   - [[wiki/projects/ytclfr|ytclfr]] (YouTube intelligence pipeline)
   - [[wiki/projects/realme|RealMe]] (React Three Fiber interactive 3D Portfolio)
-  - [[wiki/projects/metatune|MetaTune]] (AutoML platform with neural meta-learning)
-  - **AI Invoice Studio**: Voice-to-invoice app with Sarvam AI STT & Ollama.
+  - [[wiki/projects/metatune|MetaTune]] (AutoML platform with hyperparameter tuning)
+  - [[wiki/projects/invoice-studio|AI Invoice Studio]] (Voice-to-invoice app with local STT sidecar & Ollama)
+  - [[wiki/projects/hadi|Hadi Perfumes]] (MLM commerce backend with rules engine)
+  - [[wiki/projects/fitness-platform|Fitness Platform (useMe)]] (Next.js/NestJS tracking monorepo)
+  - [[wiki/projects/crisissignal|CrisisSignal]] (Behavioral anomaly crisis early-warning system)
   - **MindWell / Personal Agent (JARVIS)**: Voice agent utilizing local automation MCP servers.
   - **Viva Business Team Website**: Marketing site for his father's custom speaker fabrication shop.
 - **Concepts**:
