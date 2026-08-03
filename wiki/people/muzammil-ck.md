@@ -17,8 +17,13 @@ Muzammil Ck is a final-year (4th year) Computer Science Engineering student at M
   - [[wiki/projects/hadi|Hadi Perfumes]] (MLM commerce backend with rules engine)
   - [[wiki/projects/fitness-platform|Fitness Platform (useMe)]] (Next.js/NestJS tracking monorepo)
   - [[wiki/projects/crisissignal|CrisisSignal]] (Behavioral anomaly crisis early-warning system)
+  - [[wiki/projects/repomind|Repo Mind]] (CodeQL and Gemini-powered repository analyzer CLI & API)
+  - [[wiki/projects/esg-audit-system|Zero-Trust Multiagent ESG Audit System]] (LangGraph-orchestrated compliance audit)
+  - [[wiki/projects/healthsync|HealthSync]] (Express/React 4-role healthcare administration portal)
+  - [[wiki/projects/masm-studio|MASM Studio]] (Web-based 16-bit 8086 Assembly cloud IDE simulation)
+  - [[wiki/projects/viva|Viva Sound System Website]] (Next.js sound hardware styling brief)
+  - [[wiki/projects/assetflow|AssetFlow]] (PostgreSQL/Supabase resource tracker built for Odoo Hackathon 2026)
   - **MindWell / Personal Agent (JARVIS)**: Voice agent utilizing local automation MCP servers.
-  - **Viva Business Team Website**: Marketing site for his father's custom speaker fabrication shop.
 - **Concepts**:
   - [[wiki/concepts/automl|AutoML and Hyperparameter Tuning]]
   - [[wiki/concepts/video-intelligence|Staged Video Analysis]]

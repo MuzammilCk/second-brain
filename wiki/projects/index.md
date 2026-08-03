@@ -11,6 +11,15 @@ Index of active, paused, and shipped engineering projects in the vault.
 - **[[hadi|Hadi Perfumes Backend]]**: FTC-compliant modular monolithic MLM checkout engine (NestJS/PostgreSQL/Stripe) featuring catalog constraints.
 - **[[fitness-platform|Fitness Platform (useMe)]]**: Type-safe FitTech tracking monorepo (Next.js 15/NestJS/Drizzle ORM) built with end-to-end Zod constraints.
 - **[[crisissignal|CrisisSignal Crisis System]]**: Passive on-device AI early warning system (Python/TensorFlow/TFLite/Flower) for student mental health crisis logging.
+- **[[repomind|Repo Mind]]**: CodeQL and Gemini-powered repository analyzer providing deep security audits and stateful investigations.
+- **[[esg-audit-system|Zero-Trust Multiagent ESG Audit System]]**: Automated enterprise ESG compliance audit pipeline using LangGraph, Presidio PII masking, Qdrant, and AWS Nitro Enclaves.
+- **[[healthsync|HealthSync]]**: Full-stack multi-role healthcare portal containing real-time notifications, AI-assisted symptom triage, and Stripe bill payment.
+- **[[masm-studio|MASM Studio]]**: Web-based 16-bit 8086 Assembly cloud IDE featuring Monaco syntax support, register trace mapping, and an educational AI helper.
+- **[[viva|Viva Sound System Website]]**: Custom Next.js website built around "The Signal Chain" design showcasing car speaker fabrication, sound calibration, and repair.
+
+## Shipped Projects
+
+- **[[assetflow|AssetFlow]]**: Conflict-prevention resources and physical equipment asset tracker monorepo built for the Odoo Hackathon 2026.
 
 ## Project Structure Guidelines
 Every project is documented under two distinct files:
