@@ -2,3 +2,5 @@ raw/
 mirror/
 journal/
 .claude/settings.local.json
+*.ps1
+.obsidian
