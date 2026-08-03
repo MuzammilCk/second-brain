@@ -1,9 +1,7 @@
 # Concepts
 
-Definitions, frameworks, mental models, and reusable ideas.
+Core concepts, frameworks, and reusable engineering schemas utilized across projects in this vault.
 
-## Pages
-
-- [[concepts/index|Concept Index]] — This page
-
-Add new concept pages here and link them from the index.
+- **[[automl|AutoML & Hyperparameter Optimization]]**: Automated ML architectures, dataset meta-features, and black-box optimization algorithms.
+- **[[video-intelligence|Video Intelligence Pipelines]]**: Cascaded signal manifestation, targeted extraction, and multi-sensor evidence fusion.
+- **[[three-physics|3D Web Physics & Rendering]]**: Procedural textures, Verlet integration cloth simulation, render loops, and post-processing adapters.
