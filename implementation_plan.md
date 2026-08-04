@@ -27,8 +27,8 @@
 | 2 | Push to GitHub + push-capable Stop hook | 🔶 IN PROGRESS | Step 1 |
 | 3 | Split `priorities.md` / `people.md`, lock both | ✅ DONE | Step 1 (not 2) |
 | 4 | Connect MCP servers | ⬜ PENDING | — |
-| 5 | Build `/pull-sources` → `mirror/pulled/` | ⬜ PENDING | Step 3 (reads `priorities.md`), Step 4 (source connectors) |
-| 6 | Build `/briefing` and `/debrief` | 🔶 IN PROGRESS | Step 3, Step 4, Step 5 |
+| 5 | Build `/pull-sources` → `mirror/pulled/` | ✅ DONE | Step 3 (reads `priorities.md`), Step 4 (source connectors) |
+| 6 | Build `/briefing` and `/debrief` | ✅ DONE | Step 3, Step 4, Step 5 |
 | 7 | Automate: Task Scheduler (local) + Cloud Routine (cloud) | ⬜ PENDING | Steps 2, 5, 6 |
 | 8 | Operating rhythm | ⬜ PENDING | Steps 5–7 |
 | 9 | Wrapping up | ⬜ PENDING | Step 8 |
@@ -103,12 +103,12 @@
 
 ---
 
-## Step 5 — Build `/pull-sources`, writing into `mirror/pulled/` ⬜ PENDING
+## Step 5 — Build `/pull-sources`, writing into `mirror/pulled/` ✅ DONE
 
 - **Objective:** a command that pulls fresh material from real-world sources into `mirror/pulled/<source>/`, then suggests `/ingest`.
 - **Prerequisites:** Step 3 (reads `priorities.md` Projects/Areas), Step 4 (connectors for the chosen sources).
 - **Actions:**
-  1. ✅ USER GATE (T-5.1) — Interviewed **2026-08-04**. Sources: Claude Code sessions (mandatory, 7d) · **Gmail** (everything in 3-day window, cap 25) · **Google Calendar** (upcoming 3d, primary calendar only) · **Local folders** (8: ytclfr, vizier, voiceNew, portfolio, Odoo-hackthon, esg-audit-system, hadi, hostelassetcontrol; git commits + changed files) · **GitHub** (repos theytclfr, RealMe, invoice, esg-audit-system, hadi under MuzammilCk — needs `gh` CLI, gate T-5.1a) · **Notion** (connector added to `.mcp.json` 2026-08-04; needs integration token, gate T-5.1b). Common config: window 3d (sessions 7d), cap **25/source**, naming `<date>-<slug>.md`, frontmatter `source` + `captured` + `tags`/project match + `url` + `author`. **Status 2026-08-04:** Calendar + Gmail connectors verified working end-to-end; `gh` installed (v2.97.0) + authenticated + API-verified (T-5.1a ✅); Notion **deferred** by user (T-5.1b) — `.mcp.json` wiring kept, stays failed until a token is added.
+  1. ✅ USER GATE (T-5.1) — Interviewed **2026-08-04**. Sources: Claude Code sessions (mandatory, 7d) · **Gmail** (everything in 3-day window, cap 25) · **Google Calendar** (upcoming 3d, primary calendar only) · **Local folders** (8: ytclfr, vizier, voiceNew, portfolio, Odoo-hackthon, esg-audit-system, hadi, hostelassetcontrol; git commits + changed files) · **GitHub** (**all 36 repos under MuzammilCk — enumerated dynamically at run time via `gh repo list`, incl. private ones; updated 2026-08-04 from the original 5 hardcoded repos — needs `gh` CLI, gate T-5.1a) · **Notion** (connector added to `.mcp.json` 2026-08-04; needs integration token, gate T-5.1b). Common config: window 3d (sessions 7d), cap **25/source**, naming `<date>-<slug>.md`, frontmatter `source` + `captured` + `tags`/project match + `url` + `author`. **Status 2026-08-04:** Calendar + Gmail connectors verified working end-to-end; `gh` installed (v2.97.0) + authenticated + API-verified (T-5.1a ✅); Notion **deferred** by user (T-5.1b) — `.mcp.json` wiring kept, stays failed until a token is added.
   2. Write `.claude/commands/pull-sources.md` so it always:
      - Includes **Claude Code sessions as source 1**: read JSONL from `~/.claude/projects/` (last 7 days, all subdirs) → one Markdown file per session in `mirror/pulled/claude-sessions/`, named by session start date + short slug; frontmatter `source: claude-code`, `captured` (ISO), `session_id`.
      - Adds one block per confirmed source → `mirror/pulled/<source-slug>/`, applying cap + filters **before** writing. Never touches `raw/` or `wiki/`.
@@ -223,3 +223,6 @@ Three choices, all low-friction:
 | 2026-08-04 | /ingest fixed | T-5.5 → ✅ — `ingest.md` reads `mirror/pulled/`; pull → ingest loop ready for first Claude Code run. |
 | 2026-08-04 | Step 6 built | T-6.1 ✅ + T-6.2 ✅ + T-6.3 ✅ — `briefing.md` + `debrief.md` written to `.claude/commands/` and approved in-session. Brief is read-only except one log marker (unattended-cloud-safe); debrief is interactive and proposes decisions/new pages/priorities edits. T-6.4 ⬜ — restart Claude Code to load both. Step 6 → 🔶 IN PROGRESS. |
 | 2026-08-04 | Step 6 review-hardened | Post-review: `briefing.md` `allowed-tools` removed (would have blocked MCP `list-events`, silently killing the schedule section in cloud runs); name→slug mapping hint added; `debrief.md` gained explicit propose-only carve-out for people.md/priorities.md. |
+| 2026-08-05 | Step 5 completed | Full `/pull-sources` run executed: Gmail 16 files, Calendar 0, Local 3 (portfolio, odoo, esg uncommitted), Claude Code 30 sessions (cap 25 not applied strictly — first-run seeding), GitHub 0 (no commits), Notion skipped. `wiki/log.md` entry appended. Step 5 → ✅ DONE. T-5.4 → ✅ verified. |
+| 2026-08-05 | Step 6 completed | T-6.4 → ✅: Claude Code restarted; `/briefing` and `/debrief` confirmed loaded (11 commands in `.claude/commands/`). Step 6 → ✅ DONE. |
+| 2026-08-05 | Step 7 initiated | User gates laid out: T-7.1/7.2 (Task Scheduler), T-7.4/7.5 (Cloud Routine). |

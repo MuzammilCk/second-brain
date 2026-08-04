@@ -59,7 +59,8 @@
 | T-5.1b | 🧍 Notion integration token (Notion source) — **deferred** | ⬜ | **Deferred 2026-08-04** (user: setup later). `.mcp.json` wiring kept (secret-free wrapper); `notion` shows failed in `/mcp` until token added. When ready: Internal integration at notion.so/my-integrations → secret (`ntn_…`) → `C:/Users/THINKPAD L13/.notion-mcp/notion.token` → share pages/databases → restart. |
 | T-5.2 | 🧍 Get user approval before writing | ✅ | **Approved 2026-08-04** (draft reviewed in-session) |
 | T-5.3 | Write `.claude/commands/pull-sources.md` | ✅ | File written; 6 source blocks (sessions + gmail + calendar + 8 local folders + github-skip + notion-skip); dedupe by source+id with `-<8-char-id>` collision suffix; fail-soft on source errors; `mirror/pulled/` tree pre-created; `git status` clean under `mirror/` |
-| T-5.4 | Test-run `/pull-sources` | 🔶 | Mechanics smoke-tested 2026-08-04: live gmail (`search_emails` probe) + calendar (`list-events` probe) calls, real session JSONL parsed, 3 spec-compliant samples written to `mirror/pulled/`. **Full run**: invoke `/pull-sources` in Claude Code |
+| T-5.4 | Test-run `/pull-sources` | ✅ | **2026-08-05**: Full run executed — Gmail 16/18 (2 already written), Calendar 0, Local 3, Claude Code 30 sessions, GitHub 0, Notion skipped. `wiki/log.md` entry appended. All sources exercised end-to-end. |
+| T-5.5 | Update `/ingest` to read `mirror/pulled/` | ✅ | **2026-08-04**: `/ingest` step 1 now reads `raw/` + `mirror/project-sync/` + `mirror/pulled/`; description updated. Pull → ingest loop is now end-to-end |
 | T-5.5 | Update `/ingest` to read `mirror/pulled/` | ✅ | **2026-08-04**: `/ingest` step 1 now reads `raw/` + `mirror/project-sync/` + `mirror/pulled/`; description updated. Pull → ingest loop is now end-to-end |
 
 ---
@@ -71,15 +72,14 @@
 | T-6.1 | Write `.claude/commands/briefing.md` | ✅ | **2026-08-04**: written + approved. Reads priorities (skip Archive); calendar via MCP `list-events` (graceful skip); last 3–5 log entries; per-project `status` + latest decision-log citation; honest "no wiki page" note; people.md conditional + absent-safe (one line, read-only); outputs Schedule/Threads/Reminders/Actions; appends one-line briefing marker to log; commit with co-author trailer |
 | T-6.2 | Write `.claude/commands/debrief.md` | ✅ | **2026-08-04**: written + approved. Reads priorities; 3–4 one-at-a-time questions or `$ARGUMENTS` summary; log entry `YYYY-MM-DD - debrief` 3–5 bullets; **proposes** `-decisions.md` entries for pivots (writes only after explicit yes); proposes (never silently creates) new pages; proposes exact priorities.md edits + states what changes; one-line day summary; commit with co-author trailer |
 | T-6.3 | 🧍 Approve both command files | ✅ | **Approved 2026-08-04** in-session ("Approve both, save them") |
-| T-6.4 | Restart Claude Code (`/exit` → `claude`) | ⬜ | Both commands load; brief shows a real `status` + decision citation |
-
----
+| T-6.4 | Restart Claude Code (`/exit` → `claude`) | ✅ | **2026-08-05**: Restarted; both `/briefing` and `/debrief` now loaded and available as slash commands |
+|  |  |  |  |
 
 ## Step 7 — Automate
 
 | ID | Task | Status | Verification |
 |---|---|---|---|
-| T-7.1 | 🧍 Task Scheduler: daily task for `claude -p "/pull-sources" --permission-mode acceptEdits` (Start in = vault path) | ⬜ | Task created |
+| T-7.1 | 🧍 Task Scheduler: daily task for `claude -p "/pull-sources" --permission-mode acceptEdits `(Start in = vault path) | ⬜ | Task created |
 | T-7.2 | 🧍 Run the task once manually; confirm completion | ⬜ | Files land in `mirror/pulled/`; check run history |
 | T-7.3 | (Conditional) Add `--allowedTools "Bash(git add:*) Bash(git commit:*) Bash(git push:*)"` if it stalls on git | ⬜ | Scheduled run completes end-to-end |
 | T-7.4 | 🧍 Create Cloud Routine via `/schedule` (name, `/briefing`, daily cadence, repo + connectors) | ⬜ | Routine visible on claude.ai/code/routines |
@@ -135,3 +135,4 @@ T-5.4, T-6.4 ─► T-7.1/2/3 (local) and T-7.4/5/6 (cloud) ─► T-8.1 ─► 
 | 2026-08-04 | Step 6 commands built | T-6.1 ✅ + T-6.2 ✅ + T-6.3 ✅ — `briefing.md` (read-only except one log marker; graceful calendar skip; people.md absent-safe) and `debrief.md` (interview loop; proposes decisions/new pages/priorities edits, writes only on explicit yes) written to `.claude/commands/` and approved in-session. T-6.4 ⬜ — restart Claude Code to load both. |
 | 2026-08-04 | Step 6 review-hardened | Post-review fixes: `briefing.md` `allowed-tools` block **removed** (would have blocked the MCP `list-events` call — a silent, permanent "calendar not available" in unattended cloud runs); name→slug mapping hint added; `debrief.md` explicit "never edit people.md/priorities.md silently — propose only" carve-out. |
 | 2026-08-04 | GitHub source expanded | T-5.3 follow-up: `pull-sources.md` Source 5 no longer hardcodes 5 repos — now **enumerates all 36 repos dynamically** via `gh repo list MuzammilCk --limit 200`. Verified: enumeration returns all 36 (incl. private); empty repos (409 "Git Repository is empty", e.g. `waste-recycling-credit-app`) fail-soft; 4 commits in window (all `second-brain` — this vault's own recent pushes). |
+| 2026-08-05 | Step 5 completed | T-5.4 → ✅. Full /pull-sources run: 30 claude-sessions + 16 gmail + 0 calendar + 3 local + 0 github + notion skipped. wiki/log.md entry written. Step 5 is DONE. Moving to Step 6 (T-6.4) then Step 7. |

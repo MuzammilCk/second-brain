@@ -2,6 +2,9 @@
 
 Chronological log of significant changes and decisions in this vault.
 
+- **2026-08-05 - briefing ran**: 0 events; 3 active projects (ytclfr/MetaTune/Invoice Studio); all stuck at pre-Ingest snapshot; hadi_backend crash alert; Step 7 user gates open
+- **2026-08-04 - pulled: claude-code 30, gmail 16, calendar 0, local 3, github (no commits in window), notion (skipped — no token)**
+
 ## 2026-08-03
 
 - **2026-08-03 - ingested sources**: Processed 6 primary project sync logs from `mirror/project-sync/` (covering `cli`, `esg-audit-system`, `HealthCare-main`, `MasM8086`, `viva`, and `Odoo-hackthon`).

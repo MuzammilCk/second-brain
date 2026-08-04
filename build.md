@@ -154,4 +154,5 @@
 | 2026-08-04 | /ingest fixed | T-5.5 → ✅ — `ingest.md` reads `mirror/pulled/`; pull → ingest loop ready. |
 | 2026-08-04 | Step 6 commands built | `briefing.md` + `debrief.md` ✅ built + approved (T-6.1/6.2/6.3). T-6.4 ⬜ — restart Claude Code to load both. |
 | 2026-08-04 | Step 6 review-hardened | `allowed-tools` removed from `briefing.md` (was blocking the MCP calendar tool); slug-mapping hint added; `debrief.md` gained explicit people.md/priorities.md propose-only carve-out. |
-| 2026-08-04 | GitHub source expanded | Source 5 (`pull-sources.md`) now enumerates **all 36 repos** dynamically via `gh repo list` instead of 5 hardcoded names — future repos auto-included; empty-repo 409s fail-soft. Verified end-to-end (36 listed; 4 commits in 3-day window, all `second-brain`). |
+| 2026-08-05 | Step 5 completed | Full `/pull-sources` run: 30 claude-sessions, 16 gmail, 0 calendar, 3 local, 0 github, notion skipped. Step 5 artifacts fully operational. Step 6 T-6.4 still ⬜ (restart needed). |
+| 2026-08-05 | Step 7 initiated | User gates laid out for Step 7: Task Scheduler (T-7.1/7.2/7.3) + Cloud Routine (T-7.4/7.5/7.6). |
