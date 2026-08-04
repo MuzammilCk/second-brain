@@ -1,4 +1,5 @@
 raw/
+people.md
 mirror/*
 !mirror/project-sync/
 journal/

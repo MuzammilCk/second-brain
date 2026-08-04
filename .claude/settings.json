@@ -2,6 +2,10 @@
   "permissions": {
     "deny": [
       "Edit(raw/**)"
+    ],
+    "ask": [
+      "Edit(priorities.md)",
+      "Edit(people.md)"
     ]
   },
   "hooks": {

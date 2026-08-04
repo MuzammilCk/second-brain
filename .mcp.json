@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "gmail": {
+      "command": "npx",
+      "args": ["-y", "@klodr/gmail-mcp"]
+    },
+    "google-calendar": {
+      "command": "npx",
+      "args": ["-y", "@cocal/google-calendar-mcp"],
+      "env": {
+        "GOOGLE_OAUTH_CREDENTIALS": "C:/Users/THINKPAD L13/.gmail-mcp/gcp-oauth.keys.json"
+      }
+    }
+  }
+}

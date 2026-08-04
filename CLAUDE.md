@@ -8,6 +8,8 @@ Vault configuration and documentation guidelines. Keep under 100 lines. Refer to
 - `wiki/`: Domain space fully owned by Claude/user editing.
   - `wiki/index.md`: The main entrypoint and index for the entire knowledge vault.
   - `wiki/log.md`: The running journal of updates and changes.
+- `priorities.md`: Vault root, user-owned steering file (Projects/Areas/Resources/Archive). Claude reads it; may only propose edits (ask-gated), typically during `/debrief`. Pushed to GitHub.
+- `people.md`: Vault root, user-owned Key People file. Same read / propose-only rules as `priorities.md`. **Gitignored** — never reaches GitHub.
 - Refer to `.claude/rules/` for folder-specific page-type conventions (projects, concepts, placements).
 
 ## 2. Style Guide

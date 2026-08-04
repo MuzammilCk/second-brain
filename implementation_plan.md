@@ -1,0 +1,233 @@
+# Implementation Plan — Codex Part 2: Daily Operating System
+
+> **Source of truth:** `codex-part-2-automate-guide.md` (do not edit the guide; this plan and `task.md` / `build.md` track execution of it).
+>
+> **Control files (keep upgraded after every implementation session):**
+> - `implementation_plan.md` — this file: the plan, statuses, gates, risks
+> - `task.md` — the full task checklist with per-task status
+> - `build.md` — what gets built at each step and where
+
+## Status legend
+
+| Mark | Meaning |
+|---|---|
+| ✅ DONE | Verified complete |
+| 🔶 IN PROGRESS | Partially done / verified, work remains |
+| ⬜ PENDING | Not started |
+| ⛔ BLOCKED | Waiting on a prerequisite or the user |
+| 🧍 USER GATE | Requires the user's input/action (interview, browser, OS config) |
+
+---
+
+## Execution overview
+
+| # | Step | Status | Depends on |
+|---|---|---|---|
+| 1 | Confirm vault is ready | ✅ DONE | Part 1 |
+| 2 | Push to GitHub + push-capable Stop hook | 🔶 IN PROGRESS | Step 1 |
+| 3 | Split `priorities.md` / `people.md`, lock both | ✅ DONE | Step 1 (not 2) |
+| 4 | Connect MCP servers | ⬜ PENDING | — |
+| 5 | Build `/pull-sources` → `mirror/pulled/` | ⬜ PENDING | Step 3 (reads `priorities.md`), Step 4 (source connectors) |
+| 6 | Build `/briefing` and `/debrief` | ⬜ PENDING | Step 3, Step 4, Step 5 |
+| 7 | Automate: Task Scheduler (local) + Cloud Routine (cloud) | ⬜ PENDING | Steps 2, 5, 6 |
+| 8 | Operating rhythm | ⬜ PENDING | Steps 5–7 |
+| 9 | Wrapping up | ⬜ PENDING | Step 8 |
+
+**Ordering note:** Step 2 does not depend on Step 3, but Steps 5 and 6 read `priorities.md`, so Step 3 must land before 5/6. Step 4 can run any time; its connectors feed Steps 5 and 6. Steps 1 → 3 → 5 → 6 → 7 is the critical path; Steps 2 and 4 can proceed in parallel.
+
+---
+
+## Step 1 — Confirm your vault is actually ready ✅ DONE
+
+- **Objective:** prove Part 1's foundations exist before building anything else.
+- **Actions:** list all slash commands; check `Edit(raw/**)` deny rule in `.claude/settings.json`; confirm the `Stop` hook.
+- **Verification (already passed, 2026-08-04):**
+  - 8 commands present: `/ingest`, `/query`, `/lint`, `/log`, `/decide`, `/sync-projects`, `/review`, `/standup`.
+  - `permissions.deny: ["Edit(raw/**)"]` present.
+  - `hooks.Stop` → `.claude/hooks/auto-checkpoint.sh` configured.
+- **Result:** Step 1 fully satisfied; nothing more to do.
+
+---
+
+## Step 2 — Push to GitHub + push-capable Stop hook 🔶 IN PROGRESS
+
+- **Objective:** get commits to GitHub; extend the Stop hook to push when a remote exists.
+- **Actions taken:**
+  - ✅ `origin` remote already configured → `https://github.com/MuzammilCk/second-brain.git` (repo `second-brain` exists, Private).
+  - ✅ `.claude/hooks/auto-checkpoint.sh` replaced with the push-capable version from the guide (commits pending changes, then pushes current branch to `origin` only if the remote exists; all failures silenced).
+  - ✅ Hook syntax validated: `bash -n .claude/hooks/auto-checkpoint.sh` → OK.
+- **Remaining:**
+  - ⬜ Verify the push leg end-to-end (see verification below).
+  - ⬜ Note branch reality: active branch is `feat/scaffold-placements` (not `main`). The hook pushes the *current* branch, so this is fine — but record it so nobody expects `main`.
+- **Failure mitigation:**
+  - Hook is a no-op on a clean tree and with no remote; network failures never surface as session errors (stderr redirected).
+  - If a push fails, run `git push origin <branch>` manually to see the real error.
+- **Verification:** `git remote get-url origin` returns a URL; run the hook manually with a dirty tree and confirm a commit + push occur, then `git log origin/<branch>` shows the new commit. First real verification happens automatically on the next Stop.
+
+---
+
+## Step 3 — Split `priorities.md` from `people.md`, and lock both ✅ DONE
+
+- **Objective:** human-owned steering file (`priorities.md`, git-pushed) + private people file (`people.md`, gitignored), both `ask`-gated.
+- **Prerequisites:** Step 1 only.
+- **Actions:**
+  1. ✅ USER GATE (2026-08-04) — Interviewed. Answers: Projects = ytclfr, MetaTune, AI Invoice Studio · Areas = placement prep, DevOps & cloud, local/offline-first AI, second brain upkeep · Resources = AutoML & tuning, video intelligence, Three.js physics, DSA & system design, local LLM inference · Key People = own profile + collaborators + recruiters/mentors.
+  2. ✅ Created `priorities.md` (vault root): `## Projects` · `## Areas` · `## Resources` · `## Archive` in order + weekly-edit top comment; no personal identifiers.
+  3. ✅ Created `people.md` (vault root): `## Key People` with own-profile entry + clearly-marked placeholder slots for collaborators and recruiters/mentors.
+  4. ✅ Merged `ask` rules into `.claude/settings.json` — `deny` + `hooks` blocks preserved; JSON validated.
+  5. ✅ Added `people.md` to `.gitignore` (line 2, next to `raw/`).
+  6. ✅ Updated `CLAUDE.md` → Project Structure (lines 11–12).
+- **Failure mitigation:**
+  - Validate `.claude/settings.json` parses as JSON after the merge (`python -m json.tool` or equivalent) — a broken settings file disables the vault's guards.
+  - Do not write real names/identifiers into `priorities.md`; anything personal belongs in `people.md`.
+- **Verification (passed 2026-08-04):** `git check-ignore -v people.md` → ignored via `.gitignore:2`; `git status` lists `priorities.md` as untracked (pushable) and does **not** list `people.md`; `settings.json` parses as valid JSON with all three blocks; CLAUDE.md mentions both files.
+
+---
+
+## Step 4 — Connect MCP servers 🔶 IN PROGRESS
+
+- **Objective:** calendar/email (and optionally Linear/Notion) reachable from the vault via MCP.
+- **PIVOT (2026-08-04): hosted endpoints are dead in this runtime.** The user runs Claude Code with **OmniRoute as the LLM provider and no Claude.ai auth** — Google's hosted endpoints (`gmailmcp.googleapis.com`, `calendarmcp.googleapis.com`) require a Claude.ai-compatible OAuth flow that can never complete here (confirmed empirically: empty `accessToken`, DCR error). Google publishes **no official local MCP servers** (verified via Google Workspace docs).
+- **New architecture (provider-independent):** local **stdio** MCP servers authenticating via a single standard **Google OAuth Desktop client** — works with Claude Code, Cursor, VS Code, Codex, any MCP client.
+  - `gmail` → `@klodr/gmail-mcp` (github.com/klodr/gmail-mcp, v1.3.3 on npm, published 2026-07-27) — **hardened + actively maintained fork** of GongRzhe's archived Gmail-MCP-Server (original archived 2026-03-03, no future releases). Same auto-auth convention: reads `gcp-oauth.keys.json` from `~/.gmail-mcp/`, token at `~/.gmail-mcp/credentials.json`. 781 tests, signed releases, 180+ commits since divergence. Auth: `npx -y @klodr/gmail-mcp auth --scopes=gmail.readonly`.
+  - `google-calendar` → `@cocal/google-calendar-mcp` (github.com/nspady/google-calendar-mcp, v2.6.2, updated 2026-06-01, actively maintained) — env `GOOGLE_OAUTH_CREDENTIALS` → the same keys file; Windows token at `C:/Users/THINKPAD L13/.config/google-calendar-mcp/tokens.json` (server-printed at startup, verified 2026-08-04; override with `GOOGLE_CALENDAR_MCP_TOKEN_PATH`; macOS/Linux default `~/.config/google-calendar-mcp/tokens.json`).
+  - Both npm packages + repo mappings **verified against the npm registry + GitHub API** (no invented repos). Node v24.18 present for `npx` (klodr requires Node ≥22 ✅).
+  - Server comparison (req #1 of the user brief): official Google Workspace MCP = hosted HTTP only (`gmailmcp.googleapis.com` etc., Workspace Developer Preview, needs the Claude.ai-compatible flow — dead here) and **no official local stdio servers published**; Gmail open-source field = GongRzhe (archived) vs ArtyMcLabin fork (`@artymclabin/gmail-mcp` v1.2.3 on npm, lower release cadence) vs **klodr fork (selected: maintained, hardened, npm-published, same `~/.gmail-mcp/` convention)**; Calendar = nspady's (selected, only actively-maintained option).
+- **Actions:**
+  1. ✅ T-4.1 — Hosted-endpoint attempt diagnosed & abandoned (empty token / DCR error = Claude.ai-flow requirement).
+  2. ✅ T-4.2 — `.mcp.json` rewritten to the two stdio servers above (git-tracked); **corrected 2026-08-04**: gmail re-pointed from the archived `@gongrzhe/server-gmail-autoauth-mcp` to the maintained fork `@klodr/gmail-mcp`.
+  3. 🧍 USER GATE (T-4.3) — Google Cloud setup **walkthrough delivered 2026-08-04** (full 17-requirement brief answered in-session): create project → enable Gmail + Calendar APIs → OAuth consent screen (External, test user, scopes `gmail.readonly`, `calendar.events`, `calendar`) → **Desktop** OAuth client → download JSON → save as `gcp-oauth.keys.json` at `C:/Users/THINKPAD L13/.gmail-mcp/` (outside repo; `~/.gmail-mcp/` dir pre-created) → run `npx -y @klodr/gmail-mcp auth --scopes=gmail.readonly` (browser) → calendar token auto-created on first `google-calendar` connect. Remaining user actions: the console clicks + the two browser logins.
+- **Known caveat (record for Step 7):** Notion's hosted MCP requires live browser OAuth and cannot re-authenticate unattended → a Notion-dependent briefing **cannot** run indefinitely as an unattended Cloud Routine. Calendar and Linear have no such limitation.
+- **Failure mitigation:** project scope only (never user/global); if a server fails auth, re-check `/mcp` after browser approval; verify with a test query before moving on.
+- **Verification:** `/mcp` shows each required server as connected (no `! Needs authentication`); `.mcp.json` exists and is git-tracked (if servers were added).
+
+---
+
+## Step 5 — Build `/pull-sources`, writing into `mirror/pulled/` ⬜ PENDING
+
+- **Objective:** a command that pulls fresh material from real-world sources into `mirror/pulled/<source>/`, then suggests `/ingest`.
+- **Prerequisites:** Step 3 (reads `priorities.md` Projects/Areas), Step 4 (connectors for the chosen sources).
+- **Actions:**
+  1. 🧍 USER GATE — Interview the user:
+     - Which sources beyond Claude Code sessions (Gmail, Calendar, Linear, Notion, local folder, …)?
+     - Per source: where it lives (MCP connector name or local path), what to pull (e.g. last 7 days), volume cap, include filter, exclude filter, Markdown naming pattern, extra frontmatter keys beyond `source` and `captured`.
+  2. Write `.claude/commands/pull-sources.md` so it always:
+     - Includes **Claude Code sessions as source 1**: read JSONL from `~/.claude/projects/` (last 7 days, all subdirs) → one Markdown file per session in `mirror/pulled/claude-sessions/`, named by session start date + short slug; frontmatter `source: claude-code`, `captured` (ISO), `session_id`.
+     - Adds one block per confirmed source → `mirror/pulled/<source-slug>/`, applying cap + filters **before** writing. Never touches `raw/` or `wiki/`.
+     - Reads `priorities.md` Projects/Areas once and adds a triage match line per file: `"matches: <name>"` or `"no match — check first"` (sort signal only, never a filter).
+     - Writes a one-line triage header above frontmatter: `> <source>: <who/what>, <subject>. <one-sentence summary>. <match line>`.
+     - Dedupes by `source + id` (skip existing files; reruns don't duplicate).
+     - Appends one timestamped `wiki/log.md` entry with per-source counts.
+     - Ends by reminding the user to triage `mirror/pulled/` (skim headers, delete what doesn't belong, "no match" first) then run `/ingest`.
+     - Ends with a labeled comment block `# Add your own source here` showing the full shape (path, cap, filters, output folder, frontmatter, dedupe check) without a real source.
+  3. 🧍 USER GATE — Get the user's **approval before writing** the file.
+- **Failure mitigation:**
+  - `mirror/pulled/` is already covered by `.gitignore` (`mirror/*`) → pulled content never leaks to GitHub.
+  - `/ingest` already reads all of `mirror/` (Part 1) → pulled files flow into the wiki with zero changes to `/ingest`.
+  - Enforce "cap and filters before write" in the command so a runaway source can't flood disk.
+- **Verification:** run `/pull-sources` once; files appear in `mirror/pulled/<source>/` with triage header + frontmatter; rerun produces no duplicates; `wiki/log.md` gains one entry; `git status` shows nothing under `mirror/`.
+
+---
+
+## Step 6 — Build `/briefing` and `/debrief` ⬜ PENDING
+
+- **Objective:** morning brief grounded in priorities + wiki + live tools; evening capture feeding the existing log/decision-log conventions.
+- **Prerequisites:** Steps 3, 4 (calendar/tickets for the brief's live section), 5 (optional, for context volume).
+- **Actions:**
+  1. Write `.claude/commands/briefing.md`:
+     - Read `priorities.md` Projects / Areas / Resources (skip Archive).
+     - If an MCP connector covers calendar/tickets → check today's items; skip that section gracefully if nothing is connected.
+     - Read last 3–5 `wiki/log.md` entries.
+     - Per Project with a matching `wiki/projects/<slug>.md`: pull the `status` field + most recent `<slug>-decisions.md` entry (the brief says *where a project stands*, e.g. "still on the Qwen3 approach as of the 14th"). If no wiki page matches → say so plainly, never invent context.
+     - Touch `people.md` only when a specific person is clearly relevant today, and pull just that one line (ask-gated for a reason).
+     - Output: Today's Schedule · Active Threads (with decision-log context) · Priority Reminders · Suggested Actions.
+     - Append a one-line timestamped marker to `wiki/log.md` noting the briefing ran.
+  2. Write `.claude/commands/debrief.md`:
+     - Read `priorities.md` for today's focus.
+     - Empty `$ARGUMENTS` → ask 3–4 short questions one at a time (what got done / conversations that mattered / priorities shift / anything to capture). Provided → treat as the summary. Either way: distill to signal, never transcribe.
+     - Write one `wiki/log.md` entry: timestamp, `type: debrief`, 3–5 bullets.
+     - Genuine architecture/approach pivot → **propose** an entry for `<slug>-decisions.md` (same shape as `/decide`), don't just log it.
+     - Update existing wiki pages mentioned; **propose** (never silently create) anything new.
+     - Priorities shifted → propose the specific `priorities.md` edit and state what's about to change (the ask rule pauses anyway; say it so the user knows what they're confirming).
+     - End with a one-line summary of the day.
+  3. 🧍 USER GATE — Approve each file.
+  4. Restart Claude Code (`/exit`, then `claude`) so both commands load.
+- **Failure mitigation:** if a command doesn't load after writing, restart is the fix (same as every command in this setup); verify with `/help` or by invoking it.
+- **Verification:** `/briefing` and `/debrief` both run; brief includes at least one real `status` + decision-log citation; debrief writes a well-formed log entry; no command writes to `raw/`.
+
+---
+
+## Step 7 — Automate: what runs locally, what runs in the cloud ⬜ PENDING
+
+Two different jobs, two different mechanisms — the part the original guide glosses over.
+
+### 7a. `/pull-sources` runs **locally** (Task Scheduler) — it needs `~/.claude/projects/`
+1. 🧍 USER GATE — Windows Task Scheduler → Create Basic Task → daily, before the user normally sits down.
+2. Action → Start a program:
+   - Program: `claude`
+   - Arguments: `-p "/pull-sources" --permission-mode acceptEdits`
+   - Start in: `<full path to the codex vault>`
+3. 🧍 USER GATE — Right-click → **Run** once to confirm completion before trusting the schedule.
+- **Failure mitigation:** if it stalls on git commit/push (check Task Scheduler run history), add `--allowedTools "Bash(git add:*) Bash(git commit:*) Bash(git push:*)"` to the arguments — the one part not fully verifiable ahead of time; treat it as the first thing to check on a failed scheduled run.
+
+### 7b. `/briefing` runs in the **cloud** (Cloud Routine) — it only reads `wiki/` + `priorities.md` (both pushed) + MCP connectors
+- **Two things the guide doesn't mention:**
+  1. Routines clone the **repo** — they never see local disk. Fine here: `/briefing` never read `raw/`/`mirror/`/`people.md` anyway (and those are gitignored, so they never reach GitHub).
+  2. By default a routine pushes to a `claude/`-prefixed branch, **not** `main`. To land the brief in `wiki/log.md` on `main`, enable **unrestricted branch pushes** in the routine's web dashboard settings.
+- **Actions:**
+  1. Run `/schedule` in Claude Code → name the routine, give it `/briefing`, daily cadence, confirm repo + connectors.
+  2. 🧍 USER GATE — claude.ai/code/routines → open the routine → enable unrestricted branch pushes (for `main` landing).
+  3. Watch usage: routines draw from the plan's usage limit and have their own daily cap — monitor for the first week or two, especially on a student-tier plan.
+- **Verification:** a scheduled `/pull-sources` run completes (files land in `mirror/pulled/`); a routine run appends a briefing marker to `wiki/log.md` on `main`.
+
+---
+
+## Step 8 — The operating rhythm ⬜ PENDING
+
+No build work — adopt the cadence table (recorded in full in `build.md`):
+
+| Command | Cadence | Runs where |
+|---|---|---|
+| `/log`, `/decide` | As needed | Local, interactive |
+| `/sync-projects` | When a project's control files change | Local, interactive |
+| `/pull-sources` | Daily | Local, scheduled |
+| `/ingest` | After triaging `/pull-sources` output | Local, interactive |
+| `/briefing` | Every weekday morning | Cloud Routine, unattended |
+| `/debrief` | Every evening | Local, interactive |
+| `/query`, `/review` | As needed | Local, interactive |
+| `/lint`, `/standup` | Monthly / weekly | Local, interactive |
+
+- **Verification:** the rhythm is lived, not built — confirm after one week that each slot is being filled.
+
+---
+
+## Step 9 — Wrapping up ⬜ PENDING
+
+Three choices, all low-friction:
+- **Keep going:** nothing to do — routine + scheduled task run on their own.
+- **Pause:** disable the Task Scheduler task; pause the routine from the dashboard. No local cleanup.
+- **Undo:** delete the routine; delete the scheduled task; pushes simply stop. Nothing local depended on either.
+
+---
+
+## Cross-cutting risks & mitigations
+
+| Risk | Mitigation |
+|---|---|
+| Broken `settings.json` disables vault guards | Merge, never replace; validate JSON after every edit |
+| Personal data reaching GitHub | `people.md` gitignored; `raw/`/`mirror/` already ignored; dossiers never in pushed files |
+| Scheduled `/pull-sources` stalls on git | Add `--allowedTools` git flags (Step 7a) |
+| Routine writes to `claude/…` branch instead of `main` | Enable unrestricted branch pushes on dashboard (Step 7b) |
+| Notion connector breaks unattended routines | Keep briefing free of Notion for unattended runs; browser re-auth required otherwise (Step 4) |
+| Stale MCP URLs | Always source URLs from the Anthropic Directory, not memory |
+
+---
+
+## Update log
+
+| Date | Session | Changes |
+|---|---|---|
+| 2026-08-04 | Part 2 kickoff | Created this plan + `task.md` + `build.md`; verified Step 1 ✅; completed hook replacement (Step 2 partial); recorded vault state (remote `second-brain`, branch `feat/scaffold-placements`) |
+| 2026-08-04 | Step 3 executed | Interviewed (T-3.1) and built all Step 3 artifacts: `priorities.md`, `people.md`, `ask` rules in settings.json, `.gitignore` entry, CLAUDE.md update. All verifications passed. Step 2 connectivity also confirmed via `git ls-remote origin` (exit 0). |
+| 2026-08-04 | Step 4 config executed | Both Google connectors configured at project scope in `.mcp.json` (git-tracked) and verified via `claude mcp list`. DCR incompatibility researched & documented; auth remains a user gate (T-4.3). |
+| 2026-08-04 | Step 4 corrected + walkthrough delivered | npm + GitHub re-verification found GongRzhe's Gmail server **archived** (2026-03-03) → `.mcp.json` gmail connector re-pointed to the maintained, hardened fork `@klodr/gmail-mcp` (v1.3.3). Calendar server re-verified (v2.6.2, active). Full 17-requirement Google OAuth walkthrough delivered in-session (T-4.3): project/APIs/consent/Desktop client/keys placement/`auth --scopes`/verification queries. Windows calendar token path confirmed at runtime on this machine: `C:/Users/THINKPAD L13/.config/google-calendar-mcp/tokens.json`. `~/.gmail-mcp/` keys dir pre-created on this machine. User gates remaining: console clicks + 2 browser logins. |
