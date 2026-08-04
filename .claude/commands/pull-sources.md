@@ -65,14 +65,24 @@ sources come from the confirmed list below.
 - Frontmatter: `source: local`, `captured`, `id` (commit sha / file path), `url` (origin
   remote URL if any), `author` (committer), `tags`.
 
-## Source 5 — GitHub (graceful skip if `gh` unavailable)
+## Source 5 — GitHub (ALL repos, graceful skip if `gh` unavailable)
 - If `gh` is not installed or not authenticated → SKIP this source with a one-line note.
-- Repos (owner MuzammilCk): theytclfr, RealMe, invoice, esg-audit-system, hadi.
-- Commits in last 3 days via `gh api repos/{owner}/{repo}/commits?since=<iso-3d-ago>`.
+- Enumerate EVERY repo at run time — no hardcoded list, new repos are picked up
+  automatically: `gh repo list MuzammilCk --limit 200 --json name --jq '.[].name'`
+  (36 repos as of 2026-08-04; private ones included — content lands only in the
+  gitignored `mirror/pulled/`, never pushed).
+- For EACH repo, fetch commits in the last 3 days via
+  `gh api repos/MuzammilCk/{repo}/commits?since=<iso-3d-ago>&per_page=25`.
+  Repos with no commits in the window contribute nothing. Repos that ERROR (e.g. empty
+  repos return 409 "Git Repository is empty") are skipped silently — fail-soft per run.
+  (Known as of 2026-08-04: `waste-recycling-credit-app` is empty.)
+- Apply the 25-file cap across the whole source (per run) BEFORE writing.
 - One file per commit → `mirror/pulled/github/<date>-<slug>.md` (slug from commit message).
 - Header: `> github: <repo>, <commit subject>. <summary>. <match line>`
 - Frontmatter: `source: github`, `captured`, `id` (commit sha), `url` (commit `html_url`),
   `author` (committer), `tags`.
+- `second-brain` (this vault's repo) is included like any other — its commits are the
+  vault's own history, which is useful context and dedupes cleanly on reruns.
 
 ## Source 6 — Notion (graceful skip until token exists)
 - If `C:/Users/THINKPAD L13/.notion-mcp/notion.token` is missing → SKIP this source with a

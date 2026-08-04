@@ -154,3 +154,4 @@
 | 2026-08-04 | /ingest fixed | T-5.5 → ✅ — `ingest.md` reads `mirror/pulled/`; pull → ingest loop ready. |
 | 2026-08-04 | Step 6 commands built | `briefing.md` + `debrief.md` ✅ built + approved (T-6.1/6.2/6.3). T-6.4 ⬜ — restart Claude Code to load both. |
 | 2026-08-04 | Step 6 review-hardened | `allowed-tools` removed from `briefing.md` (was blocking the MCP calendar tool); slug-mapping hint added; `debrief.md` gained explicit people.md/priorities.md propose-only carve-out. |
+| 2026-08-04 | GitHub source expanded | Source 5 (`pull-sources.md`) now enumerates **all 36 repos** dynamically via `gh repo list` instead of 5 hardcoded names — future repos auto-included; empty-repo 409s fail-soft. Verified end-to-end (36 listed; 4 commits in 3-day window, all `second-brain`). |
