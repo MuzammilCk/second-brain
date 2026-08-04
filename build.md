@@ -50,8 +50,8 @@
 
 | Artifact | Location | State | Spec |
 |---|---|---|---|
-| ✅ `.mcp.json` (project-scope connectors) | vault root | ✅ built | Two **stdio** servers (no hosted endpoints — they need the unavailable Claude.ai flow): `gmail` → `npx -y @klodr/gmail-mcp` + `google-calendar` → `npx -y @cocal/google-calendar-mcp` (env `GOOGLE_OAUTH_CREDENTIALS` → `C:/Users/THINKPAD L13/.gmail-mcp/gcp-oauth.keys.json`). **Corrected 2026-08-04**: gmail re-pointed from archived `@gongrzhe/server-gmail-autoauth-mcp` to its maintained fork `@klodr/gmail-mcp`. Git-tracked so Cloud Routines can read it. |
-| 🧍 Authenticated sessions | Google OAuth (browser) | 🧍 pending | Full walkthrough delivered 2026-08-04 (17-requirement brief). User gates: GCP project/APIs/consent/Desktop client → keys file at `C:/Users/THINKPAD L13/.gmail-mcp/gcp-oauth.keys.json` (dir pre-created, outside repo) → `npx -y @klodr/gmail-mcp auth --scopes=gmail.readonly` → calendar token auto-created on first use (`C:/Users/THINKPAD L13/.config/google-calendar-mcp/tokens.json`). Verify via `search_emails` (last 5) + `list-events` (today). |
+| ✅ `.mcp.json` (project-scope connectors) | vault root | ✅ built | Three **stdio** servers (no hosted endpoints — they need the unavailable Claude.ai flow): `gmail` → `npx -y @klodr/gmail-mcp` + `google-calendar` → `npx -y @cocal/google-calendar-mcp` (env `GOOGLE_OAUTH_CREDENTIALS` → `C:/Users/THINKPAD L13/.gmail-mcp/gcp-oauth.keys.json`). **Corrected 2026-08-04**: gmail re-pointed from archived `@gongrzhe/server-gmail-autoauth-mcp` to its maintained fork `@klodr/gmail-mcp`. **Extended 2026-08-04**: `notion` → official `@notionhq/notion-mcp-server` v2.5.1 via PowerShell wrapper injecting `NOTION_TOKEN` from `~/.notion-mcp/notion.token` at runtime (`.mcp.json` env is literal-only → secret kept out of git). Git-tracked so Cloud Routines can read it. |
+| ✅ Authenticated sessions | Google OAuth (browser) | ✅ both connected | **2026-08-04**: keys file verified (`installed` Desktop client); gmail login done (`credentials.json`; `search_emails` probe → real messages); calendar login done (`tokens.json` at `C:/Users/THINKPAD L13/.config/google-calendar-mcp/tokens.json`; `list-events` probe → clean response). `/mcp` → both ✔. |
 
 **Constraint to respect when building:** Notion's hosted MCP requires live browser OAuth — no unattended re-auth. Keep any Cloud Routine briefing free of Notion.
 
@@ -63,10 +63,12 @@
 
 | Artifact | Location | State | Spec |
 |---|---|---|---|
-| 🧍 `pull-sources.md` | `.claude/commands/` | ⬜ | See full spec in `implementation_plan.md` Step 5. Highlights: Claude Code sessions = source 1 (`~/.claude/projects/` JSONL, last 7 days → `mirror/pulled/claude-sessions/<date>-<slug>.md`, frontmatter `source/captured/session_id`); per-source blocks into `mirror/pulled/<source-slug>/` with cap + filters applied **before** write; priorities match-line (`matches: <name>` / `no match — check first`); triage header line above frontmatter; dedupe by source+id; `wiki/log.md` batch entry; final `/ingest` reminder; trailing `# Add your own source here` template block. Never writes to `raw/` or `wiki/` (except the log entry). |
-| Output directory | `mirror/pulled/` | ⬜ | Auto-created by the command; already gitignored via `mirror/*` |
+| ✅ `pull-sources.md` | `.claude/commands/` | ✅ built | See full spec in `implementation_plan.md` Step 5. Built 2026-08-04: 6 source blocks (sessions + gmail + calendar-upcoming + 8 local folders + github-skip + notion-skip); cap 25 applied **before** write; dedupe by source+id with `-<8-char-id>` collision suffix; fail-soft on source errors; priorities match-line; triage header above frontmatter; `wiki/log.md` batch entry; `/ingest` reminder; `# Add your own source here` block. Smoke-tested with real probes + 3 sample files. |
+| ✅ `gh` CLI | PATH (Windows) | ✅ installed + authed | **2026-08-04**: v2.97.0 installed; `gh auth status` green (MuzammilCk, scopes gist/read:org/repo/workflow); `gh api` commit probe verified. GitHub source repos (MuzammilCk): theytclfr, RealMe, invoice, esg-audit-system, hadi. |
+| 🧍 `notion.token` (source deferred) | `C:/Users/THINKPAD L13/.notion-mcp/notion.token` (outside repo) | ⬜ deferred | **Deferred by user 2026-08-04** (setup later). When ready: Internal integration at notion.so/my-integrations → raw token (`ntn_…`); share pages/databases; restart. Wrapper in `.mcp.json` reads it. |
+| ✅ Output directory | `mirror/pulled/` | ✅ built | Pre-created 2026-08-04 with all source subdirs; gitignored via `mirror/*` |
 
-**Already compatible (no build needed):** `/ingest` reads all of `mirror/` from Part 1 → pulled files flow into the wiki unchanged.
+**Fixed 2026-08-04 (T-5.5 ✅):** `/ingest` step 1 now reads `raw/` + `mirror/project-sync/` + `mirror/pulled/`, so pulled files flow into the wiki. The pull → ingest loop is end-to-end.
 
 ---
 
@@ -76,8 +78,8 @@
 
 | Artifact | Location | State | Spec |
 |---|---|---|---|
-| 🧍 `briefing.md` | `.claude/commands/` | ⬜ | Reads priorities (skip Archive); calendar/tickets via MCP (graceful skip if none); last 3–5 `wiki/log.md` entries; per project: `status` + latest `<slug>-decisions.md` entry (or say plainly there's no wiki page); `people.md` only for a clearly relevant person, one line; outputs Today's Schedule · Active Threads · Priority Reminders · Suggested Actions; appends one-line timestamped briefing marker to `wiki/log.md`. |
-| 🧍 `debrief.md` | `.claude/commands/` | ⬜ | Reads priorities; empty `$ARGUMENTS` → 3–4 one-at-a-time questions, else use `$ARGUMENTS` as summary; log entry `timestamp, type: debrief, 3–5 bullets`; pivots → **propose** `-decisions.md` entry (same shape as `/decide`); update existing pages, propose new ones; priorities shifts → propose exact edit + say what's changing; end with one-line day summary. |
+| ✅ `briefing.md` | `.claude/commands/` | ✅ built | Reads priorities (skip Archive); calendar via `google-calendar` MCP `list-events` for today (graceful skip); last 3–5 `wiki/log.md` entries; per project: `status` + latest `<slug>-decisions.md` entry (or plainly "no wiki page yet"); `people.md` conditional, one line, read-only, absent-safe; outputs Today's Schedule · Active Threads · Priority Reminders · Suggested Actions; appends one-line briefing marker to `wiki/log.md`; commits. **Built + approved 2026-08-04 (T-6.1, T-6.3 ✅).** |
+| ✅ `debrief.md` | `.claude/commands/` | ✅ built | Reads priorities; empty `$ARGUMENTS` → 3–4 one-at-a-time questions, else treat as summary; log entry `YYYY-MM-DD - debrief` 3–5 bullets; pivots → **propose** `-decisions.md` entry (writes only after explicit yes); updates existing pages, **proposes** new ones; priorities shifts → propose exact edit + say what's changing; one-line day summary; commits. **Built + approved 2026-08-04 (T-6.2, T-6.3 ✅).** |
 
 **Build-support action:** restart Claude Code (`/exit` → `claude`) so both commands load.
 
@@ -128,10 +130,10 @@
 | `.gitignore` (+`people.md`) | 3 | ✅ built |
 | `CLAUDE.md` (structure) | 3 | ✅ built |
 | `.mcp.json` | 4 | ✅ built |
-| `.claude/commands/pull-sources.md` | 5 | ⬜ |
-| `.claude/commands/briefing.md` | 6 | ⬜ |
-| `.claude/commands/debrief.md` | 6 | ⬜ |
-| `mirror/pulled/**` (generated) | 5 | ⬜ generated |
+| `.claude/commands/pull-sources.md` | 5 | ✅ built |
+| `.claude/commands/briefing.md` | 6 | ✅ built |
+| `.claude/commands/debrief.md` | 6 | ✅ built |
+| `mirror/pulled/**` (generated) | 5 | ✅ sample files written |
 | Task Scheduler task + Cloud Routine | 7 | ⬜ OS/cloud, not repo |
 
 ---
@@ -144,3 +146,11 @@
 | 2026-08-04 | Step 3 executed | All Step 3 artifacts ✅ built: `priorities.md`, `people.md`, settings.json ask rules, `.gitignore` entry, CLAUDE.md update |
 | 2026-08-04 | Step 4 config executed | `.mcp.json` built with both Google connectors; authenticated sessions still a user gate |
 | 2026-08-04 | Step 4 corrected + walkthrough | GongRzhe Gmail server found **archived** on re-verification → gmail connector switched to maintained fork `@klodr/gmail-mcp`; full Google-OAuth setup walkthrough (project → keys → auth → verify) delivered; user gates = console clicks + 2 browser logins |
+| 2026-08-04 | Step 4 gates progressed | User completed console gates (keys file present, valid `installed` Desktop client) + Gmail browser login (`credentials.json`; `/mcp` → gmail ✔ 10 tools). google-calendar `/mcp` failure diagnosed: keys file absent at run time — re-verified after: server starts cleanly, only calendar login remains. |
+| 2026-08-04 | Step 5 interview done | T-5.1 ✅ — source/config spec recorded (see plan). `notion` connector added to `.mcp.json` (official server, secret-free wrapper). New user gates: gh CLI install + `notion.token` (Step 5 table). |
+| 2026-08-04 | Step 5 gates verified | T-4.3 → ✅ (both Google sessions authenticated; `list-events` + `search_emails` probes clean). `gh` blocked on install. `notion.token` deferred by user. |
+| 2026-08-04 | Step 5 command built | `pull-sources.md` ✅ built + smoke-tested; `mirror/pulled/` tree ✅ created. Follow-up T-5.5: `/ingest` must read `mirror/pulled/` (currently only `raw/` + `mirror/project-sync/`). |
+| 2026-08-04 | GitHub gate done | `gh` v2.97.0 installed + authenticated (MuzammilCk); API probe verified. T-5.1a → ✅. |
+| 2026-08-04 | /ingest fixed | T-5.5 → ✅ — `ingest.md` reads `mirror/pulled/`; pull → ingest loop ready. |
+| 2026-08-04 | Step 6 commands built | `briefing.md` + `debrief.md` ✅ built + approved (T-6.1/6.2/6.3). T-6.4 ⬜ — restart Claude Code to load both. |
+| 2026-08-04 | Step 6 review-hardened | `allowed-tools` removed from `briefing.md` (was blocking the MCP calendar tool); slug-mapping hint added; `debrief.md` gained explicit people.md/priorities.md propose-only carve-out. |

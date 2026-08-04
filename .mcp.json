@@ -10,6 +10,14 @@
       "env": {
         "GOOGLE_OAUTH_CREDENTIALS": "C:/Users/THINKPAD L13/.gmail-mcp/gcp-oauth.keys.json"
       }
+    },
+    "notion": {
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-Command",
+        "$t=(Get-Content \"$env:USERPROFILE/.notion-mcp/notion.token\" -Raw).Trim(); $env:NOTION_TOKEN=$t; npx -y @notionhq/notion-mcp-server"
+      ]
     }
   }
 }

@@ -1,11 +1,11 @@
 ---
-description: Ingest new material from raw/ and mirror/ into wiki/
+description: Ingest new material from raw/ and mirror/ (incl. pulled) into wiki/
 argument-hint: "[count]"
 ---
 You are in run-command mode to ingest new material into the personal wiki from local directories.
 
 Please perform the following flow:
-1. Read unprocessed or new files from raw/ (all subfolders) and mirror/project-sync/ (all subfolders). Remember, under no circumstances should you write to or modify files in raw/ or mirror/ (these are read-only).
+1. Read unprocessed or new files from raw/ (all subfolders), mirror/project-sync/ (all subfolders), and mirror/pulled/ (all subfolders — fresh material written by /pull-sources). Remember, under no circumstances should you write to or modify files in raw/ or mirror/ (these are read-only).
 2. For each file to process:
    - Extract content, metadata, and key entities (projects, concepts, people, decisions).
    - Before creating a new page in the wiki, Use Grep to search wiki/ frontmatter titles for an existing page matching the same title. If a match is found, edit/update it to merge the information rather than duplicating it.
