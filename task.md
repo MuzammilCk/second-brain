@@ -21,7 +21,7 @@
 |---|---|---|---|
 | T-2.1 | Private GitHub repo exists + `origin` remote | ✅ | `git remote get-url origin` → `https://github.com/MuzammilCk/second-brain.git` |
 | T-2.2 | Replace `auto-checkpoint.sh` with push version | ✅ | File matches guide version; `bash -n` passes |
-| T-2.3 | Push leg verified end-to-end (commit → push) | 🔶 | Remote reachability confirmed (`git ls-remote origin` exit 0; `main` + `feat/scaffold-placements` on GitHub); live commit+push fires on the next automatic Stop |
+| T-2.3 | Push leg verified end-to-end (commit → push) | ✅ | **2026-08-06**: hook run manually with dirty tree → commit `d019243` "auto-checkpoint: 2026-08-06 01:55" created + pushed; local == remote HEAD on `origin/feat/scaffold-placements`; tree clean |
 | T-2.4 | Record branch reality (`feat/scaffold-placements`, not `main`) | ✅ | Noted in all three control files; hook pushes current branch so no change needed |
 
 ---
@@ -136,3 +136,4 @@ T-5.4, T-6.4 ─► T-7.1/2/3 (local) and T-7.4/5/6 (cloud) ─► T-8.1 ─► 
 | 2026-08-04 | Step 6 review-hardened | Post-review fixes: `briefing.md` `allowed-tools` block **removed** (would have blocked the MCP `list-events` call — a silent, permanent "calendar not available" in unattended cloud runs); name→slug mapping hint added; `debrief.md` explicit "never edit people.md/priorities.md silently — propose only" carve-out. |
 | 2026-08-04 | GitHub source expanded | T-5.3 follow-up: `pull-sources.md` Source 5 no longer hardcodes 5 repos — now **enumerates all 36 repos dynamically** via `gh repo list MuzammilCk --limit 200`. Verified: enumeration returns all 36 (incl. private); empty repos (409 "Git Repository is empty", e.g. `waste-recycling-credit-app`) fail-soft; 4 commits in window (all `second-brain` — this vault's own recent pushes). |
 | 2026-08-05 | Step 5 completed | T-5.4 → ✅. Full /pull-sources run: 30 claude-sessions + 16 gmail + 0 calendar + 3 local + 0 github + notion skipped. wiki/log.md entry written. Step 5 is DONE. Moving to Step 6 (T-6.4) then Step 7. |
+| 2026-08-06 | T-2.3 completed | Hook executed manually with dirty tree (`CLAUDE_PROJECT_DIR` set; Stop hooks don't fire in Freebuff sessions — the reason it hadn't run). Commit `d019243` pushed to `origin/feat/scaffold-placements`; local == remote HEAD; tree clean. Step 2 fully verified. |

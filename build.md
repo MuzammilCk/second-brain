@@ -156,3 +156,4 @@
 | 2026-08-04 | Step 6 review-hardened | `allowed-tools` removed from `briefing.md` (was blocking the MCP calendar tool); slug-mapping hint added; `debrief.md` gained explicit people.md/priorities.md propose-only carve-out. |
 | 2026-08-05 | Step 5 completed | Full `/pull-sources` run: 30 claude-sessions, 16 gmail, 0 calendar, 3 local, 0 github, notion skipped. Step 5 artifacts fully operational. Step 6 T-6.4 still ⬜ (restart needed). |
 | 2026-08-05 | Step 7 initiated | User gates laid out for Step 7: Task Scheduler (T-7.1/7.2/7.3) + Cloud Routine (T-7.4/7.5/7.6). |
+| 2026-08-06 | Step 2 verified | Hook executed manually with dirty tree → commit + push to `origin/feat/scaffold-placements` confirmed (local == remote HEAD, tree clean). Push leg live — future Stop hooks will push automatically. |

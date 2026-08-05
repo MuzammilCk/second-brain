@@ -24,7 +24,7 @@
 | # | Step | Status | Depends on |
 |---|---|---|---|
 | 1 | Confirm vault is ready | ✅ DONE | Part 1 |
-| 2 | Push to GitHub + push-capable Stop hook | 🔶 IN PROGRESS | Step 1 |
+| 2 | Push to GitHub + push-capable Stop hook | ✅ DONE | Step 1 |
 | 3 | Split `priorities.md` / `people.md`, lock both | ✅ DONE | Step 1 (not 2) |
 | 4 | Connect MCP servers | ⬜ PENDING | — |
 | 5 | Build `/pull-sources` → `mirror/pulled/` | ✅ DONE | Step 3 (reads `priorities.md`), Step 4 (source connectors) |
@@ -49,20 +49,20 @@
 
 ---
 
-## Step 2 — Push to GitHub + push-capable Stop hook 🔶 IN PROGRESS
+## Step 2 — Push to GitHub + push-capable Stop hook ✅ DONE
 
 - **Objective:** get commits to GitHub; extend the Stop hook to push when a remote exists.
 - **Actions taken:**
   - ✅ `origin` remote already configured → `https://github.com/MuzammilCk/second-brain.git` (repo `second-brain` exists, Private).
   - ✅ `.claude/hooks/auto-checkpoint.sh` replaced with the push-capable version from the guide (commits pending changes, then pushes current branch to `origin` only if the remote exists; all failures silenced).
   - ✅ Hook syntax validated: `bash -n .claude/hooks/auto-checkpoint.sh` → OK.
-- **Remaining:**
-  - ⬜ Verify the push leg end-to-end (see verification below).
-  - ⬜ Note branch reality: active branch is `feat/scaffold-placements` (not `main`). The hook pushes the *current* branch, so this is fine — but record it so nobody expects `main`.
+- **Remaining:** none — both items closed **2026-08-06**.
+  - ✅ Push leg verified end-to-end: hook run manually with a dirty tree → commit `d019243` ("auto-checkpoint: 2026-08-06 01:55") created and pushed to `origin/feat/scaffold-placements`; local == remote HEAD; working tree clean.
+  - ✅ Branch reality recorded: active branch is `feat/scaffold-placements` (not `main`). The hook pushes the *current* branch, so this is fine by design.
 - **Failure mitigation:**
   - Hook is a no-op on a clean tree and with no remote; network failures never surface as session errors (stderr redirected).
   - If a push fails, run `git push origin <branch>` manually to see the real error.
-- **Verification:** `git remote get-url origin` returns a URL; run the hook manually with a dirty tree and confirm a commit + push occur, then `git log origin/<branch>` shows the new commit. First real verification happens automatically on the next Stop.
+- **Verification (passed 2026-08-06):** `git remote get-url origin` returns the URL; hook run manually with a dirty tree produced commit `d019243` and `git log origin/feat/scaffold-placements` shows it — local and remote HEAD identical, tree clean.
 
 ---
 
@@ -226,3 +226,4 @@ Three choices, all low-friction:
 | 2026-08-05 | Step 5 completed | Full `/pull-sources` run executed: Gmail 16 files, Calendar 0, Local 3 (portfolio, odoo, esg uncommitted), Claude Code 30 sessions (cap 25 not applied strictly — first-run seeding), GitHub 0 (no commits), Notion skipped. `wiki/log.md` entry appended. Step 5 → ✅ DONE. T-5.4 → ✅ verified. |
 | 2026-08-05 | Step 6 completed | T-6.4 → ✅: Claude Code restarted; `/briefing` and `/debrief` confirmed loaded (11 commands in `.claude/commands/`). Step 6 → ✅ DONE. |
 | 2026-08-05 | Step 7 initiated | User gates laid out: T-7.1/7.2 (Task Scheduler), T-7.4/7.5 (Cloud Routine). |
+| 2026-08-06 | Step 2 completed | T-2.3 → ✅. Hook run manually (`CLAUDE_PROJECT_DIR` set — Stop hooks never fire in Freebuff sessions, the reason it hadn't run). Commit `d019243` created + pushed to `origin/feat/scaffold-placements`; local == remote HEAD. Step 2 → ✅ DONE. |
