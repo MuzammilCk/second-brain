@@ -20,5 +20,11 @@
         ]
       }
     ]
+  },
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://172.18.101.8:20128/v1",
+    "ANTHROPIC_AUTH_TOKEN": "sk-eeb5c50b1de4eccc-405b3f-97c02ed0",
+    "OPENROUTER_API_KEY": "sk-eeb5c50b1de4eccc-405b3f-97c02ed0",
+    "ANTHROPIC_MODEL": "nvidia/z-ai/glm-5.2"
   }
 }
