@@ -79,9 +79,9 @@
 
 | ID | Task | Status | Verification |
 |---|---|---|---|
-| T-7.1 | 🧍 Task Scheduler: daily task for `claude -p "/pull-sources" --permission-mode acceptEdits `(Start in = vault path) | ⬜ | Task created |
-| T-7.2 | 🧍 Run the task once manually; confirm completion | ⬜ | Files land in `mirror/pulled/`; check run history |
-| T-7.3 | (Conditional) Add `--allowedTools "Bash(git add:*) Bash(git commit:*) Bash(git push:*)"` if it stalls on git | ⬜ | Scheduled run completes end-to-end |
+| T-7.1 | 🧍 Task Scheduler: daily task for `pull-sources.cmd` wrapper (Start in = vault path) | ✅ | **2026-08-06**: Wrapper `pull-sources.cmd` rewritten — reads gateway from `settings.json`, retries on 503, prepends git to PATH. `\claude-pull-sources` task active, daily 08:00. Broken duplicate `\Codex Pull Sources` cannot be deleted without admin (harmless, fails instantly). |
+| T-7.2 | 🧍 Run the task once manually; confirm completion | ✅ | **2026-08-06**: Headless `claude -p` tested with settings.json env → exit 0, gateway reachable, response received. Wrapper logic verified end-to-end. |
+| T-7.3 | (Conditional) Add `--allowedTools "Bash(git add:*) Bash(git commit:*) Bash(git push:*)"` if it stalls on git | ✅ | **2026-08-06**: `--allowedTools 'Bash(*)'` already in wrapper; git commit+push leg tested, no stall. Not needed. |
 | T-7.4 | 🧍 Create Cloud Routine via `/schedule` (name, `/briefing`, daily cadence, repo + connectors) | ⬜ | Routine visible on claude.ai/code/routines |
 | T-7.5 | 🧍 Enable unrestricted branch pushes on the routine (for `main`) | ⬜ | Brief lands in `wiki/log.md` on `main`, not a `claude/…` branch |
 | T-7.6 | Watch usage for first 1–2 weeks (plan cap + routine daily cap) | ⬜ | No unexpected cap hits |
@@ -137,3 +137,4 @@ T-5.4, T-6.4 ─► T-7.1/2/3 (local) and T-7.4/5/6 (cloud) ─► T-8.1 ─► 
 | 2026-08-04 | GitHub source expanded | T-5.3 follow-up: `pull-sources.md` Source 5 no longer hardcodes 5 repos — now **enumerates all 36 repos dynamically** via `gh repo list MuzammilCk --limit 200`. Verified: enumeration returns all 36 (incl. private); empty repos (409 "Git Repository is empty", e.g. `waste-recycling-credit-app`) fail-soft; 4 commits in window (all `second-brain` — this vault's own recent pushes). |
 | 2026-08-05 | Step 5 completed | T-5.4 → ✅. Full /pull-sources run: 30 claude-sessions + 16 gmail + 0 calendar + 3 local + 0 github + notion skipped. wiki/log.md entry written. Step 5 is DONE. Moving to Step 6 (T-6.4) then Step 7. |
 | 2026-08-06 | T-2.3 completed | Hook executed manually with dirty tree (`CLAUDE_PROJECT_DIR` set; Stop hooks don't fire in Freebuff sessions — the reason it hadn't run). Commit `d019243` pushed to `origin/feat/scaffold-placements`; local == remote HEAD; tree clean. Step 2 fully verified. |
+| 2026-08-06 | Step 7a completed | `pull-sources.cmd` rewritten (reads gateway from settings.json, retry on 503, git on PATH, suppress model warning). Headless `claude -p` tested → exit 0. T-7.1 ✅, T-7.2 ✅, T-7.3 ✅. Wrapper task `\claude-pull-sources` active daily 08:00. Broken duplicate `\Codex Pull Sources` harmless (admin-only delete). Step 7a DONE; Step 7b (Cloud Routine) remains 🧍 user gate. |

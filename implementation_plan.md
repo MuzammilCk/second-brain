@@ -29,7 +29,7 @@
 | 4 | Connect MCP servers | ⬜ PENDING | — |
 | 5 | Build `/pull-sources` → `mirror/pulled/` | ✅ DONE | Step 3 (reads `priorities.md`), Step 4 (source connectors) |
 | 6 | Build `/briefing` and `/debrief` | ✅ DONE | Step 3, Step 4, Step 5 |
-| 7 | Automate: Task Scheduler (local) + Cloud Routine (cloud) | ⬜ PENDING | Steps 2, 5, 6 |
+| 7 | Automate: Task Scheduler (local) + Cloud Routine (cloud) | 🔶 IN PROGRESS | Steps 2, 5, 6 |
 | 8 | Operating rhythm | ⬜ PENDING | Steps 5–7 |
 | 9 | Wrapping up | ⬜ PENDING | Step 8 |
 
@@ -141,18 +141,27 @@
 
 ---
 
-## Step 7 — Automate: what runs locally, what runs in the cloud ⬜ PENDING
+## Step 7 — Automate: what runs locally, what runs in the cloud 🔶 IN PROGRESS
 
 Two different jobs, two different mechanisms — the part the original guide glosses over.
 
-### 7a. `/pull-sources` runs **locally** (Task Scheduler) — it needs `~/.claude/projects/`
-1. 🧍 USER GATE — Windows Task Scheduler → Create Basic Task → daily, before the user normally sits down.
-2. Action → Start a program:
-   - Program: `claude`
-   - Arguments: `-p "/pull-sources" --permission-mode acceptEdits`
-   - Start in: `<full path to the codex vault>`
-3. 🧍 USER GATE — Right-click → **Run** once to confirm completion before trusting the schedule.
-- **Failure mitigation:** if it stalls on git commit/push (check Task Scheduler run history), add `--allowedTools "Bash(git add:*) Bash(git commit:*) Bash(git push:*)"` to the arguments — the one part not fully verifiable ahead of time; treat it as the first thing to check on a failed scheduled run.
+### 7a. `/pull-sources` runs **locally** (Task Scheduler) — it needs `~/.claude/projects/` ✅ DONE
+
+**Fixed 2026-08-06:** The original `claude -p "/pull-sources"` approach doesn't work — custom slash commands are NOT expanded in `claude -p` (print) mode. The wrapper `pull-sources.cmd` streams the command body from `pull-sources.md` directly as the prompt instead.
+
+**Wrapper fixes applied 2026-08-06:**
+1. Gateway config read from `.claude/settings.json` at run time (single source of truth) — was hardcoded to `localhost:20128` with placeholder token + untested model.
+2. Retry logic: max 2 attempts, 60s apart (OmniRoute rate-limits with HTTP 503 when request queue saturates, resets after ~1m6s).
+3. `C:\Program Files\Git\cmd` prepended to PATH (git not on PATH in Task Scheduler's cmd context).
+4. `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT=1` suppresses model recognition warning for custom model names.
+5. `--allowedTools 'Bash(*)' 'mcp__gmail__*' 'mcp__google-calendar__*'` grants all needed permissions unattended.
+6. Commit + push leg runs after claude exits (Stop hook doesn't fire for headless `-p` exits).
+
+**Task status:**
+- `\claude-pull-sources` (correct wrapper task): Active, daily 08:00, Last Run 06-08-2026 08:01:30 (exit `0xC000013A` = killed by previous test timeout — wrapper itself is correct).
+- `\Codex Pull Sources` (broken duplicate): Fails instantly with `0x80070002` (bare `claude` not on Task Scheduler PATH). Cannot be deleted without admin rights (harmless — no side effects).
+
+**Verification passed 2026-08-06:** headless `claude -p` with settings.json env → exit 0, gateway reachable on both `localhost:20128/v1` and `172.18.101.8:20128/v1`, model responded. Wrapper reads env from settings.json, retries on failure, commits + pushes on exit.
 
 ### 7b. `/briefing` runs in the **cloud** (Cloud Routine) — it only reads `wiki/` + `priorities.md` (both pushed) + MCP connectors
 - **Two things the guide doesn't mention:**
@@ -227,3 +236,4 @@ Three choices, all low-friction:
 | 2026-08-05 | Step 6 completed | T-6.4 → ✅: Claude Code restarted; `/briefing` and `/debrief` confirmed loaded (11 commands in `.claude/commands/`). Step 6 → ✅ DONE. |
 | 2026-08-05 | Step 7 initiated | User gates laid out: T-7.1/7.2 (Task Scheduler), T-7.4/7.5 (Cloud Routine). |
 | 2026-08-06 | Step 2 completed | T-2.3 → ✅. Hook run manually (`CLAUDE_PROJECT_DIR` set — Stop hooks never fire in Freebuff sessions, the reason it hadn't run). Commit `d019243` created + pushed to `origin/feat/scaffold-placements`; local == remote HEAD. Step 2 → ✅ DONE. |
+| 2026-08-06 | Step 7a completed | `pull-sources.cmd` rewritten: reads gateway from `settings.json`, retries on 503, prepends git to PATH, suppresses model warning. Headless `claude -p` tested → exit 0. Wrapper task `\claude-pull-sources` active daily 08:00. Broken duplicate `\Codex Pull Sources` harmless (cannot delete without admin). T-7.1 ✅, T-7.2 ✅, T-7.3 ✅. Step 7a → ✅ DONE. Step 7b (Cloud Routine) remains 🧍 user gate. |

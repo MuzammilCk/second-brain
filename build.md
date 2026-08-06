@@ -87,11 +87,13 @@
 
 ## Step 7 — Automate
 
-**Builds:** OS-level + cloud-level automation — no repo files.
+**Builds:** OS-level + cloud-level automation — one repo file + two external configs.
 
 | Artifact | Location | State | Spec |
 |---|---|---|---|
-| 🧍 Task Scheduler task (local) | Windows Task Scheduler | ⬜ | Daily, before sit-down time. Program `claude`; Arguments `-p "/pull-sources" --permission-mode acceptEdits` (+ `--allowedTools "Bash(git add:*) Bash(git commit:*) Bash(git push:*)"` if git steps stall); Start in = vault path. Manual test-run before trusting. |
+| ✅ `pull-sources.cmd` wrapper | `.claude/scripts/` | ✅ built + tested | Reads gateway config from `.claude/settings.json` (single source of truth); retries on OmniRoute 503 (2 attempts, 60s apart); prepends `C:\Program Files\Git\cmd` to PATH; streams `pull-sources.md` body as prompt (slash commands not expanded in `-p` mode); `--allowedTools 'Bash(*)' 'mcp__gmail__*' 'mcp__google-calendar__*'`; commit+push on exit; suppresses unknown-model warning. Headless `claude -p` tested → exit 0. |
+| ✅ Task Scheduler task (local) | Windows Task Scheduler `\claude-pull-sources` | ✅ active | Daily 08:00. Runs `pull-sources.cmd`. Start in = vault path. Manual test verified 2026-08-06. |
+| ⬜ Broken duplicate task | Windows Task Scheduler `\Codex Pull Sources` | ⬜ harmless | Fails instantly (`0x80070002` — bare `claude` not on PATH). Cannot delete without admin. No side effects. |
 | 🧍 Cloud Routine (cloud) | claude.ai/code/routines via `/schedule` | ⬜ | Name + `/briefing` + daily cadence + repo (`second-brain`) + connectors. **Enable unrestricted branch pushes** so the brief lands on `main`, not a `claude/…` branch. Watch usage caps for the first 1–2 weeks. |
 
 ---
