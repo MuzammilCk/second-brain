@@ -26,7 +26,7 @@
 | 1 | Confirm vault is ready | ✅ DONE | Part 1 |
 | 2 | Push to GitHub + push-capable Stop hook | ✅ DONE | Step 1 |
 | 3 | Split `priorities.md` / `people.md`, lock both | ✅ DONE | Step 1 (not 2) |
-| 4 | Connect MCP servers | ⬜ PENDING | — |
+| 4 | Connect MCP servers | ✅ DONE | — (Notion token deferred — see T-5.1b) |
 | 5 | Build `/pull-sources` → `mirror/pulled/` | ✅ DONE | Step 3 (reads `priorities.md`), Step 4 (source connectors) |
 | 6 | Build `/briefing` and `/debrief` | ✅ DONE | Step 3, Step 4, Step 5 |
 | 7 | Automate: Task Scheduler (local) + Cloud Routine (cloud) | 🔶 IN PROGRESS | Steps 2, 5, 6 |
@@ -84,7 +84,7 @@
 
 ---
 
-## Step 4 — Connect MCP servers 🔶 IN PROGRESS
+## Step 4 — Connect MCP servers ✅ DONE
 
 - **Objective:** calendar/email (and optionally Linear/Notion) reachable from the vault via MCP.
 - **PIVOT (2026-08-04): hosted endpoints are dead in this runtime.** The user runs Claude Code with **OmniRoute as the LLM provider and no Claude.ai auth** — Google's hosted endpoints (`gmailmcp.googleapis.com`, `calendarmcp.googleapis.com`) require a Claude.ai-compatible OAuth flow that can never complete here (confirmed empirically: empty `accessToken`, DCR error). Google publishes **no official local MCP servers** (verified via Google Workspace docs).
@@ -127,7 +127,7 @@
 
 ---
 
-## Step 6 — Build `/briefing` and `/debrief` ⬜ PENDING
+## Step 6 — Build `/briefing` and `/debrief` ✅ DONE
 
 - **Objective:** morning brief grounded in priorities + wiki + live tools; evening capture feeding the existing log/decision-log conventions.
 - **Prerequisites:** Steps 3, 4 (calendar/tickets for the brief's live section), 5 (optional, for context volume).
@@ -135,9 +135,9 @@
   1. ✅ `briefing.md` written + approved **2026-08-04** — reads `priorities.md` Projects / Areas / Resources (skip Archive); calendar via `google-calendar` MCP `list-events` for today (graceful skip if not connected — never fabricate events); last 3–5 `wiki/log.md` entries; per Project: `status` frontmatter + most recent `<slug>-decisions.md` entry (or "no wiki page yet" — never invent); `people.md` conditional, at most one line, read-only, **absent-safe** (cloud clones lack it); outputs Today's Schedule · Active Threads · Priority Reminders · Suggested Actions; appends one-line `briefing ran` marker to `wiki/log.md`; commits with co-author trailer.
   2. ✅ `debrief.md` written + approved **2026-08-04** — reads `priorities.md` for today's focus; empty `$ARGUMENTS` → 3–4 short questions one at a time, provided → treated as summary; distill to signal, never transcribe; one `wiki/log.md` entry `YYYY-MM-DD - debrief` (3–5 bullets); pivot → **propose** a `/decide`-schema `<slug>-decisions.md` entry and write only after explicit yes; updates existing pages, **proposes** new ones (never silently creates); priorities shift → propose the exact `priorities.md` edit and state what's about to change; one-line day summary; commits with co-author trailer.
   3. ✅ USER GATE — **Approved 2026-08-04** ("Approve both, save them").
-  4. ⬜ Restart Claude Code (`/exit`, then `claude`) so both commands load.
+  4. ✅ Restart Claude Code so both commands load — **verified 2026-08-05**: `/briefing` actually ran (commit `6132051` "briefing: 2026-08-05" + matching `wiki/log.md` marker), `/debrief` exercised in-session. Commands have loaded on every session since.
 - **Failure mitigation:** if a command doesn't load after writing, restart is the fix (same as every command in this setup); verify with `/help` or by invoking it.
-- **Verification:** `/briefing` and `/debrief` both run; brief includes at least one real `status` + decision-log citation; debrief writes a well-formed log entry; no command writes to `raw/`.
+- **Verification (passed 2026-08-05):** `/briefing` ran end-to-end (produced commit + log marker); brief includes real `status` + decision-log citations; debrief writes a well-formed log entry; no command writes to `raw/`.
 
 ---
 
@@ -237,3 +237,4 @@ Three choices, all low-friction:
 | 2026-08-05 | Step 7 initiated | User gates laid out: T-7.1/7.2 (Task Scheduler), T-7.4/7.5 (Cloud Routine). |
 | 2026-08-06 | Step 2 completed | T-2.3 → ✅. Hook run manually (`CLAUDE_PROJECT_DIR` set — Stop hooks never fire in Freebuff sessions, the reason it hadn't run). Commit `d019243` created + pushed to `origin/feat/scaffold-placements`; local == remote HEAD. Step 2 → ✅ DONE. |
 | 2026-08-06 | Step 7a completed | `pull-sources.cmd` rewritten: reads gateway from `settings.json`, retries on 503, prepends git to PATH, suppresses model warning. Headless `claude -p` tested → exit 0. Wrapper task `\claude-pull-sources` active daily 08:00. Broken duplicate `\Codex Pull Sources` harmless (cannot delete without admin). T-7.1 ✅, T-7.2 ✅, T-7.3 ✅. Step 7a → ✅ DONE. Step 7b (Cloud Routine) remains 🧍 user gate. |
+| 2026-08-18 | Status drift reconciled (scaffold restored) | The entire `.claude/` scaffold (17 files) had been deleted in the working tree but was intact at HEAD `2cdb03c` — confirmed via reflog (no checkout/reset/stash removed them) that the deletions were uncommitted working-tree state, not an intentional removal, and that **SkillOpt-Sleep** (`C:\Users\THINKPAD L13\SkillOpt\plugins\claude-code\`) — which only manages a target skill + `CLAUDE.md` via `--target-skill-path` — neither caused nor depends on them. Restored all 17 from HEAD (`git diff HEAD -- .claude/` clean afterward). Reconciled stale markers here: overview Step 4 ⬜→✅ DONE, Step 4 header 🔶→✅, Step 6 header ⬜→✅, Step 6 item 4 (restart) ⬜→✅ backed by commit `6132051` (briefing ran 2026-08-05). `task.md`/`build.md` were already faithful — their ⬜ rows are genuine user gates (T-5.1b Notion token, T-7.4–7.6 Cloud Routine, T-8.1 cadence, T-9.1 wrap) or immutable historical-log rows. **Remaining work = user gates only:** Step 7b Cloud Routine, Step 8 operating rhythm, Step 9 wrap decision. See [[wiki/concepts/skillopt]] for the SkillOpt audit that co-occurred. |
