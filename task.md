@@ -61,7 +61,6 @@
 | T-5.3 | Write `.claude/commands/pull-sources.md` | ✅ | File written; 6 source blocks (sessions + gmail + calendar + 8 local folders + github-skip + notion-skip); dedupe by source+id with `-<8-char-id>` collision suffix; fail-soft on source errors; `mirror/pulled/` tree pre-created; `git status` clean under `mirror/` |
 | T-5.4 | Test-run `/pull-sources` | ✅ | **2026-08-05**: Full run executed — Gmail 16/18 (2 already written), Calendar 0, Local 3, Claude Code 30 sessions, GitHub 0, Notion skipped. `wiki/log.md` entry appended. All sources exercised end-to-end. |
 | T-5.5 | Update `/ingest` to read `mirror/pulled/` | ✅ | **2026-08-04**: `/ingest` step 1 now reads `raw/` + `mirror/project-sync/` + `mirror/pulled/`; description updated. Pull → ingest loop is now end-to-end |
-| T-5.5 | Update `/ingest` to read `mirror/pulled/` | ✅ | **2026-08-04**: `/ingest` step 1 now reads `raw/` + `mirror/project-sync/` + `mirror/pulled/`; description updated. Pull → ingest loop is now end-to-end |
 
 ---
 

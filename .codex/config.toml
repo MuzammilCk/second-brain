@@ -1,0 +1,33 @@
+[shell_environment_policy]
+inherit = "core"
+
+[shell_environment_policy.set]
+ANTHROPIC_BASE_URL = "http://172.18.101.8:20128/v1"
+ANTHROPIC_AUTH_TOKEN = "sk-eeb5c50b1de4eccc-405b3f-97c02ed0"
+OPENROUTER_API_KEY = "sk-eeb5c50b1de4eccc-405b3f-97c02ed0"
+ANTHROPIC_MODEL = "nvidia/z-ai/glm-5.2"
+
+[mcp_servers.gmail]
+command = "npx"
+args = [
+    "-y",
+    "@klodr/gmail-mcp",
+]
+
+[mcp_servers.google-calendar]
+command = "npx"
+args = [
+    "-y",
+    "@cocal/google-calendar-mcp",
+]
+
+[mcp_servers.google-calendar.env]
+GOOGLE_OAUTH_CREDENTIALS = "C:/Users/THINKPAD L13/.gmail-mcp/gcp-oauth.keys.json"
+
+[mcp_servers.notion]
+command = "powershell"
+args = [
+    "-NoProfile",
+    "-Command",
+    '$t=(Get-Content "$env:USERPROFILE/.notion-mcp/notion.token" -Raw).Trim(); $env:NOTION_TOKEN=$t; npx -y @notionhq/notion-mcp-server',
+]

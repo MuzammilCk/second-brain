@@ -16,6 +16,6 @@ Please perform the following flow:
    - Identify the current `status` from its overview page frontmatter.
    - Retrieve the most recent decision entry from its corresponding decisions log (`<slug>-decisions.md`).
 4. Identify projects that have "gone quiet":
-   - Compare the current date (2026-08-03) against each project's `last-updated` frontmatter or its last git revision.
+   - Compare today's date against each project's `last-updated` frontmatter or its last git revision.
    - Highlight and list any project that has had no activity or updates in 14 or more days.
 5. Print the compiled standup report to the console. Do not write this report to any file or modify any pages in the wiki directory.

@@ -15,7 +15,7 @@ Repo Mind is an advanced CLI tool and API that leverages Google Gemini (Gemini 2
 
 ## Core Features
 - **Adaptive Macro-Planning**: Gemini acts as a stateful orchestrator, creating dynamic multi-step analysis plans based on repository context.
-- **Stateful Memory integration**: Uses a hybrid approach combining a [[wiki/people/muzammil-ck|Gemini Interaction API]]'s conversation thread storage and a local FAISS vector store.
+- **Stateful Memory integration**: Uses a hybrid approach combining a Gemini Interaction API's conversation thread storage and a local FAISS vector store.
 - **Double-Verification (Anti-Hallucination)**: AI-cited code findings are validated directly against local files to prevent hallucinations.
 - **Security Audit integration**: Integrates CodeQL for deep vulnerability intelligence.
 - **Semantic Code Search**: Employs SeaGOAT to query and locate code matching architectural or security concepts.
