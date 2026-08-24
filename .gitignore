@@ -17,3 +17,6 @@ journal/
 scripts/
 .docs/
 .obsidian
+site/node_modules/
+site/dist/
+site/src/data/generated/

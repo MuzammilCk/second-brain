@@ -1,0 +1,68 @@
+.dsa-radar {
+  margin-bottom: var(--space-8);
+}
+
+.dsa-radar h3 {
+  margin-bottom: var(--space-4);
+}
+
+.dsa-radar__chart {
+  display: flex;
+  justify-content: center;
+}
+
+.dsa-mocks h3 {
+  margin-bottom: var(--space-6);
+}
+
+.dsa-mocks__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.dsa-mock-entry {
+  padding: var(--space-4);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--accent-violet);
+}
+
+.dsa-mock-entry__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.dsa-mock-entry__date {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.dsa-mock-entry h4 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-3);
+}
+
+.dsa-mock-entry__field {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  margin-top: var(--space-2);
+  line-height: 1.6;
+}
+
+.dsa-mock-entry__field span {
+  font-weight: 600;
+}
+
+.dsa-mock-entry__field--good {
+  background: rgba(52, 211, 153, 0.05);
+}
+
+.dsa-mock-entry__field--fix {
+  background: rgba(251, 191, 36, 0.05);
+}
