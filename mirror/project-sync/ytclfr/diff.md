@@ -1,8 +1,8 @@
 ---
 source: project-sync
-project: ytclfr
-original-path: D:\projects\ytclfr\diff.md
-synced: 2026-08-03
+project: "ytclfr"
+original-path: "D:/projects/ytclfr/diff.md"
+synced: 2026-08-24
 ---
 
 # diff.md
@@ -526,8 +526,8 @@ Next session must start by:
   - Reading all four control files
   - Beginning Phase 6: Temporal Alignment Layer
 
-## 2026-04-22  Session 17  Phase 6 Temporal Alignment Layer complete
-Phase: Phase 6  Temporal Alignment Layer
+## 2026-04-22 � Session 17 � Phase 6 Temporal Alignment Layer complete
+Phase: Phase 6 � Temporal Alignment Layer
 Files changed: build.md, decisions.md, pyproject.toml, src/ytclfr/alignment/__init__.py, src/ytclfr/alignment/normalizer.py, src/ytclfr/alignment/overlap.py, src/ytclfr/alignment/deduplicator.py, src/ytclfr/alignment/segmenter.py, src/ytclfr/alignment/engine.py, src/ytclfr/tasks/align.py, tests/unit/alignment/__init__.py, tests/unit/alignment/test_normalizer.py, tests/unit/alignment/test_overlap.py, tests/unit/alignment/test_deduplicator.py, tests/unit/alignment/test_segmenter.py, tests/unit/alignment/test_engine.py, tests/unit/alignment/test_reproducibility.py, tests/integration/test_alignment_integration.py
 Completed:
   - Part A: Added hypothesis to dev dependencies in pyproject.toml and documented in DR-15.
@@ -590,8 +590,8 @@ Implemented the Confidence Controller as a pure logic module. It evaluates the u
 
 ---
 
-## 2026-04-24  Session 20  Phase 10: V2 Distributed Scaling
-Phase: Phase 10  V2 Distributed Scaling
+## 2026-04-24 � Session 20 � Phase 10: V2 Distributed Scaling
+Phase: Phase 10 � V2 Distributed Scaling
 Files changed: context.md, build.md, decisions.md, pyproject.toml, .env.example, src/ytclfr/core/config.py, src/ytclfr/ingestion/s3_storage.py, src/ytclfr/db/models/job.py, alembic/versions/0004_add_s3_video_uri.py, src/ytclfr/tasks/ingest.py, src/ytclfr/tasks/route.py, src/ytclfr/tasks/extract.py, src/ytclfr/tasks/align.py, src/ytclfr/api/rate_limit.py, src/ytclfr/contracts/events.py, tests/unit/tasks/test_extract.py
 Completed:
   - context.md: boto3 added to frozen stack (1.2), distributed deployment and S3 moved to IN SCOPE (1.3), deployment target updated to distributed cloud (1.7)
@@ -618,7 +618,7 @@ Scope creep rejected:
 Next session must start by:
   - Run alembic upgrade head to apply migration 0004 to Supabase
   - Mark Phase 10 complete in build.md if all checklist items verified
-  - Begin Phase 8  Storage + Output API
+  - Begin Phase 8 � Storage + Output API
 
 ### Summary
 Implemented Phase 10 V2 Distributed Scaling. Eliminated local filesystem coupling between Celery workers by routing all video media through S3. Ingestion uploads to S3 and immediately deletes local files. Extraction tasks download from S3, process, and clean up. Chord payloads reduced from ~50MB JSON to ~100 byte status dicts with actual data fetched from Postgres. Rate limiter updated for proxy-aware IP detection. All 194 existing tests pass. ruff and mypy clean.
