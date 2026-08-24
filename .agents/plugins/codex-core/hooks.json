@@ -1,0 +1,27 @@
+{
+  "vault-checkpoint": {
+    "enabled": true,
+    "Stop": [
+      {
+        "type": "command",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/auto_checkpoint.ps1",
+        "timeout": 30
+      }
+    ]
+  },
+  "vault-linter": {
+    "enabled": true,
+    "PostToolUse": [
+      {
+        "matcher": "replace_file_content|write_to_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python scripts/lint_wiki.py",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
