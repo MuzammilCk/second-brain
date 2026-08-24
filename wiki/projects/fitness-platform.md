@@ -6,8 +6,7 @@ stack: Next.js 15, NestJS, Turborepo, pnpm, Drizzle ORM, PostgreSQL, Zod, Vitest
 sources:
   - mirror/project-sync/useMe/context.md
   - mirror/project-sync/useMe/diff.md
-related:
-  - wiki/people/muzammil-ck.md
+related: []
 created: 2026-06-15
 last-updated: 2026-08-03
 ---

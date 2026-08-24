@@ -1,8 +1,11 @@
 ---
 title: AutoML and Hyperparameter Optimization
 type: concept
-sources: raw/claude-exports/Integrating-Google-Vizier-with-MetaTune-hyperparameter-optim.md, raw/claude-exports/MetaTune-implementation-phases-and-validation.md
-related: [[wiki/projects/metatune]], [[wiki/people/muzammil-ck]]
+sources:
+  - raw/claude-exports/Integrating-Google-Vizier-with-MetaTune-hyperparameter-optim.md
+  - raw/claude-exports/MetaTune-implementation-phases-and-validation.md
+related:
+  - "[[wiki/projects/metatune]]"
 created: 2026-02-03
 last-updated: 2026-08-03
 ---

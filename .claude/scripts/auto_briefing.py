@@ -20,6 +20,13 @@ def parse_frontmatter(content: str) -> dict:
     match = re.match(r"^---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
     if not match:
         return {}
+    try:
+        import yaml
+        data = yaml.safe_load(match.group(1))
+        if isinstance(data, dict):
+            return data
+    except Exception:
+        pass
     fm = {}
     for line in match.group(1).splitlines():
         if ":" in line:

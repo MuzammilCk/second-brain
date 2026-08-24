@@ -7,8 +7,7 @@ sources:
   - mirror/project-sync/invoice/context.md
   - mirror/project-sync/invoice/diff.md
   - mirror/project-sync/invoice/README.md
-related:
-  - wiki/people/muzammil-ck.md
+related: []
 created: 2026-06-01
 last-updated: 2026-08-03
 ---

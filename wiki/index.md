@@ -11,4 +11,5 @@ Entry point and table of contents for the personal knowledge vault.
 - **[[log|Change Log]]**: Running log of modifications and vault status updates.
 
 ## Navigation Info
-Click any of the [[wiki-links]] above to navigate the vault. All notes are atomic and cross-referenced.
+Click any of the wiki links above to navigate the vault. All notes are atomic and cross-referenced.
+

@@ -3,8 +3,11 @@ title: RealMe 3D Portfolio
 type: project
 status: active
 stack: React, TypeScript, Vite, Three.js, React Three Fiber, Framer Motion, Tailwind CSS, OKLCH, Vercel Edge Functions, Resend API
-sources: raw/claude-exports/Refactoring-a-3D-portfolio-to-enterprise-grade.md, raw/claude-exports/conversations-memory.md
-related: [[wiki/concepts/three-physics]], [[wiki/people/muzammil-ck]]
+sources:
+  - raw/claude-exports/Refactoring-a-3D-portfolio-to-enterprise-grade.md
+  - raw/claude-exports/conversations-memory.md
+related:
+  - "[[wiki/concepts/three-physics]]"
 created: 2026-07-28
 last-updated: 2026-08-03
 ---

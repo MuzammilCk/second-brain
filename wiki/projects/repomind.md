@@ -3,8 +3,10 @@ title: Repo Mind
 type: project
 status: active
 stack: FastAPI, Python, Google Gemini, FAISS, SeaGOAT, CodeQL CLI, GitPython
-sources: mirror/project-sync/cli/README.md, mirror/project-sync/cli/context.md
-related: [[wiki/people/muzammil-ck]]
+sources:
+  - mirror/project-sync/cli/README.md
+  - mirror/project-sync/cli/context.md
+related: []
 created: 2026-08-03
 last-updated: 2026-08-03
 ---
@@ -32,3 +34,7 @@ Repo Mind utilizes a **Dual-Gear Architecture** to comply with API rate limit co
 - `memory/`: FAISS vector DB indexer and conversation history log operations.
 - `utils/`: Structured JSON logging and metrics gathering.
 - `workspace/`: local working files for cloned source repositories.
+
+## Historical Decisions & Pivots
+See the complete list of system designs and code changes in [[repomind-decisions|Repo Mind Decision Log]].
+

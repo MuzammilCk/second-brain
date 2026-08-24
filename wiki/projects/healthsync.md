@@ -3,8 +3,9 @@ title: HealthSync
 type: project
 status: active
 stack: React, Vite, Tailwind CSS, Express, Node.js, MongoDB, Socket.IO, Stripe, OpenRouter
-sources: mirror/project-sync/HealthCare-main/README.md
-related: [[wiki/people/muzammil-ck]]
+sources:
+  - mirror/project-sync/HealthCare-main/README.md
+related: []
 created: 2026-08-03
 last-updated: 2026-08-03
 ---
@@ -26,3 +27,7 @@ The project includes a seeded database containing 140 real doctors spanning five
 - **Payments Gateway**: Integrated Stripe test checkout alongside a simulated local mock payment gateway for offline-first testing.
 - **Real-Time Client Updates**: Uses Socket.IO to broadcast calendar updates, reschedule notifications, and queue shifts.
 - **Structured Access Control**: Implements JWT-secured express sessions stored in httpOnly cookies, paired with individual resource-ownership verification.
+
+## Historical Decisions & Pivots
+See the complete list of system designs and code changes in [[healthsync-decisions|HealthSync Decision Log]].
+

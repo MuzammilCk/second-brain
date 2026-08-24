@@ -3,8 +3,9 @@ title: Zero-Trust Multiagent ESG Audit System
 type: project
 status: active
 stack: LangGraph, Qdrant, OpenAI, Microsoft Presidio, C2PA, AWS Nitro Enclaves, PyRIT, Kubernetes, Ray, FastAPI, Python
-sources: mirror/project-sync/esg-audit-system/README.md
-related: [[wiki/people/muzammil-ck]]
+sources:
+  - mirror/project-sync/esg-audit-system/README.md
+related: []
 created: 2026-08-03
 last-updated: 2026-08-03
 ---
@@ -27,3 +28,7 @@ The Zero-Trust Multiagent ESG Audit System is an enterprise-grade AI engineering
 3. **PII Masking Node**: Strips sensitive data using Microsoft Presidio and maps the output back locally.
 4. **Compliance Analysis Node**: Evaluates document content against SEC rules, CSRD, and CBAM guidelines using GPT-4.
 5. **Reporting Node**: Compiles evidence-backed markdown audit reports.
+
+## Historical Decisions & Pivots
+See the complete list of system designs and code changes in [[esg-audit-system-decisions|Zero-Trust Multiagent ESG Audit System Decision Log]].
+

@@ -13,6 +13,6 @@ Curated knowledge base — the edited, organized, and interconnected layer of th
 
 ## Conventions
 
-- Use `[[wikilinks]]` for internal references
+- Use wiki links (`[[target-page]]`) for internal references
 - Keep each page focused and atomic
 - Update `log.md` when making significant changes

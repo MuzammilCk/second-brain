@@ -1,8 +1,11 @@
 ---
 title: 3D Web Physics and Rendering
 type: concept
-sources: raw/claude-exports/Refactoring-a-3D-portfolio-to-enterprise-grade.md, raw/claude-exports/conversations-memory.md
-related: [[wiki/projects/realme]], [[wiki/people/muzammil-ck]]
+sources:
+  - raw/claude-exports/Refactoring-a-3D-portfolio-to-enterprise-grade.md
+  - raw/claude-exports/conversations-memory.md
+related:
+  - "[[wiki/projects/realme]]"
 created: 2026-07-28
 last-updated: 2026-08-03
 ---

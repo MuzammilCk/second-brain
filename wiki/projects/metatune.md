@@ -3,8 +3,12 @@ title: MetaTune AutoML Platform
 type: project
 status: active
 stack: Python, PyTorch, Streamlit, Google Vizier
-sources: raw/claude-exports/Integrating-Google-Vizier-with-MetaTune-hyperparameter-optim.md, raw/claude-exports/MetaTune-implementation-phases-and-validation.md, raw/claude-exports/conversations-memory.md
-related: [[wiki/concepts/automl]], [[wiki/people/muzammil-ck]]
+sources:
+  - raw/claude-exports/Integrating-Google-Vizier-with-MetaTune-hyperparameter-optim.md
+  - raw/claude-exports/MetaTune-implementation-phases-and-validation.md
+  - raw/claude-exports/conversations-memory.md
+related:
+  - "[[wiki/concepts/automl]]"
 created: 2026-02-03
 last-updated: 2026-08-03
 ---

@@ -7,8 +7,7 @@ sources:
   - mirror/project-sync/hadi/context.md
   - mirror/project-sync/hadi/diff.md
   - mirror/project-sync/hadi/CLAUDE.md
-related:
-  - wiki/people/muzammil-ck.md
+related: []
 created: 2026-03-27
 last-updated: 2026-08-03
 ---

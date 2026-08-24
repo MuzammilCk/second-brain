@@ -3,8 +3,10 @@ title: MASM Studio
 type: project
 status: active
 stack: React, Monaco Editor, Express, Node.js, TypeScript, MongoDB, Redis, Gemini, LangChain
-sources: mirror/project-sync/MasM8086/README.md, mirror/project-sync/MasM8086/CLAUDE.md
-related: [[wiki/people/muzammil-ck]]
+sources:
+  - mirror/project-sync/MasM8086/README.md
+  - mirror/project-sync/MasM8086/CLAUDE.md
+related: []
 created: 2026-08-03
 last-updated: 2026-08-03
 ---
@@ -25,3 +27,7 @@ The project is currently undergoing a structural refactor to transition its simu
 The original MVP relied on a language model to simulate CPU execution and improvise register values. To prevent logic errors and syntax hallucinations during classroom integration, the system is migrating to:
 - A deterministic, local interpreter acting as the core simulator.
 - Constraining the LLM's role to educational narration of the interpreter's output and fixing assembly errors.
+
+## Historical Decisions & Pivots
+See the complete list of system designs and code changes in [[masm-studio-decisions|MASM Studio Decision Log]].
+
