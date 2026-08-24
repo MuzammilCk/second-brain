@@ -2,29 +2,32 @@
 
 Vault configuration and documentation guidelines. Keep under 100 lines. Refer to `.claude/rules/` for details.
 
-## 1. Project Structure
-- `raw/`: Locked directory containing raw, one-time data exports. Never attempt to write or edit files there.
-- `mirror/`: Refreshable copies of project files. Safe to write to only via the `/sync-projects` command.
+## 1. Project Structure & Security
+- `raw/`: Locked directory containing raw, immutable exports (Claude, ChatGPT, Notion). Never write or edit files there directly; use `.claude/scripts/extract_exports.py` to unpack.
+- `mirror/`: Refreshable copies of project files (local sibling repos & GitHub). Safe to update only via `/sync-projects` or `scripts/automate-codex.ps1 -Task sync`.
 - `wiki/`: Domain space fully owned by Claude/user editing.
   - `wiki/index.md`: The main entrypoint and index for the entire knowledge vault.
   - `wiki/log.md`: The running journal of updates and changes.
-- `priorities.md`: Vault root, user-owned steering file (Projects/Areas/Resources/Archive). Claude reads it; may only propose edits (ask-gated), typically during `/debrief`. Pushed to GitHub.
+  - `wiki/projects/`: Project overviews (`<slug>.md`) and append-only decision logs (`<slug>-decisions.md`).
+  - `wiki/concepts/`: Atomic engineering concepts and technical notes.
+  - `wiki/placements/`: DSA tracker, mock interview feedback, and company recruitment pipelines.
+- `priorities.md`: Vault root, user-owned steering file (Projects/Areas/Resources/Archive). Claude reads it; may only propose edits (ask-gated), typically during `/debrief`. Pushed to GitHub `main`.
 - `people.md`: Vault root, user-owned Key People file. Same read / propose-only rules as `priorities.md`. **Gitignored** — never reaches GitHub.
-- Refer to `.claude/rules/` for folder-specific page-type conventions (projects, concepts, placements).
+- `scripts/`: Automation controllers and launcher scripts (`automate-codex.ps1`, `claude-run.ps1`). **Gitignored**.
+- `.docs/`: Archived build ledgers, audit prompts, and guides. **Gitignored**.
 
-## 2. Style Guide
+## 2. Style Guide & Rules
 - Write clear, concise prose using bullet points.
 - Attribute every claim to a source. Explicitly document contradictions rather than picking a favorite view.
 - Every page must be atomic (focusing on one single idea or entity).
 - Use [[wiki-links]] to interconnect pages.
-- People pages (`wiki/people/<name>.md`) require only:
-  - Name as title.
-  - How the person is known.
-  - Which projects, concepts, or topics connect to them.
-  - Sources.
+- People pages (`wiki/people/<name>.md`) require only: Name as title, how known, connected projects/topics, sources.
   - Note: `wiki/people/` is strictly for people other than the vault owner. Never create a self-referential profile page there. Vault owner bio/steering lives in `people.md` (private) and `priorities.md`.
-- No separate rules file is required for `wiki/people/`.
+- All automated tasks and commits target the `main` branch.
 
-## 3. Domain Context
-The user actively tracks 13 projects across the vault (primary focus: `ytclfr`, `metatune`, `invoice-studio`, `realme`, alongside `repomind`, `esg-audit-system`, `assetflow`, `masm-studio`, `healthsync`, `crisissignal`, `fitness-platform`, and family ventures `hadi`, `viva`). They want to instantly pull up architectural decisions and implementation history from past work. In addition to these projects, they are preparing for campus placements (DSA, system design) and sharpening DevOps & cloud skills.
+## 3. Core Commands & Skills
+All 11 skills are loaded in `.claude/commands/` and `.agents/skills/`:
+`/briefing`, `/debrief`, `/review`, `/decide`, `/log`, `/sync-projects`, `/ingest`, `/standup`, `/lint`, `/pull-sources`, `/query`.
 
+## 4. Domain Context
+The user actively tracks 13+ projects across the vault (primary focus: `ytclfr`, `metatune`, `invoice-studio`, `realme`, alongside `repomind`, `esg-audit-system`, `assetflow`, `masm-studio`, `healthsync`, `crisissignal`, `fitness-platform`, `browser-agent`, and family ventures `hadi`, `viva`). They want to instantly pull up architectural decisions and implementation history from past work. In addition to these projects, they are actively preparing for campus placements (DSA mastery, system design) and sharpening DevOps & cloud skills.
