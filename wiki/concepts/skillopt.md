@@ -1,8 +1,12 @@
 ---
 title: SkillOpt — Self-Evolving Agent Skills
 type: concept
-sources: https://github.com/microsoft/skillopt, https://microsoft.github.io/SkillOpt/docs/guideline.html, arXiv:2605.23904
-related: [[wiki/concepts/automl]]
+sources:
+  - https://github.com/microsoft/skillopt
+  - https://microsoft.github.io/SkillOpt/docs/guideline.html
+  - arXiv:2605.23904
+related:
+  - "[[wiki/concepts/automl]]"
 created: 2026-08-12
 last-updated: 2026-08-12
 ---

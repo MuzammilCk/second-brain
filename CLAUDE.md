@@ -20,9 +20,10 @@ Vault configuration and documentation guidelines. Keep under 100 lines. Refer to
 - Write clear, concise prose using bullet points.
 - Attribute every claim to a source. Explicitly document contradictions rather than picking a favorite view.
 - Every page must be atomic (focusing on one single idea or entity).
-- Use [[wiki-links]] to interconnect pages.
-- People pages (`wiki/people/<name>.md`) require only: Name as title, how known, connected projects/topics, sources.
-  - Note: `wiki/people/` is strictly for people other than the vault owner. Never create a self-referential profile page there. Vault owner bio/steering lives in `people.md` (private) and `priorities.md`.
+- Use `[[wiki-links]]` to interconnect pages.
+- **Frontmatter Syntax**: Use valid YAML block lists for `sources:` and `related:`, and always quote wikilinks in frontmatter (`- "[[wiki/concepts/...]]"`). Never write unquoted bracket strings.
+- **No Self-Referential Links**: `wiki/people/` is strictly for external people. Never link to `[[wiki/people/muzammil-ck]]` (owner bio lives in `people.md`/`priorities.md`). Never write raw `[[PLACEHOLDER]]`.
+- **Project Parity**: Every project overview (`wiki/projects/<slug>.md`) must link to its decision log (`[[<slug>-decisions|<Title> Decision Log]]`).
 - All automated tasks and commits target the `main` branch.
 
 ## 3. Core Commands & Skills
