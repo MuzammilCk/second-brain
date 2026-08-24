@@ -1,8 +1,10 @@
 ---
-source: project-sync
-project: useMe
-original-path: D:\projects\useMe\README.md
-synced: 2026-08-03
+source: github-api
+project: "useMe"
+language: "TypeScript"
+updated: 2026-04-10
+synced: 2026-08-24
+url: "https://github.com/MuzammilCk/useMe"
 ---
 
 # useMe
