@@ -1,4 +1,4 @@
-"""
+r"""
 Automated Project Sync for Codex Vault
 Mirrors CLAUDE.md, context.md, and diff.md from sibling repositories in D:\projects
 into mirror/project-sync/<project-name>/ with standardized frontmatter.
