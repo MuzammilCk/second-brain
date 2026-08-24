@@ -2,6 +2,10 @@
 
 Chronological log of significant changes and decisions in this vault.
 
+- **2026-08-24 - briefing ran**: 0 events; 3 active projects; placement prep & DSA active
+- **2026-08-24 - auto project-sync**: Synced 5 files across 11 projects (cli, Echo, hackathon-starter, hadi)
+- **2026-08-24 - briefing ran**: 0 calendar events; 3 active projects (ytclfr, MetaTune, AI Invoice Studio); placement prep & DSA active; no blockers
+
 - **2026-08-24 - vault audit & security hardening**: Remediated findings from vault audit. Isolated OmniRoute gateway credentials to untracked `.claude/settings.local.json`, added `.codex/config.toml.example` and gitignored `.codex/config.toml`. Tightened `/sync-projects` matching rule and pruned 15 bare-README mirror directories. Deleted self-referential `wiki/people/muzammil-ck.md` profile and added explicit constraint to `CLAUDE.md`/`AGENTS.md`. Gitignored private family businesses (`hadi`, `hadi_old`, `viva`) and student dossiers (`wiki/people/`, `wiki/placements/`). Synchronized all 11 slash commands into `.agents/skills/`.
 - **2026-08-22 - multi-agent expansion**: Added `AGENTS.md`, `.codex/config.toml`, and `.agents/skills/` infrastructure to support OpenAI Codex and Antigravity agents alongside Claude Code.
 - **2026-08-18 - scaffold recovery**: Recovered `.claude/` scaffold (17 files) that had been accidentally deleted in the working tree, restored from git HEAD/reflog with clean tree.
