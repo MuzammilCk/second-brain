@@ -22,7 +22,9 @@ Vault configuration and documentation guidelines. Keep under 100 lines. Refer to
   - How the person is known.
   - Which projects, concepts, or topics connect to them.
   - Sources.
+  - Note: `wiki/people/` is strictly for people other than the vault owner. Never create a self-referential profile page there. Vault owner bio/steering lives in `people.md` (private) and `priorities.md`.
 - No separate rules file is required for `wiki/people/`.
 
 ## 3. Domain Context
-The user is actively building three projects: `ytclfr` (a video intelligence pipeline), `portfolio`, and `metatune automl`. They want to be able to instantly pull up everything from their own past work when working through technical decisions. Aside from these projects, they are looking to sharpen their skills in DevOps, cloud computing, and specific technical tools. They rely on code history and architectural logs to inform future technical paths.
+The user actively tracks 13 projects across the vault (primary focus: `ytclfr`, `metatune`, `invoice-studio`, `realme`, alongside `repomind`, `esg-audit-system`, `assetflow`, `masm-studio`, `healthsync`, `crisissignal`, `fitness-platform`, and family ventures `hadi`, `viva`). They want to instantly pull up architectural decisions and implementation history from past work. In addition to these projects, they are preparing for campus placements (DSA, system design) and sharpening DevOps & cloud skills.
+

@@ -2,9 +2,16 @@ raw/
 people.md
 mirror/*
 !mirror/project-sync/
+mirror/project-sync/hadi/
+mirror/project-sync/hadi_old/
+mirror/project-sync/viva/
+wiki/people/
+wiki/placements/
 journal/
+.claude/settings.json
 .claude/settings.local.json
 .claude/transcripts/
 .claude/workflows/
+.codex/config.toml
 *.ps1
 .obsidian
