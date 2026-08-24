@@ -14,4 +14,6 @@ journal/
 .claude/workflows/
 .codex/config.toml
 *.ps1
+scripts/
+.docs/
 .obsidian
