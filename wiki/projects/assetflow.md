@@ -5,8 +5,7 @@ status: shipped
 stack: React, Tailwind CSS, Node.js, Express, Supabase, Prisma, Recharts
 sources:
   - mirror/project-sync/Odoo-hackthon/README.md
-related:
-  - "[[wiki/placements/odoo-hackathon]]"
+related: []
 created: 2026-08-03
 last-updated: 2026-08-03
 ---

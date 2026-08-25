@@ -5,8 +5,7 @@ sources:
   - raw/claude-exports/ytclfr.md
   - raw/claude-exports/Building-ytclfr-v2-with-staged-signal-analysis.md
   - raw/claude-exports/Ytclfr-v3-audit-and-performance-optimization-plan-review.md
-related:
-  - "[[wiki/projects/ytclfr]]"
+related: []
 created: 2026-02-28
 last-updated: 2026-08-03
 ---
@@ -17,7 +16,7 @@ Video intelligence pipelines process raw video files to extract structured seman
 
 ## Staged Signal Analysis Architecture
 
-A modern optimized pipeline mitigates compute waste by structuring analysis into chronological progressive gates. This was a core architectural change from V1 to V2 in the [[wiki/projects/ytclfr|ytclfr]] project.
+A modern optimized pipeline mitigates compute waste by structuring analysis into chronological progressive gates. This was a core architectural change from V1 to V2 in the [[ytclfr|ytclfr]] project.
 
 ```
 Raw Media URL

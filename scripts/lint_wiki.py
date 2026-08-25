@@ -54,6 +54,10 @@ def lint_wiki() -> int:
                 rel_path = full_path.relative_to(WIKI_DIR).as_posix()
                 all_files[rel_path] = full_path
                 all_files[os.path.splitext(rel_path)[0]] = full_path
+                # Also index by bare stem so [[ytclfr]] resolves regardless of subdir
+                stem = os.path.splitext(f)[0]
+                if stem not in all_files:
+                    all_files[stem] = full_path
 
     print(f"📑 Indexed {len(all_files)} markdown files & slug keys in wiki.")
 

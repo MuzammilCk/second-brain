@@ -4,8 +4,7 @@ type: concept
 sources:
   - raw/claude-exports/Refactoring-a-3D-portfolio-to-enterprise-grade.md
   - raw/claude-exports/conversations-memory.md
-related:
-  - "[[wiki/projects/realme]]"
+related: []
 created: 2026-07-28
 last-updated: 2026-08-03
 ---
@@ -35,7 +34,7 @@ Where:
 ### 2. Constraints & Springs
 - Points in a grid (representing segments of paper or fabric) are linked via structural constraints.
 - Iterative math solvers adjust distances back to resting values on each render loop frame.
-- Drag handlers attach to the nearest grid nodes, allowing users to physically "pull" and fold textures. In the [[wiki/projects/realme|RealMe]] project, this Verlet simulator was implemented under `PagePhysics.tsx` inside the diary page-turn layout.
+- Drag handlers attach to the nearest grid nodes, allowing users to physically "pull" and fold textures. In the [[realme|RealMe]] project, this Verlet simulator was implemented under `PagePhysics.tsx` inside the diary page-turn layout.
 
 ## Rendering Optimization for Mobile & Tier-2 Devices
 

@@ -5,8 +5,7 @@ sources:
   - https://github.com/microsoft/skillopt
   - https://microsoft.github.io/SkillOpt/docs/guideline.html
   - arXiv:2605.23904
-related:
-  - "[[wiki/concepts/automl]]"
+related: []
 created: 2026-08-12
 last-updated: 2026-08-12
 ---
@@ -94,6 +93,6 @@ The **pipeline works end-to-end** on this machine (mock runs cleanly). What's mi
 
 ## Integration Ideas
 
-- Run the sleep cycle nightly against an actively developed project (e.g. [[wiki/projects/ytclfr]]) after a few weeks of sessions accumulate — the miner needs recurring tasks to be useful.
+- Run the sleep cycle nightly against an actively developed project (e.g. [[ytclfr]]) after a few weeks of sessions accumulate — the miner needs recurring tasks to be useful.
 - Use `--target-skill-path` to point adoption at a real project `SKILL.md` instead of the managed skill.
 - Wire `--tasks-file` review flow for sensitive projects (inspect/redact before real backend).

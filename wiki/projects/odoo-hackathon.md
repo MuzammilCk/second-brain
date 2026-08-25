@@ -3,19 +3,12 @@ title: Odoo Hackathon 2026 Grand Finale
 type: project
 status: active
 stack: Odoo 17 (Python/OWL), PostgreSQL
-team:
-  - Muzammil CK
-  - Pranav
-  - Adharsh
-  - Akhileswar
 sources:
-  - "[[wiki/placements/odoo-hackathon]]"
-  - "[[wiki/placements/companies/odoo]]"
-  - "[[wiki/projects/assetflow]]"
+  - wiki/placements/odoo-hackathon.md
+  - wiki/placements/companies/odoo.md
 related:
-  - "[[wiki/placements/odoo-hackathon]]"
-  - "[[wiki/placements/companies/odoo]]"
-  - "[[wiki/projects/assetflow]]"
+  - "[[assetflow|AssetFlow]]"
+  - "[[odoo-hackathon|Odoo Hackathon Placement]]"
 created: 2026-08-25
 last-updated: 2026-08-25
 ---

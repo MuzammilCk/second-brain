@@ -4,8 +4,7 @@ type: concept
 sources:
   - raw/claude-exports/Integrating-Google-Vizier-with-MetaTune-hyperparameter-optim.md
   - raw/claude-exports/MetaTune-implementation-phases-and-validation.md
-related:
-  - "[[wiki/projects/metatune]]"
+related: []
 created: 2026-02-03
 last-updated: 2026-08-03
 ---
@@ -33,4 +32,4 @@ Rather than blindly performing brute-force parameters search (Grid/Random) or sl
 ### 3. Black-Box Optimization Platforms (e.g., Google Vizier)
 - **Framework**: Distributed systems built to optimize black-box functions. Comprises a server orchestrating studies and a client executing evaluations.
 - **Pythia Policies & Bandit Algorithms**: Advanced search configurations utilizing Gaussian Process (GP) regression, early stopping parameters (median stopping rule), and multi-armed bandit approaches to narrow search configurations in real-time.
-- Used in the [[wiki/projects/metatune|MetaTune]] project to scale parameter evaluations.
+- Used in the [[metatune|MetaTune]] project to scale parameter evaluations.

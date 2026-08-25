@@ -7,8 +7,7 @@ sources:
   - raw/claude-exports/ytclfr.md
   - raw/claude-exports/Building-ytclfr-v2-with-staged-signal-analysis.md
   - raw/claude-exports/Ytclfr-v3-audit-and-performance-optimization-plan-review.md
-related:
-  - "[[wiki/concepts/video-intelligence]]"
+related: []
 created: 2026-02-28
 last-updated: 2026-08-03
 ---
