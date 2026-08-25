@@ -1,0 +1,21 @@
+{
+  "projects": [
+    "**ytclfr** — ship the staged video-intelligence pipeline end-to-end: structured extraction from text-laden and silent videos. Target: TBD (set in weekly edit).",
+    "**MetaTune** — bring the AutoML platform to a usable state: dataset-aware hyperparameter optimization with Vizier-backed search-space strategies. Target: TBD.",
+    "**AI Invoice Studio** — complete the offline-first voice billing app: local STT sidecar + Ollama inference, migration off cloud. Target: TBD."
+  ],
+  "areas": [
+    "Placement prep — DSA tracker + confidence matrix, mock interviews, Odoo Hackathon finale follow-up.",
+    "DevOps & cloud skills — sharpen cloud/DevOps tooling alongside projects.",
+    "Local/offline-first AI — GGUF/Ollama/CPU inference, local ASR, OS-level automation.",
+    "Second brain upkeep — keep the Codex vault, wiki, and decision logs current."
+  ],
+  "resources": [
+    "AutoML & hyperparameter tuning",
+    "Video intelligence / staged analysis",
+    "Three.js physics & render loops",
+    "DSA & system design",
+    "Local LLM inference (quantized models, Indic NLP, ASR)"
+  ],
+  "archive": []
+}

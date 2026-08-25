@@ -4,6 +4,7 @@ Index of active, paused, and shipped engineering projects in the vault.
 
 ## Active Projects
 
+- **[[odoo-hackathon|Odoo Hackathon 2026 Grand Finale]]**: 24-hour in-person Odoo module hackathon (Team 583) at Gandhinagar; Odoo's primary SE recruitment pipeline. 5–6 Sep 2026.
 - **[[ytclfr|YouTube Content Lifter and Field Recognizer (ytclfr)]]**: Video intelligence pipeline (FastAPI/Celery) built to extract structured data from text-laden or silent videos.
 - **[[realme|RealMe (3D Portfolio)]]**: Narrative 3D web experience (React/Three.js/R3F) featuring procedural textures, Verlet cloth physics page turns, and gyro camera interactions.
 - **[[metatune|MetaTune AutoML Platform]]**: AI-driven, dataset-aware ML hyperparameter optimizer (Python/Streamlit/PyTorch) integrated with Google Vizier to select search-space strategies.

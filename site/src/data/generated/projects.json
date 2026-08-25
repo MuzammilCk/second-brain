@@ -1,0 +1,641 @@
+[
+  {
+    "slug": "assetflow",
+    "title": "AssetFlow",
+    "status": "shipped",
+    "stack": [
+      "React",
+      "Tailwind CSS",
+      "Node.js",
+      "Express",
+      "Supabase",
+      "Prisma",
+      "Recharts"
+    ],
+    "created": "2026-08-03T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": "[[wiki/people/muzammil-ck]], [[wiki/placements/odoo-hackathon]]",
+    "contentMd": "\r\n\r\n# AssetFlow\r\n\r\nAssetFlow is an enterprise-grade ERP-style workflow system for organizations managing physical resources, departments, and equipment maintenance. Built specifically within a tight 8-hour sprint for the **Odoo Hackathon 2026**, AssetFlow focuses on resolving operational bottlenecks such as booking conflicts, overlap rejections, and equipment maintenance tracking.\r\n\r\nThe project helped [[wiki/people/muzammil-ck|Muzammil Ck]] qualify as a finalist in the Odoo recruitment assessments.\r\n\r\n## Key Features\r\n- **Role-Based Workflows**: Tailored dashboard screens and authorization scopes for `Admin`, `Asset Manager`, `Department Head`, and `Employee`.\r\n- **Double-Allocation Prevention**: Algorithms preventing secondary allocations of already booked physical assets.\r\n- **Resource Calendar Booking**: Visual scheduler with built-in query checks to reject overlapping slots.\r\n- **Maintenance Kanban Board**: A 6-stage request tracking flow: `Pending` → `Approved` → `Technician Assigned` → `In Progress` → `Resolved`.\r\n- **Audit Cycles**: Structured schedules for asset inventory review, variance logging, and discrepancy management.\r\n- **Analytics Dashboard**: Aggregates utilization statistics, heatmaps, and system logs using Recharts.\r\n\r\n## System Stack & Database Config\r\n- Monorepo containing a React SPA frontend and a Node.js Express API.\r\n- PostgreSQL database hosted on Supabase, managed via Prisma ORM schemas.\r\n- Custom JWT auth session verification.\r\n",
+    "contentHtml": "<h1>AssetFlow</h1>\n<p>AssetFlow is an enterprise-grade ERP-style workflow system for organizations managing physical resources, departments, and equipment maintenance. Built specifically within a tight 8-hour sprint for the <strong>Odoo Hackathon 2026</strong>, AssetFlow focuses on resolving operational bottlenecks such as booking conflicts, overlap rejections, and equipment maintenance tracking.</p>\n<p>The project helped [[wiki/people/muzammil-ck|Muzammil Ck]] qualify as a finalist in the Odoo recruitment assessments.</p>\n<h2>Key Features</h2>\n<ul>\n<li><strong>Role-Based Workflows</strong>: Tailored dashboard screens and authorization scopes for <code>Admin</code>, <code>Asset Manager</code>, <code>Department Head</code>, and <code>Employee</code>.</li>\n<li><strong>Double-Allocation Prevention</strong>: Algorithms preventing secondary allocations of already booked physical assets.</li>\n<li><strong>Resource Calendar Booking</strong>: Visual scheduler with built-in query checks to reject overlapping slots.</li>\n<li><strong>Maintenance Kanban Board</strong>: A 6-stage request tracking flow: <code>Pending</code> → <code>Approved</code> → <code>Technician Assigned</code> → <code>In Progress</code> → <code>Resolved</code>.</li>\n<li><strong>Audit Cycles</strong>: Structured schedules for asset inventory review, variance logging, and discrepancy management.</li>\n<li><strong>Analytics Dashboard</strong>: Aggregates utilization statistics, heatmaps, and system logs using Recharts.</li>\n</ul>\n<h2>System Stack &amp; Database Config</h2>\n<ul>\n<li>Monorepo containing a React SPA frontend and a Node.js Express API.</li>\n<li>PostgreSQL database hosted on Supabase, managed via Prisma ORM schemas.</li>\n<li>Custom JWT auth session verification.</li>\n</ul>\n",
+    "decisions": [
+      {
+        "date": "2026-08-03",
+        "title": "Relational Integrity Over Custom Code for Allocation Guarding",
+        "context": "During the 8-hour hackathon, we needed to guarantee that a physical asset could not be allocated to two departments simultaneously or booked with overlapping timeframes without writing huge chunks of nested JS checking code.",
+        "decision": "Handled conflict constraints directly in PostgreSQL transactions using Prisma schemas:",
+        "alternatives": "Custom JS validation arrays (rejected due to race condition bugs during concurrent requests).",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 1
+  },
+  {
+    "slug": "crisissignal",
+    "title": "CrisisSignal",
+    "status": "active",
+    "stack": [
+      "Python 3.11",
+      "TensorFlow",
+      "Keras",
+      "TensorFlow Lite",
+      "Scikit-learn",
+      "SHAP",
+      "Pandas",
+      "NumPy",
+      "Streamlit",
+      "Kotlin",
+      "Android SDK",
+      "Flower"
+    ],
+    "created": "2026-07-10T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": [
+      "wiki/people/muzammil-ck.md"
+    ],
+    "contentMd": "\r\n# CrisisSignal\r\n\r\nCrisisSignal is a passive, on-device AI early-warning system developed for student mental health crises. The system uses behavioral indicators (gps data, sleep patterns, typing, call stats, and social media activity) to flag behavioral anomalies 5–7 days before a crisis peaks.\r\n\r\nConstructed for the **AI For Good 2026** competition (helmed by the Connecting Dreams Foundation), the prototype aims to provide a proactive, cost-free, and privacy-first student wellness system.\r\n\r\n## System Architecture\r\n\r\n### Processing Pipeline\r\n1. **Feature Extraction**: Takes datasets (built on the Dartmouth StudentLife logs) and processes them (`preprocess.py`) into 30-day sliding windows containing 5 crucial features: GPS mobility, social engagement, typing error variance, call drop frequency, and sleep disruption.\r\n2. **LSTM Autoencoder Model**: An anomaly detection baseline (`train_lstm.py` generating `baseline_lstm.h5`) trained exclusively on data representing normal behavior.\r\n3. **Android Quantization (TFLite)**: Quantized neural maps (`export_tflite.py` creating `crisissignal_v1.tflite`) ensuring fast, native execution on low-cost smartphones without network latency.\r\n4. **Anonymized Action Dashboard**: Streamlit interface rendering 7-day risk trajectories, explaining outputs using SHAP values for accountability.\r\n\r\n## Privacy Model\r\nCrisisSignal runs user behavior inference strictly on-device to protect student identities. Global model training is coordinated utilizing **Flower (flwr)**, a federated learning framework that communicates localized gradient data rather than raw user logs.\r\n\r\n## Historical Decisions & Pivots\r\nSee the complete list of system designs and code changes in [[crisissignal-decisions|CrisisSignal Decision Log]].\r\n",
+    "contentHtml": "<h1>CrisisSignal</h1>\n<p>CrisisSignal is a passive, on-device AI early-warning system developed for student mental health crises. The system uses behavioral indicators (gps data, sleep patterns, typing, call stats, and social media activity) to flag behavioral anomalies 5–7 days before a crisis peaks.</p>\n<p>Constructed for the <strong>AI For Good 2026</strong> competition (helmed by the Connecting Dreams Foundation), the prototype aims to provide a proactive, cost-free, and privacy-first student wellness system.</p>\n<h2>System Architecture</h2>\n<h3>Processing Pipeline</h3>\n<ol>\n<li><strong>Feature Extraction</strong>: Takes datasets (built on the Dartmouth StudentLife logs) and processes them (<code>preprocess.py</code>) into 30-day sliding windows containing 5 crucial features: GPS mobility, social engagement, typing error variance, call drop frequency, and sleep disruption.</li>\n<li><strong>LSTM Autoencoder Model</strong>: An anomaly detection baseline (<code>train_lstm.py</code> generating <code>baseline_lstm.h5</code>) trained exclusively on data representing normal behavior.</li>\n<li><strong>Android Quantization (TFLite)</strong>: Quantized neural maps (<code>export_tflite.py</code> creating <code>crisissignal_v1.tflite</code>) ensuring fast, native execution on low-cost smartphones without network latency.</li>\n<li><strong>Anonymized Action Dashboard</strong>: Streamlit interface rendering 7-day risk trajectories, explaining outputs using SHAP values for accountability.</li>\n</ol>\n<h2>Privacy Model</h2>\n<p>CrisisSignal runs user behavior inference strictly on-device to protect student identities. Global model training is coordinated utilizing <strong>Flower (flwr)</strong>, a federated learning framework that communicates localized gradient data rather than raw user logs.</p>\n<h2>Historical Decisions &amp; Pivots</h2>\n<p>See the complete list of system designs and code changes in [[crisissignal-decisions|CrisisSignal Decision Log]].</p>\n",
+    "decisions": [
+      {
+        "date": "2026-07-12",
+        "title": "DR-CS-01: Anomaly-Based Autoencoder Schema",
+        "context": "Standard supervised learning maps require labeled dataset records for target crises, which are scarce, subjective, highly imbalanced, and carry validation issues.",
+        "decision": "Implemented an unsupervised anomaly detection mapping utilizing an LSTM Autoencoder configuration. The model is trained purely on normal/baseline behavioral data to learn reconstruction representations; high reconstruction error is flagged as a crisis anomaly.",
+        "alternatives": "Supervised Multi-Layer Perceptrons (MLPs) or Random Forests (rejected due to severe class imbalance issues and target label volatility).",
+        "status": "active"
+      },
+      {
+        "date": "2026-07-20",
+        "title": "DR-CS-02: Privacy-Preserving Federated Learning Core",
+        "context": "Centralizing raw behavioral indicators (such as location trails, text sequences, and sleep times) on cloud databases presents a severe student privacy risk.",
+        "decision": "Configured a decentralized model using Flower (`flwr`) to coordinate weights updates. All inference and behavioral analysis occur locally on the student's device, and only model parameters are sent to the coordination server.",
+        "alternatives": "Centralized SQL storage with database encryption (rejected; still vulnerable to admin leakage and subpoena risk).",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 2
+  },
+  {
+    "slug": "esg-audit-system",
+    "title": "Zero-Trust Multiagent ESG Audit System",
+    "status": "active",
+    "stack": [
+      "LangGraph",
+      "Qdrant",
+      "OpenAI",
+      "Microsoft Presidio",
+      "C2PA",
+      "AWS Nitro Enclaves",
+      "PyRIT",
+      "Kubernetes",
+      "Ray",
+      "FastAPI",
+      "Python"
+    ],
+    "created": "2026-08-03T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": [
+      [
+        "wiki/people/muzammil-ck"
+      ]
+    ],
+    "contentMd": "\r\n# Zero-Trust Multiagent ESG Audit System\r\n\r\nThe Zero-Trust Multiagent ESG Audit System is an enterprise-grade AI engineering portfolio application designed to automate ESG (Environmental, Social, Governance) compliance audits for multinational supply chains. The system is designed to secure computation, verify data provenance, and protect database queries while running complex multiagent analyses on unstructured supplier compliance documents.\r\n\r\n## Key Features\r\n- **Multiagent Compliance Audit**: Coordinates five autonomous agents using a LangGraph workflow to perform document parsing, compliance analysis, and reporting.\r\n- **Content Authenticity (C2PA)**: Checks cryptographic signatures to guarantee content provenance and identify AI-synthesized or tampered documentation.\r\n- **Confidential Computing**: Executes agents inside AWS Nitro Enclaves, isolating LLM execution from host environment access.\r\n- **Preemptive Cybersecurity & Red Teaming**: Detects prompt injection and adversarial behavior using Microsoft PyRIT campaigns and database honeypots.\r\n- **PII Algorithmic Masking**: Uses Microsoft Presidio and Redis mapping keys to anonymize personal data before text is sent to public AI APIs.\r\n- **Hybrid Semantic Search**: Integrates Qdrant for hybrid (dense/sparse) vector retrieval of regulatory frameworks.\r\n\r\n## Node-Graph Architecture (LangGraph Workflow)\r\n1. **Data Retrieval Node**: Pulls relevant regulatory materials from Qdrant vector databases.\r\n2. **Provenance Verification Node**: Ensures files match C2PA cryptographic specifications.\r\n3. **PII Masking Node**: Strips sensitive data using Microsoft Presidio and maps the output back locally.\r\n4. **Compliance Analysis Node**: Evaluates document content against SEC rules, CSRD, and CBAM guidelines using GPT-4.\r\n5. **Reporting Node**: Compiles evidence-backed markdown audit reports.\r\n",
+    "contentHtml": "<h1>Zero-Trust Multiagent ESG Audit System</h1>\n<p>The Zero-Trust Multiagent ESG Audit System is an enterprise-grade AI engineering portfolio application designed to automate ESG (Environmental, Social, Governance) compliance audits for multinational supply chains. The system is designed to secure computation, verify data provenance, and protect database queries while running complex multiagent analyses on unstructured supplier compliance documents.</p>\n<h2>Key Features</h2>\n<ul>\n<li><strong>Multiagent Compliance Audit</strong>: Coordinates five autonomous agents using a LangGraph workflow to perform document parsing, compliance analysis, and reporting.</li>\n<li><strong>Content Authenticity (C2PA)</strong>: Checks cryptographic signatures to guarantee content provenance and identify AI-synthesized or tampered documentation.</li>\n<li><strong>Confidential Computing</strong>: Executes agents inside AWS Nitro Enclaves, isolating LLM execution from host environment access.</li>\n<li><strong>Preemptive Cybersecurity &amp; Red Teaming</strong>: Detects prompt injection and adversarial behavior using Microsoft PyRIT campaigns and database honeypots.</li>\n<li><strong>PII Algorithmic Masking</strong>: Uses Microsoft Presidio and Redis mapping keys to anonymize personal data before text is sent to public AI APIs.</li>\n<li><strong>Hybrid Semantic Search</strong>: Integrates Qdrant for hybrid (dense/sparse) vector retrieval of regulatory frameworks.</li>\n</ul>\n<h2>Node-Graph Architecture (LangGraph Workflow)</h2>\n<ol>\n<li><strong>Data Retrieval Node</strong>: Pulls relevant regulatory materials from Qdrant vector databases.</li>\n<li><strong>Provenance Verification Node</strong>: Ensures files match C2PA cryptographic specifications.</li>\n<li><strong>PII Masking Node</strong>: Strips sensitive data using Microsoft Presidio and maps the output back locally.</li>\n<li><strong>Compliance Analysis Node</strong>: Evaluates document content against SEC rules, CSRD, and CBAM guidelines using GPT-4.</li>\n<li><strong>Reporting Node</strong>: Compiles evidence-backed markdown audit reports.</li>\n</ol>\n",
+    "decisions": [
+      {
+        "date": "2026-03-15",
+        "title": "Selecting LangGraph for Orchestrating State Loops",
+        "context": "Auditing ESG supply chains requires a strictly reviewable, non-hallucinated progression of steps (provenance -> PII masking -> RAG compilation -> audit analysis -> human approval).",
+        "decision": "Selected LangGraph over CrewAI for core multiagent orchestration.",
+        "alternatives": "",
+        "status": "active"
+      },
+      {
+        "date": "2026-03-20",
+        "title": "Qdrant Select for Data Residency Compliance",
+        "context": "Multinational corporate audits involve sensitive supplier records subject to regulatory data residency mandates (e.g., GDPR in the EU).",
+        "decision": "Selected Qdrant over Pinecone as the target vector database for standard retriever workflows.",
+        "alternatives": "Pinecone (rejected as it is a SaaS-only engine that forces data outbound to third-party hosts).",
+        "status": "active"
+      },
+      {
+        "date": "2026-03-25",
+        "title": "Type-Safe Structured Finding Output Via Function Calling",
+        "context": "Compliance audit findings must be programmatically processed to update dashboard statistics, trigger alerts, and populate templates.",
+        "decision": "Implemented GPT-4 function calling to enforce strict Pydantic models on outputs.",
+        "alternatives": "Free-form text parsing using regular expressions (rejected due to high rate of formatting drift in LLM output).",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 3
+  },
+  {
+    "slug": "fitness-platform",
+    "title": "Fitness Platform",
+    "status": "active",
+    "stack": [
+      "Next.js 15",
+      "NestJS",
+      "Turborepo",
+      "pnpm",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "Zod",
+      "Vitest"
+    ],
+    "created": "2026-06-15T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": [
+      "wiki/people/muzammil-ck.md"
+    ],
+    "contentMd": "\r\n# Fitness Platform (useMe)\r\n\r\nThe Fitness Platform (useMe) is an enterprise-grade fitness tracking and training coordination system built as a type-safe TypeScript monorepo using Turborepo and pnpm.\r\n\r\nEnd-to-end type safety connects database schemas, backend services, validation pipes, and frontend applications.\r\n\r\n## Technical Architecture\r\n\r\n### Monorepo Structure\r\n- **apps/web**: Next.js 15 App Router frontend using TailwindCSS and React components.\r\n- **apps/api**: NestJS REST API microservice serving endpoint requests.\r\n- **packages/db**: Drizzle ORM mappings, seeder modules, and database migration templates.\r\n- **packages/types**: Shared API request and response models.\r\n- **packages/config**: Core Zod schema validations for client environments.\r\n\r\n### Key Milestones\r\n- **Phase 1 (Schema-Driven Setup)**: Structured all 17 target database tables (governing users, muscle groups, workout templates, progress logs, and macros profiles) in Drizzle. Generated schema validations via `drizzle-zod` and shared them as global `@fitness/types` package bindings.\r\n- **Exception Filters**: Custom NestJS error interceptors mapping all raw Zod validations into unified, structured `ApiResponse<T>` wrappers.\r\n\r\n## Historical Decisions & Pivots\r\nSee the complete list of system designs and code changes in [[fitness-platform-decisions|Fitness Platform Decision Log]].\r\n",
+    "contentHtml": "<h1>Fitness Platform (useMe)</h1>\n<p>The Fitness Platform (useMe) is an enterprise-grade fitness tracking and training coordination system built as a type-safe TypeScript monorepo using Turborepo and pnpm.</p>\n<p>End-to-end type safety connects database schemas, backend services, validation pipes, and frontend applications.</p>\n<h2>Technical Architecture</h2>\n<h3>Monorepo Structure</h3>\n<ul>\n<li><strong>apps/web</strong>: Next.js 15 App Router frontend using TailwindCSS and React components.</li>\n<li><strong>apps/api</strong>: NestJS REST API microservice serving endpoint requests.</li>\n<li><strong>packages/db</strong>: Drizzle ORM mappings, seeder modules, and database migration templates.</li>\n<li><strong>packages/types</strong>: Shared API request and response models.</li>\n<li><strong>packages/config</strong>: Core Zod schema validations for client environments.</li>\n</ul>\n<h3>Key Milestones</h3>\n<ul>\n<li><strong>Phase 1 (Schema-Driven Setup)</strong>: Structured all 17 target database tables (governing users, muscle groups, workout templates, progress logs, and macros profiles) in Drizzle. Generated schema validations via <code>drizzle-zod</code> and shared them as global <code>@fitness/types</code> package bindings.</li>\n<li><strong>Exception Filters</strong>: Custom NestJS error interceptors mapping all raw Zod validations into unified, structured <code>ApiResponse&lt;T&gt;</code> wrappers.</li>\n</ul>\n<h2>Historical Decisions &amp; Pivots</h2>\n<p>See the complete list of system designs and code changes in [[fitness-platform-decisions|Fitness Platform Decision Log]].</p>\n",
+    "decisions": [
+      {
+        "date": "2026-06-20",
+        "title": "DR-FIT-01: Shared Schema-Driven Type Safety",
+        "context": "Duplicating type validation structures across database queries, Express controllers, and frontend widgets results in syntax fragmentation, interface schema lag, and constant deployment friction.",
+        "decision": "Configured a Turborepo library system sharing schema rules. Database definitions are managed in Drizzle (`packages/db`), which generates Zod schema validators (`drizzle-zod`) shared directly via the package `@fitness/types` to NestJS and Next.js layers.",
+        "alternatives": "Manual type generation/duplication (rejected; error-prone); generating schemas from TypeScript types (lacked run-time assertion properties).",
+        "status": "active"
+      },
+      {
+        "date": "2026-06-25",
+        "title": "DR-FIT-02: global-exception.filter exception mapping",
+        "context": "NestJS native validation pipelines emit varied validation payloads, while frontend consumers require a standardized, structured API contract (`ApiResponse<T>`).",
+        "decision": "Wrote a unified global exception filter in `apps/api` mapping standard HTTP errors, raw `ZodError` payloads, and `nestjs-zod` wrapped exceptions into a consistent container layout containing `success`, `data`, and `error` parameters.",
+        "alternatives": "Handling exceptions individually inside each controller endpoint (rejected; violates DRY principles and creates audit/conformity issues).",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 2
+  },
+  {
+    "slug": "hadi",
+    "title": "Hadi Perfumes",
+    "status": "active",
+    "stack": [
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "TypeORM",
+      "BullMQ",
+      "Redis",
+      "Stripe",
+      "SQLite"
+    ],
+    "created": "2026-03-27T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": [
+      "wiki/people/muzammil-ck.md"
+    ],
+    "contentMd": "\r\n# Hadi Perfumes Backend\r\n\r\nHadi Perfumes is a production-grade, FTC-compliant, MLM-enabled eCommerce application backend. Operating on a NestJS modular monolithic architecture, the system is designed to allow participants to refer members and earn commission payments purely based on verified retail sales transactions.\r\n\r\nOriginally designed with a peer-to-peer (P2P) marketplace, it was architecturally pivoted in Phase 4 to constrain all catalog item creation exclusively to the company administrator account (single-vendor configuration).\r\n\r\n## System Architecture\r\n\r\n### Modularity\r\nThe codebase is structured inside NestJS module compartments to facilitate later microservice extraction. It tracks database modifications using versioned TypeORM migrations.\r\n\r\n### Core Pipelines\r\n1. **Rules Engine**: Model-based, deterministic rules database tables (`CompensationPolicyVersion`, `CommissionRule`, `RankRule`, and `ComplianceDisclosure`) that calculate upline commissions without hardcoding math inside service functions.\r\n2. **Onboarding & Referrals**: SMS/OTP mobile verification flow, strict coupon-code referral tracking, and graph invariants preventing loop or self-reference exploits.\r\n3. **Materialized Path Graph**: Materialized path maps (`network_nodes.upline_path`) maintaining linear parent-child paths, resolving ancestral lookups in O(1) database queries.\r\n4. **Volume Ledger & Checkout**: Idempotent orders processor, atomic database stock reservation logic with 15-minute TTL constraints, and custom database events auditing.\r\n\r\n## Historical Decisions & Pivots\r\nSee the complete list of system designs and code changes in [[hadi-decisions|Hadi Perfumes Decision Log]].\r\n",
+    "contentHtml": "<h1>Hadi Perfumes Backend</h1>\n<p>Hadi Perfumes is a production-grade, FTC-compliant, MLM-enabled eCommerce application backend. Operating on a NestJS modular monolithic architecture, the system is designed to allow participants to refer members and earn commission payments purely based on verified retail sales transactions.</p>\n<p>Originally designed with a peer-to-peer (P2P) marketplace, it was architecturally pivoted in Phase 4 to constrain all catalog item creation exclusively to the company administrator account (single-vendor configuration).</p>\n<h2>System Architecture</h2>\n<h3>Modularity</h3>\n<p>The codebase is structured inside NestJS module compartments to facilitate later microservice extraction. It tracks database modifications using versioned TypeORM migrations.</p>\n<h3>Core Pipelines</h3>\n<ol>\n<li><strong>Rules Engine</strong>: Model-based, deterministic rules database tables (<code>CompensationPolicyVersion</code>, <code>CommissionRule</code>, <code>RankRule</code>, and <code>ComplianceDisclosure</code>) that calculate upline commissions without hardcoding math inside service functions.</li>\n<li><strong>Onboarding &amp; Referrals</strong>: SMS/OTP mobile verification flow, strict coupon-code referral tracking, and graph invariants preventing loop or self-reference exploits.</li>\n<li><strong>Materialized Path Graph</strong>: Materialized path maps (<code>network_nodes.upline_path</code>) maintaining linear parent-child paths, resolving ancestral lookups in O(1) database queries.</li>\n<li><strong>Volume Ledger &amp; Checkout</strong>: Idempotent orders processor, atomic database stock reservation logic with 15-minute TTL constraints, and custom database events auditing.</li>\n</ol>\n<h2>Historical Decisions &amp; Pivots</h2>\n<p>See the complete list of system designs and code changes in [[hadi-decisions|Hadi Perfumes Decision Log]].</p>\n",
+    "decisions": [
+      {
+        "date": "2026-03-27",
+        "title": "DR-HADI-01: Immutable Metadata-Based Rules Engine",
+        "context": "Multi-level marketing (MLM) math changes frequently. Hardcoding commission splits or levels directly inside the codebase would lead to continuous refactoring, redeploys, and audit gaps.",
+        "decision": "Constructed a database-driven, versioned, immutable rules schema comprising `CompensationPolicyVersion`, `CommissionRule`, `RankRule`, and `RuleAuditLog` tables. The codebase queries these rules dynamically during calculations.",
+        "alternatives": "JSON configuration files (rejected; lacks audit trails and database referential integrity); hardcoding plan coefficients (rejected).",
+        "status": "active"
+      },
+      {
+        "date": "2026-03-27",
+        "title": "DR-HADI-02: SQLite Testing Dialect Utility",
+        "context": "Integration tests run on an in-memory SQLite database, which does not support PostgreSQL-native types like `timestamptz`, `jsonb`, and `inet`, causing tests to crash with `DataTypeNotSupportedError`.",
+        "decision": "Created a conditional typing mapper `db-type.util.ts` (`tstz()`, `enumType()`, etc.) that returns PostgreSQL decorators in production, but falls back to SQLite-compatible equivalents (like text fields or simple JSON) in testing environments.",
+        "alternatives": "Running PostgreSQL in Docker containers for tests (rejected due to speed constraints in in-memory test setups).",
+        "status": "active"
+      },
+      {
+        "date": "2026-03-28",
+        "title": "DR-HADI-03: Materialized Path Graph Optimization",
+        "context": "Recursive queries traversing active MLM downlines or uplines are highly expensive, causing standard Postgres databases to freeze under deep parent-child lookups.",
+        "decision": "Implemented a materialized path strategy (`network_nodes.upline_path`) storing parent chains as strings. This enables ancestral lookups in O(1) read operations.",
+        "alternatives": "Adjacency tables alone (rejected; recursive CTEs degrade quickly at depth); nested sets (rejected; expensive re-indexing during downline insertions).",
+        "status": "active"
+      },
+      {
+        "date": "2026-04-01",
+        "title": "DR-HADI-04: Single-Vendor Catalog Architecture Pivot",
+        "context": "P2P marketplace features (allowing any user to create a store and receive payout splits) introduce extreme regulatory risk (FTC retail definitions, KYC compliance liability) and payment complexity.",
+        "decision": "Pivoted the app to an admin-owned single-vendor catalog. Restrained listing creation routes solely to admin keys, and simplified the checkout pipeline to route 100% of revenue to the company's Stripe account (no vendor splits needed).",
+        "alternatives": "Sticking with the P2P marketplace and implementing Stripe Connect Custom accounts (rejected due to compliance overhead and development complexity).",
+        "status": "active"
+      },
+      {
+        "date": "2026-04-01",
+        "title": "DR-HADI-05: Atomic Inventory Concurrency Guards",
+        "context": "Under high traffic, concurrent order checkout attempts can lead to double-selling (overselling) inventory when using read-modify-write patterns.",
+        "decision": "Implemented atomic database updates (`UPDATE inventory_items SET available_qty = available_qty - X WHERE available_qty >= X`) combined with a 15-minute checkout reservation TTL.",
+        "alternatives": "Redis distributed locks (rejected; adds infrastructure complexity and overhead); database row-level locking (`SELECT FOR UPDATE`) - rejected due to deadlock risks during busy carts.",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 5
+  },
+  {
+    "slug": "healthsync",
+    "title": "HealthSync",
+    "status": "active",
+    "stack": [
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "Express",
+      "Node.js",
+      "MongoDB",
+      "Socket.IO",
+      "Stripe",
+      "OpenRouter"
+    ],
+    "created": "2026-08-03T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": [
+      [
+        "wiki/people/muzammil-ck"
+      ]
+    ],
+    "contentMd": "\r\n# HealthSync\r\n\r\nHealthSync is a full-stack healthcare management platform connecting patients, doctors, pharmacists, and administrators on a unified system. It automates patient care from initial scheduling and AI-assisted symptom triage to digital e-prescriptions, pharmacy inventory monitoring, and billing.\r\n\r\nThe project includes a seeded database containing 140 real doctors spanning five specialties across all 14 districts of Kerala, India.\r\n\r\n## Key Modules\r\n- **Patient Portal**: Specialization-based doctor lookup, live booking calendar slot generation, payment checkout, and diagnostic history timeline.\r\n- **Doctor Portal**: Queue management dashboard (accept, reject, reschedule, mark-missed), digital prescription pad, patient history portal, and KYC onboarding file uploader.\r\n- **Pharmacist Portal**: Low-stock medicine alerts, prescription fulfillment queue, and inventory level adjustments.\r\n- **Admin Console**: Dashboard to verify doctor KYC submissions, oversee platform metrics, and audit system-wide AI triage events.\r\n\r\n## Key Technical Integrations\r\n- **AI Symptom Checker**: Integrates OpenRouter-hosted LLMs to perform pre-consultation symptom triage and log data safely.\r\n- **Payments Gateway**: Integrated Stripe test checkout alongside a simulated local mock payment gateway for offline-first testing.\r\n- **Real-Time Client Updates**: Uses Socket.IO to broadcast calendar updates, reschedule notifications, and queue shifts.\r\n- **Structured Access Control**: Implements JWT-secured express sessions stored in httpOnly cookies, paired with individual resource-ownership verification.\r\n",
+    "contentHtml": "<h1>HealthSync</h1>\n<p>HealthSync is a full-stack healthcare management platform connecting patients, doctors, pharmacists, and administrators on a unified system. It automates patient care from initial scheduling and AI-assisted symptom triage to digital e-prescriptions, pharmacy inventory monitoring, and billing.</p>\n<p>The project includes a seeded database containing 140 real doctors spanning five specialties across all 14 districts of Kerala, India.</p>\n<h2>Key Modules</h2>\n<ul>\n<li><strong>Patient Portal</strong>: Specialization-based doctor lookup, live booking calendar slot generation, payment checkout, and diagnostic history timeline.</li>\n<li><strong>Doctor Portal</strong>: Queue management dashboard (accept, reject, reschedule, mark-missed), digital prescription pad, patient history portal, and KYC onboarding file uploader.</li>\n<li><strong>Pharmacist Portal</strong>: Low-stock medicine alerts, prescription fulfillment queue, and inventory level adjustments.</li>\n<li><strong>Admin Console</strong>: Dashboard to verify doctor KYC submissions, oversee platform metrics, and audit system-wide AI triage events.</li>\n</ul>\n<h2>Key Technical Integrations</h2>\n<ul>\n<li><strong>AI Symptom Checker</strong>: Integrates OpenRouter-hosted LLMs to perform pre-consultation symptom triage and log data safely.</li>\n<li><strong>Payments Gateway</strong>: Integrated Stripe test checkout alongside a simulated local mock payment gateway for offline-first testing.</li>\n<li><strong>Real-Time Client Updates</strong>: Uses Socket.IO to broadcast calendar updates, reschedule notifications, and queue shifts.</li>\n<li><strong>Structured Access Control</strong>: Implements JWT-secured express sessions stored in httpOnly cookies, paired with individual resource-ownership verification.</li>\n</ul>\n",
+    "decisions": [
+      {
+        "date": "2026-04-10",
+        "title": "httpOnly Cookies + Ownership Middleware for Double-Guard Security",
+        "context": "Role-Based Access Control (RBAC) handles macro permissions (e.g., patient vs. doctor) but does not natively prevent ID-harvesting URL attacks. For instance, a patient with a valid token could query `/api/patients/123/records` with another patient's ID.",
+        "decision": "Configured a dual-guard auth system:",
+        "alternatives": "Custom payload hashes (rejected due to overhead).",
+        "status": "active"
+      },
+      {
+        "date": "2026-04-15",
+        "title": "Development Sandbox for Stripe Checkout",
+        "context": "Local developers frequently lack stable internet access, or need to run automated integration code without exhausting sandbox rate thresholds or requiring external Stripe requests.",
+        "decision": "Scaffolded an offline-first mock checkout router. The client detects the `NODE_ENV` environment variable; if set to `development` and credentials are omitted, it routes transaction payloads to a local simulated gateway that instantly returns mock success responses, updating the MongoDB billing state.",
+        "alternatives": "",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 2
+  },
+  {
+    "slug": "invoice-studio",
+    "title": "AI Invoice Studio",
+    "status": "active",
+    "stack": [
+      "React 19",
+      "Vite",
+      "TypeScript",
+      "TailwindCSS v4",
+      "Zustand",
+      "Express.js",
+      "Decimal.js",
+      "jsonwebtoken",
+      "bcryptjs",
+      "Python",
+      "Flask",
+      "faster-whisper",
+      "OpenAI SDK"
+    ],
+    "created": "2026-06-01T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": [
+      "wiki/people/muzammil-ck.md"
+    ],
+    "contentMd": "\r\n# AI Invoice Studio\r\n\r\nAI Invoice Studio is an enterprise-grade, billing and invoicing platform equipped with AI-powered features like speech-to-invoice dictation, natural-language invoice generation, compliance auditing, and intelligent notes rewriting.\r\n\r\nOriginally built on Google Gemini 2.5 Flash, the project is migrating to local, offline-first AI processing to reduce costs, enhance PII data privacy, support offline usage, and enable fine-tuning.\r\n\r\n## System Architecture\r\n\r\n### Frontend (React SPA)\r\nThe client is a single page application built on React 19, Vite, and TailwindCSS v4. It uses Zod configuration schemas and holds state utilizing the **Zustand** store with `localStorage` persistent storage and a history buffer to enable undo/redo operations. All financial math is protected by **Decimal.js** to handle subtotal, tax, discount, and total pricing calculations accurately.\r\n\r\n### Backend (Express Server)\r\nThe backend is an Express server running TypeScript. It serves the Vite frontend and manages the AI generation and authentication endpoints. It implements a dual-strategy authentication layer using manual JWT tokens (for web users) and custom API Keys (`X-API-Key` headers) for CLI/automated deployments.\r\n\r\n### Local AI Engine\r\n1. **Ollama Instance**: Runs local LLMs (specifically `qwen3:8b` via a systemd background service on port 11434) using an OpenAI SDK-compatible adapter.\r\n2. **Speech-to-Text (STT) Sidecar**: A Python Flask microservice (port 5050) wrapping **faster-whisper** (`large-v3-turbo` model, quantized to running in `int8` mode) executing on the Intel CPU to transcribe voice dictation in English and over 100 other languages.\r\n\r\n## API Contracts (Unchanged)\r\nThe frontend relies on 3 endpoints:\r\n- `POST /api/v1/generate-invoice` — maps prompt terms into a structured invoice JSON schema.\r\n- `POST /api/v1/audio-to-invoice` — accepts raw recorded audio files, runs local STT, and maps resulting transcripts to invoice JSON.\r\n- `POST /api/v1/rewrite` — rewrites custom invoice notes into professional business copy.\r\n\r\n## Historical Decisions & Pivots\r\nSee the complete list of system designs and code changes in [[invoice-studio-decisions|AI Invoice Studio Decision Log]].\r\n",
+    "contentHtml": "<h1>AI Invoice Studio</h1>\n<p>AI Invoice Studio is an enterprise-grade, billing and invoicing platform equipped with AI-powered features like speech-to-invoice dictation, natural-language invoice generation, compliance auditing, and intelligent notes rewriting.</p>\n<p>Originally built on Google Gemini 2.5 Flash, the project is migrating to local, offline-first AI processing to reduce costs, enhance PII data privacy, support offline usage, and enable fine-tuning.</p>\n<h2>System Architecture</h2>\n<h3>Frontend (React SPA)</h3>\n<p>The client is a single page application built on React 19, Vite, and TailwindCSS v4. It uses Zod configuration schemas and holds state utilizing the <strong>Zustand</strong> store with <code>localStorage</code> persistent storage and a history buffer to enable undo/redo operations. All financial math is protected by <strong>Decimal.js</strong> to handle subtotal, tax, discount, and total pricing calculations accurately.</p>\n<h3>Backend (Express Server)</h3>\n<p>The backend is an Express server running TypeScript. It serves the Vite frontend and manages the AI generation and authentication endpoints. It implements a dual-strategy authentication layer using manual JWT tokens (for web users) and custom API Keys (<code>X-API-Key</code> headers) for CLI/automated deployments.</p>\n<h3>Local AI Engine</h3>\n<ol>\n<li><strong>Ollama Instance</strong>: Runs local LLMs (specifically <code>qwen3:8b</code> via a systemd background service on port 11434) using an OpenAI SDK-compatible adapter.</li>\n<li><strong>Speech-to-Text (STT) Sidecar</strong>: A Python Flask microservice (port 5050) wrapping <strong>faster-whisper</strong> (<code>large-v3-turbo</code> model, quantized to running in <code>int8</code> mode) executing on the Intel CPU to transcribe voice dictation in English and over 100 other languages.</li>\n</ol>\n<h2>API Contracts (Unchanged)</h2>\n<p>The frontend relies on 3 endpoints:</p>\n<ul>\n<li><code>POST /api/v1/generate-invoice</code> — maps prompt terms into a structured invoice JSON schema.</li>\n<li><code>POST /api/v1/audio-to-invoice</code> — accepts raw recorded audio files, runs local STT, and maps resulting transcripts to invoice JSON.</li>\n<li><code>POST /api/v1/rewrite</code> — rewrites custom invoice notes into professional business copy.</li>\n</ul>\n<h2>Historical Decisions &amp; Pivots</h2>\n<p>See the complete list of system designs and code changes in [[invoice-studio-decisions|AI Invoice Studio Decision Log]].</p>\n",
+    "decisions": [
+      {
+        "date": "2026-06-10",
+        "title": "DR-INV-01: Local AI Migration via Ollama and faster-whisper",
+        "context": "Running Google Gemini 2.5 Flash cloud API resulted in continuous per-token runtime costs, privacy concerns relating to PII in invoices, internet dependence, and credential risk from managing keys.",
+        "decision": "Replaced `@google/genai` dependency with `openai` SDK to direct prompts locally to Ollama running `qwen3:8b` (port 11434). Speech-to-text is routed to a Python Flask sidecar running `faster-whisper` (`large-v3-turbo` in INT8) on port 5050.",
+        "alternatives": "Using local llama.cpp bindings (rejected to stay clean without native compilation dependencies on Windows); cloud API alternatives like Groq or Together (rejected to preserve full offline capability).",
+        "status": "active"
+      },
+      {
+        "date": "2026-06-15",
+        "title": "DR-INV-02: Structured Output Schema Conversion",
+        "context": "Local Ollama requires OpenAI-compatible JSON Schema representations for structured extraction, whereas previous definitions used the Google-specific `Type.OBJECT` schema shapes.",
+        "decision": "Converted the shared `invoiceSchema` to standard JSON Schema format and updated `/generate-invoice` and `/audio-to-invoice` controllers to send `response_format` JSON schema descriptors compatible with the OpenAI API protocol.",
+        "alternatives": "Relying on raw text outputs and parsing JSON manually with regex (rejected due to instability and risk of parsing errors).",
+        "status": "active"
+      },
+      {
+        "date": "2026-06-20",
+        "title": "DR-INV-03: Dual-Strategy Authentication Flow",
+        "context": "Self-hosted and CLI integrations require headless scripting access, whereas standard web clients require temporary token-based credentials.",
+        "decision": "Structured a dual-auth middleware `requireAuth()` allowing credentials validated via JWT Bearer headers (with access token rotation) OR secret headers (`X-API-Key` matched against `API_SECRET` environment strings).",
+        "alternatives": "Enforcing API keys for everyone (too complex for standard users); enforcing JWT (not friendly to scripting/CLI consumers).",
+        "status": "active"
+      },
+      {
+        "date": "2026-06-25",
+        "title": "DR-INV-04: Decimal.js Migration for Financial Integrity",
+        "context": "Standard JavaScript IEEE-754 double-precision floats introduce rounding errors during subtotal, tax, discount, and total equations, which is unacceptable for billing compliance.",
+        "decision": "Migrated all calculations in `src/lib/calculations.ts` and `src/lib/utils.ts` to `Decimal.js` internals, forcing total amounts to remain precise decimal strings.",
+        "alternatives": "Handling integers (converting all amounts to cents) - rejected because currency rates and fractional tax percentages can still introduce precision anomalies.",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 4
+  },
+  {
+    "slug": "masm-studio",
+    "title": "MASM Studio",
+    "status": "active",
+    "stack": [
+      "React",
+      "Monaco Editor",
+      "Express",
+      "Node.js",
+      "TypeScript",
+      "MongoDB",
+      "Redis",
+      "Gemini",
+      "LangChain"
+    ],
+    "created": "2026-08-03T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": [
+      [
+        "wiki/people/muzammil-ck"
+      ]
+    ],
+    "contentMd": "\r\n# MASM Studio\r\n\r\nMASM Studio is an AI-assisted, web-based 16-bit 8086 assembly language cloud IDE designed for education. By removing installation blockers (such as configuring DOSBox, micro-assemblers, and custom terminal paths), MASM Studio enables students to write, run, and analyze 8086 assembly code with syntax assistance and step-by-step register updates in a modern interface.\r\n\r\nThe project is currently undergoing a structural refactor to transition its simulation logic from generative model approximations to a deterministic, local CPU interpreter.\r\n\r\n## Key Features\r\n- **Zero-Setup IDE**: Runs inside modern web browsers with zero configuration.\r\n- **Modern Code Editor**: Integrated Monaco Editor (VS Code core) providing assembly syntax highlighting and register auto-completion tags.\r\n- **AI-Powered Code Assistant**: Educational chat assistant powered by Gemini 2.5 Flash and LangChain to troubleshoot compilation errors, explain specific addressing modes, and highlight issues.\r\n- **Step-by-Step execution (Trace)**: Displays register and memory changes to visualize assembly instruction effects.\r\n\r\n## Compiler & CPU Execution Pivot\r\nThe original MVP relied on a language model to simulate CPU execution and improvise register values. To prevent logic errors and syntax hallucinations during classroom integration, the system is migrating to:\r\n- A deterministic, local interpreter acting as the core simulator.\r\n- Constraining the LLM's role to educational narration of the interpreter's output and fixing assembly errors.\r\n",
+    "contentHtml": "<h1>MASM Studio</h1>\n<p>MASM Studio is an AI-assisted, web-based 16-bit 8086 assembly language cloud IDE designed for education. By removing installation blockers (such as configuring DOSBox, micro-assemblers, and custom terminal paths), MASM Studio enables students to write, run, and analyze 8086 assembly code with syntax assistance and step-by-step register updates in a modern interface.</p>\n<p>The project is currently undergoing a structural refactor to transition its simulation logic from generative model approximations to a deterministic, local CPU interpreter.</p>\n<h2>Key Features</h2>\n<ul>\n<li><strong>Zero-Setup IDE</strong>: Runs inside modern web browsers with zero configuration.</li>\n<li><strong>Modern Code Editor</strong>: Integrated Monaco Editor (VS Code core) providing assembly syntax highlighting and register auto-completion tags.</li>\n<li><strong>AI-Powered Code Assistant</strong>: Educational chat assistant powered by Gemini 2.5 Flash and LangChain to troubleshoot compilation errors, explain specific addressing modes, and highlight issues.</li>\n<li><strong>Step-by-Step execution (Trace)</strong>: Displays register and memory changes to visualize assembly instruction effects.</li>\n</ul>\n<h2>Compiler &amp; CPU Execution Pivot</h2>\n<p>The original MVP relied on a language model to simulate CPU execution and improvise register values. To prevent logic errors and syntax hallucinations during classroom integration, the system is migrating to:</p>\n<ul>\n<li>A deterministic, local interpreter acting as the core simulator.</li>\n<li>Constraining the LLM&#39;s role to educational narration of the interpreter&#39;s output and fixing assembly errors.</li>\n</ul>\n",
+    "decisions": [
+      {
+        "date": "2026-08-03",
+        "title": "Deprecating Generative Execution Simulation for a Deterministic Local CPU Interpreter",
+        "context": "The original MVP utilized Gemini 2.5 Flash in \"executor mode\" to simulate the runs of assembly operations (e.g. tracking index values, memory offsets, and instruction lines). While functional for simple runs, this led to frequent logic errors and syntax hallucinations for complex nested loops, making the tool unreliable for formal classroom grading.",
+        "decision": "Overhauled the application execution path to separate simulation from narration:",
+        "alternatives": "",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 1
+  },
+  {
+    "slug": "metatune",
+    "title": "MetaTune AutoML Platform",
+    "status": "active",
+    "stack": [
+      "Python",
+      "PyTorch",
+      "Streamlit",
+      "Google Vizier"
+    ],
+    "created": "2026-02-03T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": "[[wiki/concepts/automl]], [[wiki/people/muzammil-ck]]",
+    "contentMd": "\r\n\r\n# MetaTune (AI-Driven Dataset-Aware Hyperparameter Optimization)\r\n\r\n`MetaTune` is an AutoML platform designed to automate and adapt ML model hyperparameters dynamically based on dataset characteristics (meta-features) and real-time training behaviour.\r\n\r\n## System Architecture\r\n\r\n- **Traditional Limitation**: Methods like grid search or random search are computationally exhaustive and do not adjust to changing statistics in datasets.\r\n- **Adaptive Meta-Learning**: `MetaTune` extracts statistical meta-features (dimension boundaries, noise indicators, feature dispersion, target ratios) and feeds them into a PyTorch *neural meta-learner*.\r\n- **Gradient-Based Optimization**: The meta-learner predicts optimal initial hyperparameter values and executes bilevel optimizations based on gradient feedback during model training cycles.\r\n- **Frontend Console**: A Streamlit dashboard allowing users to visualize dataset feature extractions, view tuning logs, and compare model training trajectories.\r\n\r\n## Google Vizier Integration\r\n\r\nTo escalate the system's performance, `MetaTune` integrates Google's black-box optimization framework (Vizier) as a backend service:\r\n- Uses Vizier client/server architectures to manage complex search space dimensions.\r\n- Composes joint meta-feature-aware studies, matching baseline estimators against GP (Gaussian Process) bandits and Pythia policies.\r\n- Accelerates early stopping triggers by delegating evaluations to Vizier's adaptive stopping rules.\r\n\r\n## Historical Decisions & Pivots\r\nSee the complete list of AutoML platform adjustments in [[metatune-decisions|MetaTune Decision Log]].\r\n",
+    "contentHtml": "<h1>MetaTune (AI-Driven Dataset-Aware Hyperparameter Optimization)</h1>\n<p><code>MetaTune</code> is an AutoML platform designed to automate and adapt ML model hyperparameters dynamically based on dataset characteristics (meta-features) and real-time training behaviour.</p>\n<h2>System Architecture</h2>\n<ul>\n<li><strong>Traditional Limitation</strong>: Methods like grid search or random search are computationally exhaustive and do not adjust to changing statistics in datasets.</li>\n<li><strong>Adaptive Meta-Learning</strong>: <code>MetaTune</code> extracts statistical meta-features (dimension boundaries, noise indicators, feature dispersion, target ratios) and feeds them into a PyTorch <em>neural meta-learner</em>.</li>\n<li><strong>Gradient-Based Optimization</strong>: The meta-learner predicts optimal initial hyperparameter values and executes bilevel optimizations based on gradient feedback during model training cycles.</li>\n<li><strong>Frontend Console</strong>: A Streamlit dashboard allowing users to visualize dataset feature extractions, view tuning logs, and compare model training trajectories.</li>\n</ul>\n<h2>Google Vizier Integration</h2>\n<p>To escalate the system&#39;s performance, <code>MetaTune</code> integrates Google&#39;s black-box optimization framework (Vizier) as a backend service:</p>\n<ul>\n<li>Uses Vizier client/server architectures to manage complex search space dimensions.</li>\n<li>Composes joint meta-feature-aware studies, matching baseline estimators against GP (Gaussian Process) bandits and Pythia policies.</li>\n<li>Accelerates early stopping triggers by delegating evaluations to Vizier&#39;s adaptive stopping rules.</li>\n</ul>\n<h2>Historical Decisions &amp; Pivots</h2>\n<p>See the complete list of AutoML platform adjustments in [[metatune-decisions|MetaTune Decision Log]].</p>\n",
+    "decisions": [
+      {
+        "date": "2026-02-03",
+        "title": "DR-MT-01: Adapting Meta-Learning and Bilevel Optimization",
+        "context": "Traditional hyperparameter optimization sweeps (grid/random search) are slow, expensive, and blind to specific meta-attributes (dataset size, feature distribution shape, noise) of the data being trained.",
+        "decision": "Selected a two-layered neural meta-learner built with PyTorch, coupled with bilevel gradient optimization, to dynamically map statistical dataset meta-features to starting hyperparameters.",
+        "alternatives": "Bayesian Optimization alone (avoided because it doesn't transfer knowledge representation across completely different dataset dimensions as efficiently as a meta-trained net).",
+        "status": "active"
+      },
+      {
+        "date": "2026-02-03",
+        "title": "DR-MT-02: Google Vizier Black-Box Optimizer Integration",
+        "context": "Orchestrating complex parameter spaces, early stopping parameters, and custom study histories from scratch creates duplicate framework logic and lacks standard benchmark comparison.",
+        "decision": "Integrated Google Vizier's open-source server/client architecture as the backend optimizer engine, routing hyperparameter suggestions through Pythia policies.",
+        "alternatives": "Writing custom GP-bandit estimators (unnecessary work given Google Vizier's highly optimized, robust distributed architecture).",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 2
+  },
+  {
+    "slug": "realme",
+    "title": "RealMe 3D Portfolio",
+    "status": "active",
+    "stack": [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Three.js",
+      "React Three Fiber",
+      "Framer Motion",
+      "Tailwind CSS",
+      "OKLCH",
+      "Vercel Edge Functions",
+      "Resend API"
+    ],
+    "created": "2026-07-28T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": "[[wiki/concepts/three-physics]], [[wiki/people/muzammil-ck]]",
+    "contentMd": "\r\n\r\n# RealMe (3D Portfolio)\r\n\r\n`RealMe` (host repository `MuzammilCk/RealMe`) is a React-based 3D portfolio application designed with a \"diary on a desk in the dark\" narrative experience. It features procedural materials, custom shader interactions, and physical simulations.\r\n\r\n## Project Structure & Aesthetics\r\n\r\n- **Core Aesthetic**: A dark room containing a desk, with a physical diary that users can interact with. Uses custom canvas-rendered textures to avoid importing heavy media assets.\r\n- **Design Tokens**: Color configurations mapped using OKLCH system tokens for consistent luminance and chroma gradients.\r\n- **Bypassed polishing pattern**: A recurring development pattern was identified where high-fidelity sub-systems (like Verlet cloth physics, Post-processing configurations, typography grids, and camera controllers) were fully implemented in separate modules but left unmounted, while simplified 2D fallbacks were active.\r\n\r\n## Code Refactoring (Enterprise Grade)\r\n\r\nThe portfolio underwent a systematic refactoring to stabilize its 3D depth and interactivity:\r\n1. **Flicker Fixes**: Removed `Math.random` per-frame calls in custom components like `DustMotes`, replacing them with stable hash or procedural loops to stop canvas-texture flickering.\r\n2. **Mail integration**: Replaced static client-side mailto anchors with a secure Vercel Edge Function linked to the Resend API, incorporating honeypot properties to filter spam.\r\n3. **Draggable Page Turn**: Reactivated Verlet cloth simulation inside the page canvas, allowing users to physically click and drag pages to turn them.\r\n4. **PostProcessingLite**: Enabled optimized post-processing effects (vignettes, bloom filters) tailored for performance on tier-2 devices.\r\n5. **Interactive Cameras**: Mounted camera scripts (`ScrollCamera`, `GyroCamera`) to allow gyro/scroll gestures to dynamically tilt the perspective, overcoming the static 2D representation.\r\n\r\n## Historical Decisions & Pivots\r\nSee the complete list of portfolio adjustments in [[realme-decisions|RealMe Decision Log]].\r\n",
+    "contentHtml": "<h1>RealMe (3D Portfolio)</h1>\n<p><code>RealMe</code> (host repository <code>MuzammilCk/RealMe</code>) is a React-based 3D portfolio application designed with a &quot;diary on a desk in the dark&quot; narrative experience. It features procedural materials, custom shader interactions, and physical simulations.</p>\n<h2>Project Structure &amp; Aesthetics</h2>\n<ul>\n<li><strong>Core Aesthetic</strong>: A dark room containing a desk, with a physical diary that users can interact with. Uses custom canvas-rendered textures to avoid importing heavy media assets.</li>\n<li><strong>Design Tokens</strong>: Color configurations mapped using OKLCH system tokens for consistent luminance and chroma gradients.</li>\n<li><strong>Bypassed polishing pattern</strong>: A recurring development pattern was identified where high-fidelity sub-systems (like Verlet cloth physics, Post-processing configurations, typography grids, and camera controllers) were fully implemented in separate modules but left unmounted, while simplified 2D fallbacks were active.</li>\n</ul>\n<h2>Code Refactoring (Enterprise Grade)</h2>\n<p>The portfolio underwent a systematic refactoring to stabilize its 3D depth and interactivity:</p>\n<ol>\n<li><strong>Flicker Fixes</strong>: Removed <code>Math.random</code> per-frame calls in custom components like <code>DustMotes</code>, replacing them with stable hash or procedural loops to stop canvas-texture flickering.</li>\n<li><strong>Mail integration</strong>: Replaced static client-side mailto anchors with a secure Vercel Edge Function linked to the Resend API, incorporating honeypot properties to filter spam.</li>\n<li><strong>Draggable Page Turn</strong>: Reactivated Verlet cloth simulation inside the page canvas, allowing users to physically click and drag pages to turn them.</li>\n<li><strong>PostProcessingLite</strong>: Enabled optimized post-processing effects (vignettes, bloom filters) tailored for performance on tier-2 devices.</li>\n<li><strong>Interactive Cameras</strong>: Mounted camera scripts (<code>ScrollCamera</code>, <code>GyroCamera</code>) to allow gyro/scroll gestures to dynamically tilt the perspective, overcoming the static 2D representation.</li>\n</ol>\n<h2>Historical Decisions &amp; Pivots</h2>\n<p>See the complete list of portfolio adjustments in [[realme-decisions|RealMe Decision Log]].</p>\n",
+    "decisions": [
+      {
+        "date": "2026-07-28",
+        "title": "DR-RM-01: Secure Edge Contact Form",
+        "context": "The portfolio contact form originally used a plain `mailto:` link which exposed the user's email address to web scrapers and required the client to boot a native mail assistant.",
+        "decision": "Rewrote the contact form to point to a Vercel Edge Function linked to the Resend API. Integrated a hidden honeypot spam protection input field to filter out automated submissions.",
+        "alternatives": "Using Web3Forms or EmailJS (avoided to retain serverless control and maintain clean performance payloads).",
+        "status": "active"
+      },
+      {
+        "date": "2026-07-28",
+        "title": "DR-RM-02: Verlet Page Turn Physics Integration",
+        "context": "A sophisticated Verlet cloth physics module (`PagePhysics.tsx` inside `DiaryHero.tsx`) was written but left unmounted, resulting in static 2D page transitions that undermined the depth of the 3D paper concept.",
+        "decision": "Revived and mounted the cloth-physics animation nodes, mapping mouse gesture events to pull points in the vertex array to simulate tactile page bends.",
+        "alternatives": "Standard CSS 3D page folds or Framer Motion transitions (avoided because they do not react dynamically to pointer coordinate paths).",
+        "status": "active"
+      },
+      {
+        "date": "2026-07-28",
+        "title": "DR-RM-03: PostProcessingLite for Performance Scaling",
+        "context": "Standard full-screen post-processing effects (bloom, SSAO, chromatic aberration) ran poorly on CPU-only laptops or mobile devices, causing severe frame drops.",
+        "decision": "Configured a selective `PostProcessingLite` component that disables expensive shadow shaders and reduces raycast counts if the device's render loop runs under 40 FPS.",
+        "alternatives": "Disabling post-processing entirely (avoided as it strips the dark room atmosphere of its stylistic lighting).",
+        "status": "active"
+      },
+      {
+        "date": "2026-07-28",
+        "title": "DR-RM-04: Mounting Scroll and Gyro Cameras",
+        "context": "The page layout felt flat and 2D. Investigation showed that `ScrollCamera` and `GyroCamera` components were implemented in code but not imported into the main canvas scene, resulting in a locked static viewpoint.",
+        "decision": "Formally imported and mounted the camera controls into the Canvas, binding the camera view matrices to scroll offset percentages and device mobile gyroscope feeds.",
+        "alternatives": "OrbitControls (avoided to prevent users from rotating outside the intended desk scene boundaries).",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 4
+  },
+  {
+    "slug": "repomind",
+    "title": "Repo Mind",
+    "status": "active",
+    "stack": [
+      "FastAPI",
+      "Python",
+      "Google Gemini",
+      "FAISS",
+      "SeaGOAT",
+      "CodeQL CLI",
+      "GitPython"
+    ],
+    "created": "2026-08-03T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": [
+      [
+        "wiki/people/muzammil-ck"
+      ]
+    ],
+    "contentMd": "\r\n# Repo Mind\r\n\r\nRepo Mind is an advanced CLI tool and API that leverages Google Gemini (Gemini 2.5 Flash / Gemini 2.0 Flash Thinking) and GitHub CodeQL to perform deep, semantic, and security analysis of codebases. It is built to go beyond standard static analysis, using LLM-backed macro-planning and logical reasoning to identify architectural patterns and security vulnerabilities with cited evidence.\r\n\r\n## Core Features\r\n- **Adaptive Macro-Planning**: Gemini acts as a stateful orchestrator, creating dynamic multi-step analysis plans based on repository context.\r\n- **Stateful Memory integration**: Uses a hybrid approach combining a Gemini Interaction API's conversation thread storage and a local FAISS vector store.\r\n- **Double-Verification (Anti-Hallucination)**: AI-cited code findings are validated directly against local files to prevent hallucinations.\r\n- **Security Audit integration**: Integrates CodeQL for deep vulnerability intelligence.\r\n- **Semantic Code Search**: Employs SeaGOAT to query and locate code matching architectural or security concepts.\r\n\r\n## System Architecture\r\nRepo Mind utilizes a **Dual-Gear Architecture** to comply with API rate limit constraints (e.g. Gemini Free Tier 5 RPM limits):\r\n- **Planning Gear (High-latency)**: Uses Gemini Thinking to decompose user queries into specific search and scanning operations.\r\n- **Execution Gear (Low-latency/Local)**: Executes local tools (SeaGOAT, CodeQL, repository traversal) and aggregates evidence.\r\n- **Synthesis Gear**: Gemini synthesizes the findings and outputs a comprehensive Markdown/JSON report.\r\n\r\n## Directory Mappings\r\n- `api/`: Router modules (Ingest, Search, CodeQL, Orchestrator).\r\n- `services/`: Shared business logic layer wrapper services.\r\n- `memory/`: FAISS vector DB indexer and conversation history log operations.\r\n- `utils/`: Structured JSON logging and metrics gathering.\r\n- `workspace/`: local working files for cloned source repositories.\r\n",
+    "contentHtml": "<h1>Repo Mind</h1>\n<p>Repo Mind is an advanced CLI tool and API that leverages Google Gemini (Gemini 2.5 Flash / Gemini 2.0 Flash Thinking) and GitHub CodeQL to perform deep, semantic, and security analysis of codebases. It is built to go beyond standard static analysis, using LLM-backed macro-planning and logical reasoning to identify architectural patterns and security vulnerabilities with cited evidence.</p>\n<h2>Core Features</h2>\n<ul>\n<li><strong>Adaptive Macro-Planning</strong>: Gemini acts as a stateful orchestrator, creating dynamic multi-step analysis plans based on repository context.</li>\n<li><strong>Stateful Memory integration</strong>: Uses a hybrid approach combining a Gemini Interaction API&#39;s conversation thread storage and a local FAISS vector store.</li>\n<li><strong>Double-Verification (Anti-Hallucination)</strong>: AI-cited code findings are validated directly against local files to prevent hallucinations.</li>\n<li><strong>Security Audit integration</strong>: Integrates CodeQL for deep vulnerability intelligence.</li>\n<li><strong>Semantic Code Search</strong>: Employs SeaGOAT to query and locate code matching architectural or security concepts.</li>\n</ul>\n<h2>System Architecture</h2>\n<p>Repo Mind utilizes a <strong>Dual-Gear Architecture</strong> to comply with API rate limit constraints (e.g. Gemini Free Tier 5 RPM limits):</p>\n<ul>\n<li><strong>Planning Gear (High-latency)</strong>: Uses Gemini Thinking to decompose user queries into specific search and scanning operations.</li>\n<li><strong>Execution Gear (Low-latency/Local)</strong>: Executes local tools (SeaGOAT, CodeQL, repository traversal) and aggregates evidence.</li>\n<li><strong>Synthesis Gear</strong>: Gemini synthesizes the findings and outputs a comprehensive Markdown/JSON report.</li>\n</ul>\n<h2>Directory Mappings</h2>\n<ul>\n<li><code>api/</code>: Router modules (Ingest, Search, CodeQL, Orchestrator).</li>\n<li><code>services/</code>: Shared business logic layer wrapper services.</li>\n<li><code>memory/</code>: FAISS vector DB indexer and conversation history log operations.</li>\n<li><code>utils/</code>: Structured JSON logging and metrics gathering.</li>\n<li><code>workspace/</code>: local working files for cloned source repositories.</li>\n</ul>\n",
+    "decisions": [
+      {
+        "date": "2026-01-31",
+        "title": "Adaptive Multi-Step Planning for API Rate Compliance",
+        "context": "The project targets executing comprehensive, LLM-based repository reviews. However, direct deep-reasoning API requests for every small tool execution fail due to the Gemini free tier limit of 5 Requests Per Minute (RPM) and high query latency.",
+        "decision": "Implemented a \"Dual-Gear\" architecture. The tool requests a single long-thinking Gemini response to generate a structured JSON execution plan (the \"Planning\" gear). This plan is then executed by a local python orchestrator calling fast, low-latency tools command-line style (the \"Execution\" gear). Only one main synthesis call is made back to the LLM.",
+        "alternatives": "",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 1
+  },
+  {
+    "slug": "viva",
+    "title": "Viva Business Team Website",
+    "status": "active",
+    "stack": [
+      "Next.js",
+      "Next.js App Router",
+      "TypeScript",
+      "Tailwind CSS",
+      "Three.js",
+      "React Three Fiber",
+      "Framer Motion",
+      "React Hook Form",
+      "Zod"
+    ],
+    "created": "2026-08-03T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": [
+      [
+        "wiki/people/muzammil-ck"
+      ]
+    ],
+    "contentMd": "\r\n# Viva Business Team Website\r\n\r\nThe Viva Business Team Website is a custom, service-led marketing platform for a physical audio electronics shop (car/home audio sales, custom enclosure design, sound system calibration, and repair) in Malappuram, Kerala.\r\n\r\nThe site is built around a custom aesthetic design framework, codenamed **The Signal Chain**, borrowing structure from physical audio equipment console panels.\r\n\r\n## Core Concepts\r\n- **The Signal Chain Narrative**: The homepage layout traces the progression of sound: **Source** (Services Hub) → **Amplification** (Hardware selection) → **Tuning** (Sound calibration check) → **Output** (Portfolio Gallery & Bookings).\r\n- **Physical Console UI**: Custom visual controls (Fader/Slider controls for before/after portfolio visuals, Knobs for audio frequency filter visualization).\r\n- **Interactive 3D Speaker**: A custom WebGL hero element (React Three Fiber/drei) rendering a speaker chassis that idles with a breathe pulse and reacts to sound events.\r\n\r\n## Architectural Constraints\r\n- **Zero Hallucinated Content**: Strict mandate to prevent placeholder text from showing up as fake statistics or reviews. All unconfirmed content is locked behind explicit `[[PLACEHOLDER]]` blocks.\r\n- **Accessible Overlays**: Any visual/decorative knobs or sliders are built directly on top of native, keyboard-navigable HTML inputs.\r\n- **Conversion focus**: Omits online cart or checkout systems in favor of targeted direct bookings, direct phone, or WhatsApp chat links.\r\n",
+    "contentHtml": "<h1>Viva Business Team Website</h1>\n<p>The Viva Business Team Website is a custom, service-led marketing platform for a physical audio electronics shop (car/home audio sales, custom enclosure design, sound system calibration, and repair) in Malappuram, Kerala.</p>\n<p>The site is built around a custom aesthetic design framework, codenamed <strong>The Signal Chain</strong>, borrowing structure from physical audio equipment console panels.</p>\n<h2>Core Concepts</h2>\n<ul>\n<li><strong>The Signal Chain Narrative</strong>: The homepage layout traces the progression of sound: <strong>Source</strong> (Services Hub) → <strong>Amplification</strong> (Hardware selection) → <strong>Tuning</strong> (Sound calibration check) → <strong>Output</strong> (Portfolio Gallery &amp; Bookings).</li>\n<li><strong>Physical Console UI</strong>: Custom visual controls (Fader/Slider controls for before/after portfolio visuals, Knobs for audio frequency filter visualization).</li>\n<li><strong>Interactive 3D Speaker</strong>: A custom WebGL hero element (React Three Fiber/drei) rendering a speaker chassis that idles with a breathe pulse and reacts to sound events.</li>\n</ul>\n<h2>Architectural Constraints</h2>\n<ul>\n<li><strong>Zero Hallucinated Content</strong>: Strict mandate to prevent placeholder text from showing up as fake statistics or reviews. All unconfirmed content is locked behind explicit <code>[[PLACEHOLDER]]</code> blocks.</li>\n<li><strong>Accessible Overlays</strong>: Any visual/decorative knobs or sliders are built directly on top of native, keyboard-navigable HTML inputs.</li>\n<li><strong>Conversion focus</strong>: Omits online cart or checkout systems in favor of targeted direct bookings, direct phone, or WhatsApp chat links.</li>\n</ul>\n",
+    "decisions": [
+      {
+        "date": "2026-06-12",
+        "title": "The Signal Chain Visual & Layout Paradigm",
+        "context": "Creating a generic marketing outline makes local services look identical to template designs. The user requested a layout that references physical sound engineering.",
+        "decision": "Standardized the structure around **The Signal Chain** concept (Source -> Amplification -> Tuning -> Output). The homepage elements are grouped and named after this progression, using custom faders and VU-meters as active interface decorations.",
+        "alternatives": "",
+        "status": "active"
+      },
+      {
+        "date": "2026-06-15",
+        "title": "Native Overlay for Interactive UI Knobs and Faders",
+        "context": "Custom Knobs and Sliders built purely in Canvas or SVGs fail WCAG/screen-reader compliance and break keyboard navigation.",
+        "decision": "Mandated that all decorative components (e.g. `KnobFilter`, `BeforeAfterSlider`) must overlay a natively keyboard-navigable and screen-reader operable native control (`<input type=\"range\">`), visually masking it while utilizing its key bindings and attributes.",
+        "alternatives": "",
+        "status": "active"
+      },
+      {
+        "date": "2026-06-18",
+        "title": "Dark Theme Only for Industrial Aesthetics",
+        "context": "The visual console theme relies heavily on dark backgrounds to simulate industrial rack-mount units. Developing light/dark theme toggles complicates color contrast compliance.",
+        "decision": "Restrict the site theme to dark mode only for v1, utilizing WCAG-validated contrast color pairs (e.g. deep grey backgrounds with high contrast amber indicator lights).",
+        "alternatives": "",
+        "status": "active"
+      },
+      {
+        "date": "2026-06-20",
+        "title": "Conversion Pathways Restricted to Phone/WhatsApp",
+        "context": "The client shop specializes in highly custom enclosure fabrication and parts repair, which cannot be priced statically.",
+        "decision": "Excluded e-commerce shopping carts or billing checkouts from the Next.js stack, routing all product and quote enquiries through direct phone, WhatsApp links, and a booking form.",
+        "alternatives": "",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 4
+  },
+  {
+    "slug": "ytclfr",
+    "title": "YouTube Content Lifter and Field Recognizer",
+    "status": "active",
+    "stack": [
+      "Python 3.13",
+      "FastAPI",
+      "Celery",
+      "Redis",
+      "PostgreSQL",
+      "MongoDB",
+      "Docker",
+      "yt-dlp",
+      "faster-whisper",
+      "PaddleOCR",
+      "Ollama",
+      "Groq API",
+      "Pydantic v2"
+    ],
+    "created": "2026-02-28T00:00:00.000Z",
+    "lastUpdated": "2026-08-03T00:00:00.000Z",
+    "related": "[[wiki/concepts/video-intelligence]], [[wiki/people/muzammil-ck]]",
+    "contentMd": "\r\n\r\n# YouTube Content Lifter and Field Recognizer (ytclfr)\r\n\r\n`ytclfr` is an AI-powered video intelligence pipeline designed to extract rich structured data (such as songs, movies, recipes, and products) from YouTube videos. Its main focus is text-laden or silent videos with overlays, enabling use-cases like generating Spotify playlists from music compilation videos.\r\n\r\n## Architecture Overhaul (V2)\r\n\r\nThe system transitioned from a naive V1 architecture—which made early classification decisions and ran all loaders indiscriminately—to an evidence-based 4-stage pipeline in V2:\r\n\r\n1. **Stage A — Signal Census**: Inspects the media file's metadata and stream contents to output a *Signal Manifest* (e.g., detecting if it contains speech-only, music-only, live action/animation, slideshows, scene counts, burned-in text overlays, or available subtitles).\r\n2. **Stage B — Targeted Extraction**: Selectively runs expensive extractors based on the Stage A manifest (e.g., ASR is only run if speech exists, PaddleOCR only if text overlays are detected).\r\n3. **Stage C — Evidence Fusion**: Merges all extracted events and data into a single queryable evidence log.\r\n4. **Stage D — Taxonomy & Intent Mapping**: Triggers structured LLM queries to determine the final categories, user intents, and domain-specific schemas.\r\n\r\n## Tech Stack & Runtime Environment\r\n\r\n- **Infrastructure**: Run locally on a CPU-only environment (ThinkPad L13 Gen 2, Windows native, no WSL2).\r\n- **Services**: Dockerized stack including a FastAPI web server, Celery task queue, Redis (message broker and SSE pub/sub), PostgreSQL (relational logs), and MongoDB (document state).\r\n- **Core Libraries**: `faster-whisper` for local ASR, `PaddleOCR` for graphic text extraction, `yt-dlp` for downloads, `Groq API`/`Ollama` for local & cloud model optimization.\r\n\r\n## Historical Decisions & Pivots\r\nSee the complete list of system designs and code fixes in [[ytclfr-decisions|ytclfr Decision Log]].\r\n",
+    "contentHtml": "<h1>YouTube Content Lifter and Field Recognizer (ytclfr)</h1>\n<p><code>ytclfr</code> is an AI-powered video intelligence pipeline designed to extract rich structured data (such as songs, movies, recipes, and products) from YouTube videos. Its main focus is text-laden or silent videos with overlays, enabling use-cases like generating Spotify playlists from music compilation videos.</p>\n<h2>Architecture Overhaul (V2)</h2>\n<p>The system transitioned from a naive V1 architecture—which made early classification decisions and ran all loaders indiscriminately—to an evidence-based 4-stage pipeline in V2:</p>\n<ol>\n<li><strong>Stage A — Signal Census</strong>: Inspects the media file&#39;s metadata and stream contents to output a <em>Signal Manifest</em> (e.g., detecting if it contains speech-only, music-only, live action/animation, slideshows, scene counts, burned-in text overlays, or available subtitles).</li>\n<li><strong>Stage B — Targeted Extraction</strong>: Selectively runs expensive extractors based on the Stage A manifest (e.g., ASR is only run if speech exists, PaddleOCR only if text overlays are detected).</li>\n<li><strong>Stage C — Evidence Fusion</strong>: Merges all extracted events and data into a single queryable evidence log.</li>\n<li><strong>Stage D — Taxonomy &amp; Intent Mapping</strong>: Triggers structured LLM queries to determine the final categories, user intents, and domain-specific schemas.</li>\n</ol>\n<h2>Tech Stack &amp; Runtime Environment</h2>\n<ul>\n<li><strong>Infrastructure</strong>: Run locally on a CPU-only environment (ThinkPad L13 Gen 2, Windows native, no WSL2).</li>\n<li><strong>Services</strong>: Dockerized stack including a FastAPI web server, Celery task queue, Redis (message broker and SSE pub/sub), PostgreSQL (relational logs), and MongoDB (document state).</li>\n<li><strong>Core Libraries</strong>: <code>faster-whisper</code> for local ASR, <code>PaddleOCR</code> for graphic text extraction, <code>yt-dlp</code> for downloads, <code>Groq API</code>/<code>Ollama</code> for local &amp; cloud model optimization.</li>\n</ul>\n<h2>Historical Decisions &amp; Pivots</h2>\n<p>See the complete list of system designs and code fixes in [[ytclfr-decisions|ytclfr Decision Log]].</p>\n",
+    "decisions": [
+      {
+        "date": "2026-02-28",
+        "title": "DR-V2-01: Windows Celery Async Event Loop",
+        "context": "Celery worker tasks executing async pipelines on Windows with Python 3.13 threw event loop errors when using `asyncio.run()`, due to event loop lifetime conflicts in Windows sub-processes.",
+        "decision": "Replaced `asyncio.run()` calls inside Celery task wrappers with a custom loop management pattern using `asyncio.new_event_loop()` and manual loop attachment.",
+        "alternatives": "Using thread-based workers instead of gevent/solo, which lost concurrency efficiency; running on Linux (avoided to keep development native to Windows ThinkPad).",
+        "status": "active"
+      },
+      {
+        "date": "2026-02-28",
+        "title": "DR-V2-02: amqp 5.2.0 Pinning on Windows",
+        "context": "Windows builds crashed on startup when importing Celery dependencies, trying to load Kerberos (`gssapi`) bindings which fail to build locally on Windows.",
+        "decision": "Explicitly pinned `amqp==5.2.0` in `requirements.txt` to prevent pip from resolving dependencies requiring Kerberos modules.",
+        "alternatives": "Installing MS Build tools and attempting custom compiling (complex and breaks runtime portability).",
+        "status": "active"
+      },
+      {
+        "date": "2026-02-28",
+        "title": "DR-V2-03: User Password Pre-Hashing",
+        "context": "The `bcrypt` authentication service in `auth.py` silently truncates passwords longer than 72 bytes, presenting a security vulnerability for long passphrases and API keys.",
+        "decision": "Welded a SHA-256 pre-hashing helper `_prehash()` into the token/auth process, passing the hashed output to bcrypt to ensure constant length inputs under the 72-byte ceiling.",
+        "alternatives": "Switching to Argon2 (avoided to prevent database migration overhead at this phase).",
+        "status": "active"
+      },
+      {
+        "date": "2026-05-06",
+        "title": "DR-V2-04: Four-Stage Evidence-Based Pipeline",
+        "context": "V1 performed early category guessing on URLs, leading to inaccurate extracts and wasting CPU resources executing all extractors (ASR, OCR, etc.) on every video regardless of whether they contained relevant signals.",
+        "decision": "Overhauled the pipeline to partition processing into four distinct stages: Stage A (Signal Census), Stage B (Targeted Extraction), Stage C (Evidence Fusion), and Stage D (Taxonomy mapping).",
+        "alternatives": "Adding more complex routing regexes in V1 (unscalable and still prone to missing speech or silent slides).",
+        "status": "active"
+      },
+      {
+        "date": "2026-05-06",
+        "title": "DR-V2-05: Stack-Local State in Frame Sampler",
+        "context": "A thread-safety audit of Stage A's `frame_sampler.py` revealed that use of a module-level global variable `_partial_result` led to cross-job data corruption when multiple concurrent Celery threads processed frames.",
+        "decision": "Refactored state storage to use stack-local contexts, encapsulating frame collection logic in a nested helper function `_partial` powered by `threading.Event` to sync states.",
+        "alternatives": "Locking thread execution (rejected as it causes a serious bottleneck in frame processing efficiency).",
+        "status": "active"
+      },
+      {
+        "date": "2026-05-06",
+        "title": "DR-V2-06: S3 Temporary Media storage Fallback",
+        "context": "Stage A crashed during processing when `job.local_media_path` was `None`, which occurs because completed downloads are relocated to S3 storage and cleaned up locally to conserve disk space.",
+        "decision": "Implemented an S3 download fallback wrapper inside the Stage A manager, utilizing a `TempStorageManager` block to download files into a temporary `video_probe.mp4` location and clean it up in a `finally` block.",
+        "alternatives": "Keeping all media files locally (rejected; disk constraints on ThinkPad L13 development host are too tight).",
+        "status": "active"
+      }
+    ],
+    "decisionCount": 6
+  }
+]

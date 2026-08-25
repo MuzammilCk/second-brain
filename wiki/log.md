@@ -2,6 +2,7 @@
 
 Chronological log of significant changes and decisions in this vault.
 
+- **2026-08-25 - briefing ran**: 4 active time-bound projects (Odoo Final, TCS interview, Cognizant interview, Seminar); calendar connector unavailable; DSA heavy rotation this week for placements.
 - **2026-08-24 - vault refactoring & frontmatter standardization**: Refactored all project and concept frontmatters into valid, strictly-typed YAML block lists. Resolved all broken wikilinks across the vault (including residual self-referential people links and navigation indexes). Ensured 100% parity between project overviews and append-only decision logs. Hardened automation scripts and validated zero lint warnings.
 - **2026-08-24 - github sync**: Extracted metadata, READMEs, and commit history for 31 GitHub repositories
 - **2026-08-24 - briefing ran**: 0 events; 3 active projects; placement prep & DSA active
