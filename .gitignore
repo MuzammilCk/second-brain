@@ -1,10 +1,6 @@
 raw/
 people.md
-mirror/*
-!mirror/project-sync/
-mirror/project-sync/hadi/
-mirror/project-sync/hadi_old/
-mirror/project-sync/viva/
+mirror/
 wiki/people/
 wiki/placements/
 journal/
@@ -16,4 +12,15 @@ journal/
 *.ps1
 .docs/
 .obsidian
+
+# Build artifacts & dependencies
+site/dist/
+node_modules/
+__pycache__/
+*.pyc
+
+# Environment secrets
+.env
+.env.local
+.env.*
 
