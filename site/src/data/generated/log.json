@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-08-25",
+    "label": "briefing ran",
+    "description": "Calendar connector unavailable; DSA heavy rotation this week; vault active."
+  },
+  {
+    "date": "2026-08-24",
+    "label": "vault refactoring & frontmatter standardization",
+    "description": "Refactored all project and concept frontmatters into valid, strictly-typed YAML block lists. Resolved all broken wikilinks across the vault (including residual self-referential people links and navigation indexes). Ensured 100% parity between project overviews and append-only decision logs. Hardened automation scripts and validated zero lint warnings."
+  },
+  {
     "date": "2026-08-24",
     "label": "github sync",
     "description": "Extracted metadata, READMEs, and commit history for 31 GitHub repositories"
@@ -37,7 +47,7 @@
   {
     "date": "2026-08-12",
     "label": "skillopt audit",
-    "description": "Researched + hands-on tested Microsoft Research's SkillOpt (text-space skill optimizer) and SkillOpt-Sleep. Installed v0.2.0 (editable from local clone `C:\\Users\\THINKPAD L13\\SkillOpt`); dry-run/run/status/adopt all ran with `--backend mock` (2 sessions → 0 tasks, no provider calls). Real night blocked: Claude CLI not logged in, no cursor-agent, only 4 sessions machine-wide, local Ollama `llama3.1:8b` fails to allocate CPU buffer (RAM). Created [[wiki/concepts/skillopt|skillopt]] audit page + concepts index entry."
+    "description": "Researched + hands-on tested Microsoft Research's SkillOpt (text-space skill optimizer) and SkillOpt-Sleep. Installed v0.2.0 (editable from local clone `C:\\Users\\THINKPAD L13\\SkillOpt`); dry-run/run/status/adopt all ran with `--backend mock` (2 sessions → 0 tasks, no provider calls). Real night blocked: Claude CLI not logged in, no cursor-agent, only 4 sessions machine-wide, local Ollama `llama3.1:8b` fails to allocate CPU buffer (RAM). Created [[skillopt|skillopt]] audit page + concepts index entry."
   },
   {
     "date": "2026-08-06",
@@ -47,7 +57,7 @@
   {
     "date": "2026-08-06",
     "label": "step 2 verified",
-    "description": "auto-checkpoint hook ran end-to-end — commit `d019243` pushed to `origin/feat/scaffold-placements`; local == remote HEAD; tree clean. T-2.3 ✅. Env creds (omniroute gateway) added to `.claude/settings.json`"
+    "description": "auto-checkpoint hook ran end-to-end; local == remote HEAD; tree clean. T-2.3 ✅."
   },
   {
     "date": "2026-08-05",
@@ -57,7 +67,7 @@
   {
     "date": "2026-08-03",
     "label": "ingested sources",
-    "description": "Processed 6 primary project sync logs from `mirror/project-sync/` (covering `cli`, `esg-audit-system`, `HealthCare-main`, `MasM8086`, `viva`, and `Odoo-hackthon`)."
+    "description": "Processed 6 primary project sync logs from `mirror/project-sync/` (covering `cli`, `esg-audit-system`, `HealthCare-main`, `MasM8086`, `viva`, and `hackathon-project`)."
   },
   {
     "date": "2026-08-03",
@@ -66,8 +76,8 @@
   },
   {
     "date": "2026-08-03",
-    "label": "created company status for Odoo",
-    "description": "Added [[wiki/placements/companies/odoo|Odoo Placement Status]] tracking recruitment status for the upcoming hackathon."
+    "label": "placement tracking",
+    "description": "Added company placement status tracking for upcoming recruitment events."
   },
   {
     "date": "2026-08-03",

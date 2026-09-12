@@ -5,17 +5,21 @@
     "**AI Invoice Studio** — complete the offline-first voice billing app: local STT sidecar + Ollama inference, migration off cloud. Target: TBD."
   ],
   "areas": [
-    "Placement prep — DSA tracker + confidence matrix, mock interviews, Odoo Hackathon finale follow-up.",
+    "Placement prep — DSA tracker + confidence matrix, mock interviews. Update weekly.",
     "DevOps & cloud skills — sharpen cloud/DevOps tooling alongside projects.",
     "Local/offline-first AI — GGUF/Ollama/CPU inference, local ASR, OS-level automation.",
     "Second brain upkeep — keep the Codex vault, wiki, and decision logs current."
   ],
   "resources": [
+    "DSA & system design — arrays, strings, trees, graphs, DP core patterns",
     "AutoML & hyperparameter tuning",
     "Video intelligence / staged analysis",
     "Three.js physics & render loops",
-    "DSA & system design",
     "Local LLM inference (quantized models, Indic NLP, ASR)"
   ],
-  "archive": []
+  "archive": [
+    "Hackathon Grand Finale 2026 (Sep 5–6) — completed",
+    "Pre-placement technical interviews (Sep 2026) — completed",
+    "Seminar presentation — completed"
+  ]
 }

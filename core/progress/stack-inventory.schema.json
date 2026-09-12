@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StackInventory",
+  "type": "object",
+  "required": ["last_updated", "active_focus", "technologies"],
+  "properties": {
+    "last_updated": { "type": "string", "format": "date-time" },
+    "active_focus": {
+      "type": "object",
+      "required": ["sprint_goal", "started_at"],
+      "properties": {
+        "sprint_goal": { "type": "string" },
+        "started_at": { "type": "string", "format": "date" },
+        "target_milestone": { "type": "string" }
+      }
+    },
+    "technologies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "category", "status"],
+        "properties": {
+          "name": { "type": "string" },
+          "category": { "type": "string", "enum": ["Systems", "AI/ML", "Architecture", "Tooling"] },
+          "status": { "type": "string", "enum": ["production", "active_sprint", "exploring"] },
+          "evidence": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string", "enum": ["project_id", "repository", "research_note"] },
+              "reference": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "status": { "enum": ["production", "active_sprint"] } }
+            },
+            "then": {
+              "required": ["evidence"],
+              "properties": {
+                "evidence": { "required": ["type", "reference"] }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

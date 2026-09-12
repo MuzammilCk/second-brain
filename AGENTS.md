@@ -1,35 +1,53 @@
-# Codex Vault
+# Agent Directives: Operational Boundaries & Governance
 
-Vault configuration and documentation guidelines for AI Agents (Antigravity, Codex, Claude Code). Keep under 100 lines. Refer to `.agents/plugins/codex-core/rules/` for details.
+You operate as an autonomous systems and engineering co-developer across
+strictly partitioned security tiers. All file reads, writes, and
+transformations must satisfy the directional data-flow invariants below.
 
-## 1. Project Structure & Security
-- `raw/`: Locked directory containing raw, immutable exports (Claude, ChatGPT, Notion). Never write or edit files there directly; use `scripts/extract_exports.py` to unpack.
-- `mirror/`: Refreshable copies of project files (local sibling repos & GitHub). Safe to update only via `/sync-projects` or `scripts/automate-codex.ps1 -Task sync`.
-- `wiki/`: Domain space fully owned by Agent/user editing.
-  - `wiki/index.md`: The main entrypoint and index for the entire knowledge vault.
-  - `wiki/log.md`: The running journal of updates and changes.
-  - `wiki/projects/`: Project overviews (`<slug>.md`) and append-only decision logs (`<slug>-decisions.md`).
-  - `wiki/concepts/`: Atomic engineering concepts and technical notes.
-  - `wiki/placements/`: DSA tracker, mock interview feedback, and company recruitment pipelines.
-- `priorities.md`: Vault root, user-owned steering file (Projects/Areas/Resources/Archive). Agent reads it; may only propose edits (ask-gated), typically during `/debrief`. Pushed to GitHub `main`.
-- `people.md`: Vault root, user-owned Key People file. Same read / propose-only rules as `priorities.md`. **Gitignored** — never reaches GitHub.
-- `scripts/`: Automation controllers, quality linters, and synchronization scripts. PowerShell scripts (`*.ps1`) are **gitignored**.
-- `.agents/plugins/codex-core/`: Core vault plugin bundling 11 workflow skills, rule definitions, hooks, and MCP configurations.
-- `.docs/`: Archived build ledgers, audit prompts, and guides. **Gitignored**.
+This file is the single source of truth for these rules. `CLAUDE.md` just
+imports this file — don't duplicate these rules there, and don't let them
+drift apart.
 
-## 2. Style Guide & Rules
-- Write clear, concise prose using bullet points.
-- Attribute every claim to a source. Explicitly document contradictions rather than picking a favorite view.
-- Every page must be atomic (focusing on one single idea or entity).
-- Use `[[wiki-links]]` to interconnect pages.
-- **Frontmatter Syntax**: Use valid YAML block lists for `sources:` and `related:`, and always quote wikilinks in frontmatter (`- "[[wiki/concepts/...]]"`). Never write unquoted bracket strings.
-- **No Self-Referential Links**: `wiki/people/` is strictly for external people. Never link to `[[wiki/people/muzammil-ck]]` (owner bio lives in `people.md`/`priorities.md`). Never write raw `[[PLACEHOLDER]]`.
-- **Project Parity**: Every project overview (`wiki/projects/<slug>.md`) must link to its decision log (`[[<slug>-decisions|<Title> Decision Log]]`).
-- All automated tasks and commits target the `main` branch.
+## 1. Security Domains & Classification
 
-## 3. Core Commands & Skills
-All 11 skills are bundled in `.agents/plugins/codex-core/skills/`:
-`/briefing`, `/debrief`, `/review`, `/decide`, `/log`, `/sync-projects`, `/ingest`, `/standup`, `/lint`, `/pull-sources`, `/query`.
+### Tier 1: Private Vault (`core/private/`)
+* **Classification**: `RESTRICTED` | **Export**: `FORBIDDEN`
+* **Paths**: `core/private/interviews/`, `core/private/scratchpad/`, `core/private/operations/`
+* **Rules**:
+  - NEVER copy, summarize, parse, or bundle any file under `core/private/` into `core/progress/`, `core/wiki/`, or `site/`.
+  - Content here is non-indexable and must never be exposed to public compilers.
+  - Never echo the contents of files here into commit messages, PR descriptions, or command output that could end up in a public CI log.
 
-## 4. Domain Context
-The user actively tracks 13+ projects across the vault (primary focus: `ytclfr`, `metatune`, `invoice-studio`, `realme`, alongside `repomind`, `esg-audit-system`, `assetflow`, `masm-studio`, `healthsync`, `crisissignal`, `fitness-platform`, `browser-agent`, and family ventures `hadi`, `viva`). They want to instantly pull up architectural decisions and implementation history from past work. In addition to these projects, they are actively preparing for campus placements (DSA mastery, system design) and sharpening DevOps & cloud skills.
+### Tier 2: Progress Radar (`core/progress/`)
+* **Classification**: `CONFIDENTIAL` | **Export**: `AUTHORIZED`
+* **Paths**: `core/progress/current-sprint.md`, `core/progress/stack-inventory.json`, `core/progress/logs/`
+* **Rules**:
+  - `stack-inventory.json` is a state definition file, not an event log.
+  - Every technology listed under `production` or `active_sprint` MUST include an `evidence.reference`. `production` additionally requires that reference to point to a real, existing file under `core/wiki/projects/`.
+  - `current-sprint.md` records current development objectives; it does not contain private career strategy.
+
+### Tier 3: Curated Wiki (`core/wiki/`)
+* **Classification**: `CONFIDENTIAL` | **Export**: `AUTHORIZED`
+* **Paths**: `core/wiki/projects/`, `core/wiki/concepts/`
+* **Rules**:
+  - Any project doc with `export: true` in frontmatter must conform to the 6-part schema: Problem, Architecture, Constraints/Trade-offs, Implementation Evidence, Current State, Decisions. Drafts (`export: false`) are exempt until marked ready.
+  - Concept notes are technical deep dives, decoupled from local filesystem mirrors.
+
+### Tier 4: Public Site Projection (`site/src/data/generated/`)
+* **Classification**: `PUBLIC` | **Export**: `DEPLOYED`
+* **Rules**:
+  - The frontend reads exclusively from `site/src/data/generated/*.json`.
+  - Files here are produced solely by `scripts/compile_*.py`. No manual edits.
+
+## 2. Banned Operations
+1. **Zero Git Mirroring**: Never clone repositories, pull commit logs, or create `commits.md`/`diff.md` files locally. `mirror/` is permanently deprecated.
+2. **No Monolithic Build Bundling**: Never check `site/dist/` into git tracking.
+3. **Strict Directional Flows**: Any action reading from `core/private/` and writing to an exportable destination is a critical breach — abort the action, don't just log it after the fact.
+
+## 3. What actually enforces this
+This file states intent, and a capable agent should follow it — but intent
+alone isn't a guarantee. The actual enforcement comes from two places:
+- A `PreToolUse` hook in `.claude/settings.json` (`scripts/check_write_boundary.py`) that can block a write *before* it happens.
+- `scripts/verify_boundaries.py`, run in CI both before and after compilation, as the reliable backstop regardless of whether the local hook is wired up correctly on any given machine.
+
+Treat this file as the spec those two enforce, not as the enforcement itself.
