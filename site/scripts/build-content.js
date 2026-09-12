@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const WIKI_ROOT = path.resolve(__dirname, '../../wiki');
+const WIKI_ROOT = path.resolve(__dirname, '../../core/wiki');
 const VAULT_ROOT = path.resolve(__dirname, '../..');
 const OUT_DIR = path.resolve(__dirname, '../src/data/generated');
 
@@ -243,7 +243,7 @@ function buildPlacements() {
     return;
   }
 
-  const placementsDir = path.join(WIKI_ROOT, 'placements');
+  const placementsDir = path.join(__dirname, '../../core/private/interviews');
   if (!fs.existsSync(placementsDir)) {
     writeJSON('placements', { gated: false, dsa: null, mockInterviews: [] });
     return;
