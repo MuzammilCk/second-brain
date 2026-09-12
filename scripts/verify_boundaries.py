@@ -99,6 +99,34 @@ def check_no_private_leaks():
                         )
 
 
+ALLOWED_GENERATED_FILES = {
+    "telemetry.json",
+    "progress.json",
+    "portfolio.json",
+    "public_graph.json",
+}
+
+
+def check_generated_dir_allowlist():
+    """Fail if anything other than the expected compiled outputs shows up in
+    site/src/data/generated/. This catches the class of mistake where a new
+    compiler script (like a graph exporter) gets pointed at the wrong
+    destination and starts writing something — anything — into the public
+    directory, independent of whether its *content* happens to trip the
+    sensitive-terms scan in check_no_private_leaks()."""
+    if not os.path.exists(GENERATED_DIR):
+        return
+    for f in os.listdir(GENERATED_DIR):
+        full_path = os.path.join(GENERATED_DIR, f)
+        if os.path.isfile(full_path) and f not in ALLOWED_GENERATED_FILES:
+            fail(
+                f"Unexpected file '{f}' found in site/src/data/generated/. "
+                f"Only {sorted(ALLOWED_GENERATED_FILES)} are allowed here — "
+                f"if this is a new legitimate output, add it to "
+                f"ALLOWED_GENERATED_FILES deliberately, don't let it slide in."
+            )
+
+
 def check_stack_inventory_evidence():
     """production and active_sprint both require evidence.reference.
     Only production additionally requires that reference to point to a
@@ -160,6 +188,7 @@ def check_project_schemas():
 
 def main():
     print("[Verifying System Boundaries & Schemas...]")
+    check_generated_dir_allowlist()
     check_no_private_leaks()
     check_stack_inventory_evidence()
     check_project_schemas()
