@@ -44,7 +44,7 @@ fi
 WORK_DIR="second-brain-history-rewrite.git"
 
 echo "== Making a fresh mirror clone to operate on (never rewrite in place) =="
-git clone --mirror "$REPO_URL" "$WORK_DIR"
+git clone --mirror --no-local "$REPO_URL" "$WORK_DIR"
 cd "$WORK_DIR"
 
 echo "== Pre-flight: confirming core/private/ is already untracked at HEAD =="
