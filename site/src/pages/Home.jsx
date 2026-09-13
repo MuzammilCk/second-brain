@@ -1,124 +1,118 @@
-import { Suspense, lazy } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import AnimatedCounter from '../components/ui/AnimatedCounter';
-import GlassCard from '../components/ui/GlassCard';
-import statsData from '../data/generated/stats.json';
-import projectsData from '../data/generated/projects.json';
-import logData from '../data/generated/log.json';
+import HeroStudio from '../components/portfolio/HeroStudio';
+import ConnectedMind from '../components/portfolio/ConnectedMind';
+import ProjectWorlds from '../components/portfolio/ProjectWorlds';
+import ArchitecturalPivots from '../components/portfolio/ArchitecturalPivots';
+import ThinkingLab from '../components/portfolio/ThinkingLab';
+import DirectoryRow from '../components/portfolio/DirectoryRow';
+import ArchitectureDrawer from '../components/portfolio/ArchitectureDrawer';
+
+import portfolioData from '../data/generated/portfolio.json';
 import './Home.css';
 
-const HeroScene = lazy(() => import('../components/three/HeroScene'));
-
 export default function Home() {
-  const featured = projectsData.filter(p => p.status === 'active').slice(0, 4);
-  const recentLog = logData.slice(0, 6);
+  const [inspectedProject, setInspectedProject] = useState(null);
+
+  const enrichedProjects = useMemo(() => {
+    return (portfolioData?.projects || []).map((p) => ({
+      ...p,
+      slug: p.slug || p.id,
+      contentMd: p.body_markdown || '',
+      decisionCount: p.decision_count || p.decisions?.length || 0,
+    }));
+  }, []);
+
+  const flagshipProject = useMemo(() => {
+    return enrichedProjects.find((p) => p.slug === 'odoo-hackathon') || enrichedProjects[0];
+  }, [enrichedProjects]);
+
+  // Curate 4 systems for the teaser ledger on the home page
+  const ledgerPreview = useMemo(() => {
+    const prioritySlugs = ['esg-audit-system', 'repomind', 'metatune', 'hadi'];
+    return enrichedProjects.filter((p) => prioritySlugs.includes(p.slug));
+  }, [enrichedProjects]);
+
+  const handleInspect = (project) => {
+    const fullProject = enrichedProjects.find((p) => p.slug === project.slug) || project;
+    setInspectedProject(fullProject);
+  };
+
+  const handleCloseDrawer = () => {
+    setInspectedProject(null);
+  };
+
+  const handleWatchIntro = () => {
+    if (flagshipProject) {
+      handleInspect(flagshipProject);
+    }
+  };
 
   return (
-    <div className="home" id="home-page">
-      {/* ── Hero ─────────────────────── */}
-      <section className="hero" id="hero-section">
-        <div className="hero__3d">
-          <Suspense fallback={null}>
-            <HeroScene projects={projectsData} />
-          </Suspense>
+    <div className="home-studio" id="home-studio">
+      {/* Subtle atmospheric background grid */}
+      <div className="grain-overlay" aria-hidden="true"></div>
+
+      {/* ── SECTION 01: Hero Studio ── */}
+      <HeroStudio 
+        onExploreWork={() => {}}
+        onWatchIntro={handleWatchIntro}
+      />
+
+      {/* ── SECTION 02: Connected Mind Map ── */}
+      <ConnectedMind />
+
+      {/* ── SECTION 03: Project Worlds Carousel ── */}
+      <ProjectWorlds 
+        projects={enrichedProjects}
+        onInspect={handleInspect}
+      />
+
+      <div className="home-secondary-sections">
+        {/* ── SECTION 04: Engineering Evolution / Pivots ── */}
+        <div id="architectural-pivots">
+          <ArchitecturalPivots />
         </div>
 
-        <div className="hero__content container">
-          <motion.div
-            className="hero__text"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            <span className="section-label">Welcome to the Codex</span>
-            <h1 className="hero__title">
-              Building systems<br />
-              <span className="gradient-text">that think.</span>
-            </h1>
-            <p className="hero__subtitle">
-              Developer, builder, and lifelong learner. Exploring AI pipelines,
-              3D web experiences, and offline-first systems — powered by a living knowledge vault.
-            </p>
-            <div className="hero__actions">
-              <Link to="/projects" className="btn btn-primary" id="hero-cta-projects">
-                Explore Projects
-              </Link>
-              <Link to="/now" className="btn btn-ghost" id="hero-cta-now">
-                What I'm doing now →
-              </Link>
-            </div>
-          </motion.div>
+        {/* ── SECTION 05: The Thinking Lab (Playground & Garden) ── */}
+        <div id="thinking-lab">
+          <ThinkingLab />
         </div>
 
-        <div className="hero__gradient-orb hero__gradient-orb--1" />
-        <div className="hero__gradient-orb hero__gradient-orb--2" />
-      </section>
-
-      {/* ── Stats ────────────────────── */}
-      <section className="stats-section section-sm" id="stats-section">
-        <div className="container">
-          <div className="stats-grid">
-            <AnimatedCounter value={statsData.totalProjects} label="Projects" />
-            <AnimatedCounter value={statsData.totalDecisions} label="Decisions Logged" />
-            <AnimatedCounter value={statsData.totalConcepts} label="Concepts" />
-            <AnimatedCounter value={statsData.totalTechnologies} label="Technologies" suffix="+" />
-          </div>
-        </div>
-      </section>
-
-      {/* ── Featured Projects ────────── */}
-      <section className="section" id="featured-section">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">Featured Work</span>
-            <h2 className="section-title">Active Projects</h2>
-            <p className="section-subtitle">
-              What I'm currently building — each with its own architectural decision trail.
-            </p>
+        {/* ── SECTION 06: Systems Ledger & Archive Preview ── */}
+        <section className="home-ledger" id="systems-ledger" aria-label="Engineered systems ledger teaser">
+          <div className="section-label">
+            <span>06 / ARCHIVE & LEDGER PREVIEW</span>
+            <Link to="/projects" className="section-link">
+              View All {enrichedProjects.length} Systems →
+            </Link>
           </div>
 
-          <div className="grid-auto stagger-children">
-            {featured.map(project => (
-              <GlassCard key={project.slug} project={project} />
+          <div className="home-ledger__table">
+            {ledgerPreview.map((project) => (
+              <DirectoryRow
+                key={project.slug}
+                project={project}
+                onInspect={handleInspect}
+              />
             ))}
           </div>
 
-          <div className="section-cta">
-            <Link to="/projects" className="btn btn-ghost" id="featured-see-all">
-              View all {projectsData.length} projects →
+          <div className="home-ledger__cta">
+            <Link to="/projects" className="btn-archive">
+              Explore Complete 14-Project Archive with Domain Filters →
             </Link>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      {/* ── Activity Feed ────────────── */}
-      <section className="section" id="activity-section">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">Activity</span>
-            <h2 className="section-title">Recent Signal</h2>
-          </div>
-
-          <div className="activity-feed glass-card">
-            <div className="terminal-header">
-              <span className="terminal-dot terminal-dot--red" />
-              <span className="terminal-dot terminal-dot--yellow" />
-              <span className="terminal-dot terminal-dot--green" />
-              <span className="terminal-title">~/codex/wiki/log.md</span>
-            </div>
-            <div className="terminal-body">
-              {recentLog.map((entry, i) => (
-                <div key={i} className="terminal-line">
-                  <span className="terminal-date">{entry.date}</span>
-                  <span className="terminal-label">{entry.label}</span>
-                  <span className="terminal-desc">{entry.description.slice(0, 120)}{entry.description.length > 120 ? '…' : ''}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ── Technical Case Study Slide-Over Drawer ── */}
+      {inspectedProject && (
+        <ArchitectureDrawer
+          project={inspectedProject}
+          onClose={handleCloseDrawer}
+        />
+      )}
     </div>
   );
 }

@@ -4,58 +4,88 @@
    ══════════════════════════════════════════════════════════ */
 
 /* ── Google Fonts ──────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap');
 
 /* ── CSS Custom Properties ─────────────────── */
 :root {
-  /* Obsidian Telemetry Palette — Deep void black with amber & emerald signals */
-  --bg-void: #0A0A0F;
-  --bg-primary: #0A0A0F;
-  --bg-secondary: #0E0E15;
-  --bg-tertiary: #14141E;
-  --bg-elevated: #181826;
-  --bg-card: rgba(14, 14, 21, 0.85);
-  --surface-mid: #0E0E15;
-  --surface-high: #14141E;
-  --surface-hover: #1A1A28;
+  /* Builder's Studio — Warm Earth & Cinematic Palette */
+  --color-void: #0B0B0C;
+  --color-graphite: #1A1A1B;
+  --color-graphite-light: #242426;
+  --color-stone: #2E2A25;
+  --color-stone-dim: #1F1C18;
+  --color-sand: #C9B8A0;
+  --color-sand-dim: #8F8271;
+  --color-amber: #D4A373;
+  --color-amber-glow: #E6BA8E;
+  --color-sage: #7A9E7E;
+  --color-sage-glow: #8EBD92;
+  --color-deep-blue: #2A4B6B;
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-grid: #1F202E;
-  --border-glow-amber: rgba(245, 158, 11, 0.35);
-  --border-glow-emerald: rgba(16, 185, 129, 0.35);
+  /* Atelier Dark & Architectural Monograph Mappings */
+  --color-canvas: var(--color-void);
+  --color-surface: var(--color-graphite);
+  --color-surface-hover: var(--color-graphite-light);
+  --color-surface-subtle: var(--color-stone-dim);
+  --color-border-hairline: var(--color-stone);
+  --color-border-visible: rgba(46, 42, 37, 0.8);
+  --color-border-hover: var(--color-amber);
+  --color-text-primary: #FAF6F0;
+  --color-text-secondary: var(--color-sand);
+  --color-text-muted: var(--color-sand-dim);
+  --color-accent-amber: var(--color-amber);
+  --color-accent-emerald: var(--color-sage);
+  --color-accent-cyan: #4A90E2;
 
-  --text-primary: #F8FAFC;
-  --text-prominent: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --text-subtle: #475569;
-  --text-accent: #F59E0B;
+  /* Interoperability Mappings */
+  --bg-void: var(--color-void);
+  --bg-primary: var(--color-void);
+  --bg-secondary: var(--color-graphite);
+  --bg-tertiary: var(--color-stone-dim);
+  --bg-elevated: #242426;
+  --bg-card: var(--color-graphite);
+  --surface-mid: var(--color-graphite);
+  --surface-high: var(--color-stone-dim);
+  --surface-hover: var(--color-graphite-light);
 
-  /* Telemetry Signal Accents */
-  --accent-amber: #F59E0B;
-  --accent-amber-light: #FBBF24;
-  --accent-emerald: #10B981;
-  --accent-cyan: #06B6D4;
-  --accent-violet: #8B5CF6;
-  --accent-magenta: #D946EF;
+  --border-subtle: var(--color-stone);
+  --border-grid: rgba(46, 42, 37, 0.45);
+  --border-glow-amber: rgba(212, 163, 115, 0.3);
+  --border-glow-emerald: rgba(122, 158, 126, 0.3);
+
+  --text-primary: #FAF6F0;
+  --text-prominent: #FFFFFF;
+  --text-secondary: var(--color-sand);
+  --text-muted: var(--color-sand-dim);
+  --text-subtle: #685E52;
+  --text-accent: var(--color-amber);
+
+  /* Semantic Accents */
+  --accent-amber: var(--color-amber);
+  --accent-amber-light: var(--color-amber-glow);
+  --accent-emerald: var(--color-sage);
+  --accent-cyan: #4A90E2;
+  --accent-violet: #A28497;
+  --accent-magenta: #C27D88;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, var(--accent-amber) 0%, #EA580C 100%);
-  --gradient-telemetry: linear-gradient(135deg, #10B981 0%, #06B6D4 100%);
-  --gradient-subtle: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%);
-  --gradient-glow: radial-gradient(ellipse at center, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
-  --gradient-card-border: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(255, 255, 255, 0.06), rgba(16, 185, 129, 0.2));
+  --gradient-primary: linear-gradient(135deg, #FAF6F0 0%, #C9B8A0 100%);
+  --gradient-telemetry: linear-gradient(135deg, #7A9E7E 0%, #D4A373 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(212, 163, 115, 0.08) 0%, rgba(122, 158, 126, 0.06) 100%);
+  --gradient-glow: radial-gradient(ellipse at center, rgba(212, 163, 115, 0.12) 0%, transparent 70%);
+  --gradient-card-border: linear-gradient(135deg, rgba(212, 163, 115, 0.18), rgba(46, 42, 37, 0.1));
 
-  /* Glass */
-  --glass-bg: rgba(14, 14, 21, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  /* Glass / Surfaces */
+  --glass-bg: rgba(26, 26, 27, 0.92);
+  --glass-border: var(--color-stone);
   --glass-blur: 16px;
-  --glass-hover-bg: rgba(22, 22, 34, 0.95);
+  --glass-hover-bg: rgba(36, 36, 38, 0.95);
 
   /* Typography */
-  --font-display: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Sora', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-handwritten: 'Caveat', cursive;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -92,11 +122,11 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 30px rgba(139, 92, 246, 0.15);
-  --shadow-glow-strong: 0 0 60px rgba(139, 92, 246, 0.25);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 30px rgba(212, 163, 115, 0.15);
+  --shadow-glow-strong: 0 0 60px rgba(212, 163, 115, 0.25);
 
   /* Motion */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -108,7 +138,7 @@
   --duration-slower: 800ms;
 
   /* Layout */
-  --max-width: 1280px;
+  --max-width: 1440px;
   --navbar-height: 72px;
 }
 
@@ -128,13 +158,11 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--bg-void);
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-color: var(--color-void);
+  background-image: radial-gradient(rgba(212, 163, 115, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
   background-attachment: fixed;
-  color: var(--text-primary);
+  color: #E8E2D9;
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
@@ -143,22 +171,54 @@ body {
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-void);
+  background: #111112;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-grid);
+  background: var(--color-stone);
   border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-amber);
+  background: var(--color-amber);
 }
 
 /* Selection */
 ::selection {
-  background: rgba(245, 158, 11, 0.25);
-  color: #fff;
+  background: var(--color-amber);
+  color: var(--color-void);
+}
+
+/* Atmospheric Effects */
+.grain {
+  background-image: radial-gradient(rgba(212, 163, 115, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.radial-pulse {
+  box-shadow: 0 0 25px rgba(212, 163, 115, 0.25);
+}
+
+.underline-hand {
+  position: relative;
+  white-space: nowrap;
+}
+
+.underline-hand::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 4px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M0 15 Q 30 5, 60 12 T 100 8' fill='none' stroke='%23D4A373' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.font-handwritten {
+  font-family: var(--font-handwritten);
 }
 
 /* ── Typography ────────────────────────────── */

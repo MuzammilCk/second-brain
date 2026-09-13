@@ -1,0 +1,362 @@
+/* ══════════════════════════════════════════════════════════
+   ProjectWorlds — Builder's Studio Section 03
+   Cinematic Tall Project World Cards & Horizontal Carousel
+   ══════════════════════════════════════════════════════════ */
+
+.project-worlds {
+  position: relative;
+  padding: 6rem 2rem;
+  border-bottom: 1px solid rgba(46, 42, 37, 0.4);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* ── Section Header ───────────────────────────────────────── */
+.project-worlds__header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3.5rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.project-worlds__pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--color-amber);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--color-stone);
+  background: var(--color-graphite);
+}
+
+.project-worlds__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0.25rem 0 0.5rem 0;
+}
+
+.project-worlds__subtitle {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: rgba(201, 184, 160, 0.8);
+  max-width: 540px;
+  margin: 0;
+}
+
+.project-worlds__controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.project-worlds__annotation {
+  font-size: 1.6rem;
+  color: var(--color-amber);
+  transform: rotate(-2deg);
+  display: inline-block;
+}
+
+.project-worlds__arrows {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.project-worlds__arrow-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 9999px;
+  border: 1px solid var(--color-stone);
+  background: var(--color-graphite);
+  color: var(--color-sand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.project-worlds__arrow-btn:hover {
+  border-color: var(--color-amber);
+  color: var(--color-amber);
+  transform: scale(1.05);
+}
+
+/* ── Grid / Carousel Container ────────────────────────────── */
+.project-worlds__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(280px, 1fr));
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+}
+
+.project-worlds__grid::-webkit-scrollbar {
+  height: 6px;
+}
+.project-worlds__grid::-webkit-scrollbar-track {
+  background: rgba(26, 26, 27, 0.5);
+  border-radius: 9999px;
+}
+.project-worlds__grid::-webkit-scrollbar-thumb {
+  background: var(--color-stone);
+  border-radius: 9999px;
+}
+.project-worlds__grid::-webkit-scrollbar-thumb:hover {
+  background: var(--color-amber);
+}
+
+/* ── Individual Card ──────────────────────────────────────── */
+.project-worlds__card {
+  position: relative;
+  height: 520px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(46, 42, 37, 0.85);
+  background: var(--color-graphite);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.75rem;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+}
+
+.project-worlds__card:hover {
+  border-color: var(--color-amber);
+  box-shadow: 0 24px 50px rgba(212, 163, 115, 0.12);
+  transform: translateY(-4px);
+}
+
+.project-worlds__card-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.1) brightness(0.72);
+  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.project-worlds__card:hover .project-worlds__card-bg {
+  transform: scale(1.05);
+}
+
+.project-worlds__card-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--color-void) 0%, rgba(11, 11, 12, 0.55) 50%, rgba(11, 11, 12, 0.25) 100%);
+  pointer-events: none;
+}
+
+/* Card Top Bar */
+.project-worlds__card-top {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-worlds__sys-code {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-amber);
+  background: rgba(11, 11, 12, 0.82);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(46, 42, 37, 0.8);
+}
+
+.project-worlds__expand-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  background: rgba(11, 11, 12, 0.75);
+  border: 1px solid var(--color-stone);
+  color: var(--color-sand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.project-worlds__expand-btn .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.project-worlds__card:hover .project-worlds__expand-btn {
+  background: var(--color-amber);
+  border-color: var(--color-amber);
+  color: var(--color-void);
+  transform: rotate(45deg);
+}
+
+/* Card Bottom Content */
+.project-worlds__card-bottom {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.project-worlds__live-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-worlds__live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+}
+
+.project-worlds__live-dot--sage { background: var(--color-sage); box-shadow: 0 0 8px var(--color-sage); }
+.project-worlds__live-dot--amber { background: var(--color-amber); box-shadow: 0 0 8px var(--color-amber); }
+.project-worlds__live-dot--sand { background: var(--color-sand); }
+
+.project-worlds__live-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.project-worlds__live-text--sage { color: var(--color-sage); }
+.project-worlds__live-text--amber { color: var(--color-amber); }
+.project-worlds__live-text--sand { color: var(--color-sand); }
+
+.project-worlds__card-title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.project-worlds__card:hover .project-worlds__card-title {
+  color: var(--color-amber);
+}
+
+.project-worlds__card-pitch {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: rgba(201, 184, 160, 0.9);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.project-worlds__domains {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(46, 42, 37, 0.5);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(201, 184, 160, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.project-worlds__domain-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.project-worlds__domain-sep {
+  color: var(--color-stone);
+}
+
+.project-worlds__domain-first {
+  color: var(--color-amber);
+  font-weight: 600;
+}
+
+/* ── Footer / Ledger Link ─────────────────────────────────── */
+.project-worlds__footer {
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(46, 42, 37, 0.4);
+  padding-top: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-sand-dim);
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.project-worlds__progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.project-worlds__progress-count {
+  color: var(--color-amber);
+  font-weight: 700;
+}
+
+.project-worlds__progress-bar {
+  width: 120px;
+  height: 4px;
+  background: var(--color-graphite);
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 1px solid rgba(46, 42, 37, 0.5);
+}
+
+.project-worlds__progress-fill {
+  width: 28%;
+  height: 100%;
+  background: var(--color-amber);
+}
+
+.project-worlds__progress-label {
+  letter-spacing: 0.08em;
+}
+
+.project-worlds__ledger-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-sand);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.project-worlds__ledger-link:hover {
+  color: var(--color-amber);
+}
+
+.project-worlds__ledger-link .material-symbols-outlined {
+  font-size: 16px;
+}
+
+/* ── Responsive Breakpoints ───────────────────────────────── */
+@media (max-width: 1100px) {
+  .project-worlds__grid {
+    grid-template-columns: repeat(4, 320px);
+  }
+}

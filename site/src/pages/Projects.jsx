@@ -4,6 +4,7 @@ import FilterControls from '../components/portfolio/FilterControls';
 import FeaturedCard from '../components/portfolio/FeaturedCard';
 import DirectoryRow from '../components/portfolio/DirectoryRow';
 import ArchitectureDrawer from '../components/portfolio/ArchitectureDrawer';
+import HeroStory from '../components/portfolio/HeroStory';
 
 import portfolioData from '../data/generated/portfolio.json';
 import './Projects.css';
@@ -153,11 +154,21 @@ export default function Projects() {
         {/* Main Content Area */}
         {filteredProjects.length > 0 ? (
           <div className="projects-content">
-            {/* Featured Systems Section */}
-            {featuredList.length > 0 && (
+            {/* When viewing All without search query, present the flagship story first */}
+            {filter === 'all' && !searchQuery.trim() && (
+              <div className="projects-flagship-wrap">
+                <HeroStory
+                  project={enrichedProjects.find(p => p.slug === 'odoo-hackathon') || enrichedProjects[0]}
+                  onInspect={handleInspect}
+                />
+              </div>
+            )}
+
+            {/* Featured Systems Section when filtered */}
+            {!(filter === 'all' && !searchQuery.trim()) && featuredList.length > 0 && (
               <section className="featured-section" aria-label="Featured systems architecture">
                 <div className="section-label">
-                  <span>FEATURED ARCHITECTURE CASE STUDIES</span>
+                  <span>MATCHING SYSTEMS SPOTLIGHT</span>
                 </div>
                 <div className="featured-grid">
                   {featuredList.map((project) => (
@@ -172,23 +183,21 @@ export default function Projects() {
             )}
 
             {/* Systems Directory Section */}
-            {directoryList.length > 0 && (
-              <section className="directory-section" aria-label="All engineered systems directory">
-                <div className="section-label">
-                  <span>ALL ENGINEERED SYSTEMS DIRECTORY</span>
-                  <span className="section-count">{directoryList.length} systems</span>
-                </div>
-                <div className="directory-table">
-                  {directoryList.map((project) => (
-                    <DirectoryRow
-                      key={project.slug}
-                      project={project}
-                      onInspect={handleInspect}
-                    />
-                  ))}
-                </div>
-              </section>
-            )}
+            <section className="directory-section" aria-label="All engineered systems directory">
+              <div className="section-label">
+                <span>{filter === 'all' && !searchQuery.trim() ? 'COMPLETE SYSTEMS LEDGER' : 'FILTERED SYSTEMS DIRECTORY'}</span>
+                <span className="section-count">{filteredProjects.length} systems</span>
+              </div>
+              <div className="directory-table">
+                {filteredProjects.map((project) => (
+                  <DirectoryRow
+                    key={project.slug}
+                    project={project}
+                    onInspect={handleInspect}
+                  />
+                ))}
+              </div>
+            </section>
           </div>
         ) : (
           <div className="projects-empty-state">
