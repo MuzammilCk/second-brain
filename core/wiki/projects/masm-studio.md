@@ -1,4 +1,5 @@
 ---
+id: "masm-studio"
 title: MASM Studio
 type: project
 status: active

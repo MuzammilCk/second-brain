@@ -1,4 +1,5 @@
 ---
+id: "invoice-studio"
 title: AI Invoice Studio
 type: project
 status: active

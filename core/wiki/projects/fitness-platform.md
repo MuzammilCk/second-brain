@@ -1,4 +1,5 @@
 ---
+id: "fitness-platform"
 title: Fitness Platform
 type: project
 status: active

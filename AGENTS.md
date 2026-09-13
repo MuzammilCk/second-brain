@@ -46,8 +46,15 @@ drift apart.
 
 ## 3. What actually enforces this
 This file states intent, and a capable agent should follow it — but intent
-alone isn't a guarantee. The actual enforcement comes from two places:
-- A `PreToolUse` hook in `.claude/settings.json` (`scripts/check_write_boundary.py`) that can block a write *before* it happens.
-- `scripts/verify_boundaries.py`, run in CI both before and after compilation, as the reliable backstop regardless of whether the local hook is wired up correctly on any given machine.
+alone isn't a guarantee. Platform is Antigravity, not Claude Code — hooks
+live flat in `.agents/plugins/codex-core/hooks.json` (no nested `hooks/`
+subdirectory), and a `PreToolUse` hook blocks by printing
+`{"decision": "deny"}` to stdout, not via process exit code.
 
-Treat this file as the spec those two enforce, not as the enforcement itself.
+As of now, the real-time blocking hook does not exist yet — there's only a
+temporary diagnostic entry (`vault-boundary-diagnostic`) that logs the
+real tool-call schema and never blocks anything. Until the real logic
+replaces it, the only thing actually enforcing these boundaries is
+`scripts/verify_boundaries.py`, run in CI before and after compilation.
+Don't treat this file's rules as enforced in real time until that's
+explicitly confirmed working, not just present.

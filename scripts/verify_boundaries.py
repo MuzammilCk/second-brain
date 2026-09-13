@@ -118,7 +118,6 @@ ALLOWED_GENERATED_FILES = {
     "telemetry.json",
     "progress.json",
     "portfolio.json",
-    "public_graph.json",
     "projects.json",
     "concepts.json",
     "log.json",
@@ -151,7 +150,13 @@ def check_generated_dir_allowlist():
 def check_stack_inventory_evidence():
     """production and active_sprint both require evidence.reference.
     Only production additionally requires that reference to point to a
-    real, already-written case study under core/wiki/projects/."""
+    real, already-written case study under core/wiki/projects/.
+
+    Field name note: this schema calls it 'tier' (production/active_sprint/
+    exploring), not 'status' — matching the latest spec. There is
+    deliberately no 'quadrant' field expected here: quadrant is derived from
+    'category' at compile time in compile_progress.py, not hand-entered, so
+    the two can't drift apart the way a manually-maintained quadrant would."""
     inventory_path = os.path.join(PROGRESS_DIR, "stack-inventory.json")
     if not os.path.exists(inventory_path):
         return
@@ -165,13 +170,13 @@ def check_stack_inventory_evidence():
 
     for item in data.get("technologies", []):
         name = item.get("name", "Unknown")
-        status = item.get("status")
+        tier = item.get("tier")
         evidence = item.get("evidence", {})
 
-        if status in ("production", "active_sprint"):
+        if tier in ("production", "active_sprint"):
             if not evidence.get("reference"):
-                fail(f"Technology '{name}' is marked '{status}' but has no evidence.reference.")
-            if status == "production" and evidence.get("type") == "project_id":
+                fail(f"Technology '{name}' is marked '{tier}' but has no evidence.reference.")
+            if tier == "production" and evidence.get("type") == "project_id":
                 proj_ref = evidence.get("reference")
                 expected_doc = os.path.join(WIKI_DIR, "projects", f"{proj_ref}.md")
                 if not os.path.exists(expected_doc):

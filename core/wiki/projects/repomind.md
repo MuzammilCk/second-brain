@@ -1,4 +1,5 @@
 ---
+id: "repomind"
 title: Repo Mind
 type: project
 status: active

@@ -1,4 +1,5 @@
 ---
+id: "odoo-hackathon"
 title: Odoo Hackathon 2026 Grand Finale
 type: project
 status: active

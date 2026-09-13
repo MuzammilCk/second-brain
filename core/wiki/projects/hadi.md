@@ -1,4 +1,5 @@
 ---
+id: "hadi"
 title: Hadi Perfumes
 type: project
 status: active

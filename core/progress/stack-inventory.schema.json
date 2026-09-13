@@ -18,11 +18,15 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "category", "status"],
+        "required": ["name", "category", "tier"],
         "properties": {
           "name": { "type": "string" },
-          "category": { "type": "string", "enum": ["Systems", "AI/ML", "Architecture", "Tooling"] },
-          "status": { "type": "string", "enum": ["production", "active_sprint", "exploring"] },
+          "category": {
+            "type": "string",
+            "enum": ["Systems", "AI/ML", "Architecture", "Tooling"],
+            "description": "Single source of truth for grouping. compile_progress.py derives the radar quadrant from this — don't also hand-enter a quadrant field, that's how it drifts."
+          },
+          "tier": { "type": "string", "enum": ["production", "active_sprint", "exploring"] },
           "evidence": {
             "type": "object",
             "properties": {
@@ -35,7 +39,7 @@
         "allOf": [
           {
             "if": {
-              "properties": { "status": { "enum": ["production", "active_sprint"] } }
+              "properties": { "tier": { "enum": ["production", "active_sprint"] } }
             },
             "then": {
               "required": ["evidence"],
