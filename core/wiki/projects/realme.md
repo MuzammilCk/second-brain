@@ -2,6 +2,9 @@
 title: RealMe 3D Portfolio
 type: project
 status: active
+export: "true"
+repo_reference: https://github.com/MuzammilCk/RealMe
+last_verified: 2026-08-03
 stack: React, TypeScript, Vite, Three.js, React Three Fiber, Framer Motion, Tailwind CSS, OKLCH, Vercel Edge Functions, Resend API
 sources:
   - raw/claude-exports/Refactoring-a-3D-portfolio-to-enterprise-grade.md
@@ -13,22 +16,43 @@ last-updated: 2026-08-03
 
 # RealMe (3D Portfolio)
 
-`RealMe` (host repository `MuzammilCk/RealMe`) is a React-based 3D portfolio application designed with a "diary on a desk in the dark" narrative experience. It features procedural materials, custom shader interactions, and physical simulations.
+React-based 3D personal portfolio with a "diary on a desk in the dark" narrative experience. Features procedural materials, Verlet cloth page-turning physics, custom WebGL post-processing, and a gyro/scroll-reactive camera — all without importing heavy media assets.
 
-## Project Structure & Aesthetics
+## Problem
 
-- **Core Aesthetic**: A dark room containing a desk, with a physical diary that users can interact with. Uses custom canvas-rendered textures to avoid importing heavy media assets.
-- **Design Tokens**: Color configurations mapped using OKLCH system tokens for consistent luminance and chroma gradients.
-- **Bypassed polishing pattern**: A recurring development pattern was identified where high-fidelity sub-systems (like Verlet cloth physics, Post-processing configurations, typography grids, and camera controllers) were fully implemented in separate modules but left unmounted, while simplified 2D fallbacks were active.
+Standard portfolio sites are flat, static, and instantly forgettable. A 3D narrative experience creates a memorable first impression and demonstrates advanced Three.js and React Three Fiber skills in a way a resume cannot. The challenge is achieving high visual fidelity on mid-tier devices (no GPU budget) without resorting to pre-baked assets that bloat bundle size.
 
-## Code Refactoring (Enterprise Grade)
+## Architecture
 
-The portfolio underwent a systematic refactoring to stabilize its 3D depth and interactivity:
-1. **Flicker Fixes**: Removed `Math.random` per-frame calls in custom components like `DustMotes`, replacing them with stable hash or procedural loops to stop canvas-texture flickering.
-2. **Mail integration**: Replaced static client-side mailto anchors with a secure Vercel Edge Function linked to the Resend API, incorporating honeypot properties to filter spam.
-3. **Draggable Page Turn**: Reactivated Verlet cloth simulation inside the page canvas, allowing users to physically click and drag pages to turn them.
-4. **PostProcessingLite**: Enabled optimized post-processing effects (vignettes, bloom filters) tailored for performance on tier-2 devices.
-5. **Interactive Cameras**: Mounted camera scripts (`ScrollCamera`, `GyroCamera`) to allow gyro/scroll gestures to dynamically tilt the perspective, overcoming the static 2D representation.
+- **Core Aesthetic**: Dark room + desk + physical diary. Canvas-rendered textures replace bitmap images throughout.
+- **Design System**: OKLCH color tokens for consistent luminance and chroma gradients across all materials and UI elements.
+- **3D Stack**: React Three Fiber (Three.js bindings) + `@react-three/drei` for helpers. Custom shader materials for desk surface, book cover, and dust mote particles.
+- **Verlet Cloth Physics**: Page-turn interaction implemented with a Verlet cloth simulation. Users click and drag pages to turn them; physics constraints maintain realistic paper behavior.
+- **Camera System**: `ScrollCamera` and `GyroCamera` scripts respond to scroll position and device gyroscope respectively, dynamically tilting the 3D perspective.
+- **Post-Processing**: `PostProcessingLite` — optimized vignette + bloom configured for tier-2 device budgets.
+- **Mail API**: Vercel Edge Function connected to Resend API with honeypot spam filtering, replacing static `mailto:` links.
 
-## Historical Decisions & Pivots
+## Constraints & Trade-offs
+
+- **Canvas-rendered textures**: Heavy image assets are replaced with canvas-rendered textures generated at runtime. This keeps the bundle small but adds JS initialization cost on first load.
+- **Bypassed polishing pattern**: A recurring issue during development — high-fidelity subsystems (cloth physics, post-processing, gyro camera) were fully implemented but left unmounted while simpler 2D fallbacks remained active. Systematic refactoring was required to activate them.
+- **Per-frame `Math.random` bug**: `DustMotes` and similar components used `Math.random()` per render frame, causing canvas texture flickering. Fixed by replacing with stable procedural hash loops.
+- **Tier-2 device targeting**: Post-processing effects are limited to vignette and low-intensity bloom. Ray-marching, SSR, and heavy SSAO effects are excluded.
+
+## Implementation Evidence
+
+- Verlet cloth simulation driving interactive page-turn on the diary canvas.
+- `ScrollCamera` and `GyroCamera` scripts mounting and controlling perspective tilt.
+- `PostProcessingLite` with vignette + bloom using `@react-three/postprocessing`.
+- Canvas-rendered procedural textures eliminating bitmap asset imports.
+- Vercel Edge Function (`/api/contact`) integrating Resend API with honeypot field validation.
+- OKLCH design token system for all color decisions.
+
+## Current State
+
+Active development. Core 3D scene, cloth physics, camera controllers, and mail endpoint functional post-refactor. Additional scenes (projects page, about section) in progress.
+
+## Decisions
+
 See the complete list of portfolio adjustments in [[realme-decisions|RealMe Decision Log]].
+

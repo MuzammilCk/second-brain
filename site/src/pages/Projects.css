@@ -1,0 +1,203 @@
+/* Projects.css - Atelier Dark Editorial Systems Showcase */
+
+.projects-page {
+  background-color: #09090b;
+  min-height: 100dvh;
+  color: #fafafa;
+  padding: 3rem 1.5rem 6rem 1.5rem;
+}
+
+.projects-container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* Editorial Header */
+.projects-header {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #18181b;
+}
+
+.projects-header__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.875rem;
+}
+
+.projects-header__eyebrow span {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.6875rem;
+  color: #71717a;
+  letter-spacing: 0.08em;
+}
+
+.projects-header__title {
+  font-family: var(--font-sans, 'Geist', -apple-system, sans-serif);
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  font-weight: 600;
+  color: #fafafa;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin: 0 0 1rem 0;
+  text-wrap: balance;
+}
+
+.projects-header__bio {
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 1.0625rem;
+  color: #a1a1aa;
+  line-height: 1.6;
+  max-width: 44rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.projects-header__meta-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.75rem;
+  color: #a1a1aa;
+  background-color: #121215;
+  border: 1px solid #18181b;
+  border-radius: 4px;
+  padding: 0.25rem 0.625rem;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.meta-pill--highlight {
+  background-color: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+
+.meta-pill__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+}
+
+.meta-pill__dot--zinc {
+  background-color: #71717a;
+}
+
+.meta-pill__dot--green {
+  background-color: #10b981;
+}
+
+.meta-pill__dot--gold {
+  background-color: #f59e0b;
+}
+
+/* Sections */
+.projects-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.section-label span:first-child {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: #71717a;
+  letter-spacing: 0.08em;
+}
+
+.section-count {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.6875rem;
+  color: #52525b;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Featured Systems Grid */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 840px) {
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Directory Table */
+.directory-table {
+  background-color: #0d0d10;
+  border: 1px solid #18181b;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.directory-table .directory-row:last-child {
+  border-bottom: none;
+}
+
+/* Empty State */
+.projects-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #0d0d10;
+  border: 1px dashed #27272a;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.empty-title {
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #fafafa;
+  margin: 0 0 0.5rem 0;
+}
+
+.empty-desc {
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 0.875rem;
+  color: #71717a;
+  max-width: 24rem;
+  margin: 0 auto 1.5rem auto;
+  line-height: 1.5;
+}
+
+.empty-clear-btn {
+  background-color: #fafafa;
+  color: #09090b;
+  border: none;
+  border-radius: 4px;
+  padding: 0.45rem 0.85rem;
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.empty-clear-btn:hover {
+  background-color: #eaeaea;
+}
+
+.empty-clear-btn:focus-visible {
+  outline: 2px solid #fafafa;
+  outline-offset: 2px;
+}

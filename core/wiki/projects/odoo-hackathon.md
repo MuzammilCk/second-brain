@@ -2,6 +2,8 @@
 title: Odoo Hackathon 2026 Grand Finale
 type: project
 status: active
+export: "true"
+last_verified: 2026-09-06
 stack: Odoo 17 (Python/OWL), PostgreSQL
 sources:
   - wiki/placements/odoo-hackathon.md
@@ -10,52 +12,46 @@ related:
   - "[[assetflow|AssetFlow]]"
   - "[[odoo-hackathon|Odoo Hackathon Placement]]"
 created: 2026-08-25
-last-updated: 2026-08-25
+last-updated: 2026-09-06
 ---
 
 # Odoo Hackathon 2026 Grand Finale
 
-Team 583's participation in the Odoo Hackathon 2026 Grand Finale — a 24-hour in-person coding competition at Odoo India Pvt Ltd, Gandhinagar, used as Odoo's primary Software Engineer recruitment pipeline. Freshers packages are in the ₹5–8 LPA range.
+Team 583's participation in the Odoo Hackathon 2026 Grand Finale — a 24-hour in-person coding competition at Odoo India Pvt Ltd, Gandhinagar, used as Odoo's primary Software Engineer recruitment pipeline.
 
-## Team 583
+## Problem
 
-| Member | Role |
-| :--- | :--- |
-| Muzammil CK | Lead / Architecture |
-| Pranav | — |
-| Adharsh | — |
-| Akhileswar | — |
+Building a complete, working Odoo native module within a 24-hour competition window, with a problem statement revealed only at coding start, under full evaluator observation. The challenge is not just technical — it is scope discipline, demo prioritization, and execution under pressure. Evaluators score running, deployable code over feature completeness.
 
-## Event Timeline
+## Architecture
 
-| Milestone | Date/Time |
-| :--- | :--- |
-| Train departs Ernakulam (ERS) | 2 Sep 2026, 8:25 PM (16338 ERS-Okha Express) |
-| Arrive Ahmedabad (ADI) | 4 Sep 2026, 7:00 AM → Metro to Gandhinagar |
-| Check-in window | 5 Sep 2026, 8:00 AM – 9:00 AM |
-| **Coding starts** | **5 Sep 2026, 10:00 AM** |
-| **GitHub collaborator deadline** | **5 Sep 2026, 11:00 AM** *(hard disqualifier if missed)* |
-| **Coding ends** | **6 Sep 2026, 10:00 AM** |
-| **Presentations** | **6 Sep 2026, 1:00 PM** |
-| Dismissal | 6 Sep 2026, after 5:30 PM |
+An Odoo 17 native module with:
 
-## Prior Work — AssetFlow
+- **Backend**: Python model definitions (`models/`) extending Odoo's ORM. Business logic in service methods following Odoo's `@api.model` and `@api.depends` compute patterns.
+- **Frontend**: OWL (Odoo Web Library) components — Odoo's native reactive frontend framework. No external JavaScript frameworks.
+- **Database**: PostgreSQL managed entirely through Odoo's ORM. No raw SQL.
+- **Integration constraints**: All features must be Odoo-native. Third-party Python libraries are permitted but external APIs are avoided to reduce deployment risk during the competition.
 
-The team's submission from the preliminary round was **AssetFlow** — a conflict-prevention physical asset tracker built on Odoo. This was our entry point to the Grand Finale. See [[assetflow|AssetFlow]] for full architecture and decisions.
+Prior entry: AssetFlow (preliminary round) — a conflict-prevention physical asset tracker. Its architecture and decisions inform the Grand Finale strategy.
 
-## Grand Finale Strategy
+## Constraints & Trade-offs
 
-- **Stack**: Odoo 17 module development (Python backend, OWL frontend components, PostgreSQL). All solutions must be Odoo-native.
-- **Problem domain**: Announced at the start of the 24-hour window. Expect a business process automation or resource management challenge.
-- **Key execution principle**: Prioritize a working demo over feature completeness. Evaluators reward deployed, running code.
-- **GitHub handoff**: Evaluator must be added as GitHub collaborator **within 1 hour of coding start** (5 Sep, 11 AM hard deadline).
+- **24-hour build window**: Feature scope is cut aggressively at coding start. A working demo of 3 core features outscores a 10-feature prototype with bugs.
+- **Odoo-native constraint**: All solutions must be Odoo module–based. This eliminates microservice architectures, standalone Flask/FastAPI services, and non-Odoo frontends.
+- **GitHub collaborator deadline**: The evaluator must be added as a GitHub collaborator within 1 hour of coding start (11:00 AM hard disqualifier). Missing this means disqualification.
+- **Problem domain uncertainty**: The problem statement is revealed at 10:00 AM on 5 Sep 2026. Architecture decisions must be made in the first 30 minutes.
 
-## Logistics
+## Implementation Evidence
 
-- **Location**: Odoo India Pvt Ltd, Gandhinagar, Gujarat (exact venue address shared post-confirmation).
-- **Accommodation**: Self-funded. *(Confirm booking ASAP — 11 days out.)*
-- **Travel**: No Odoo reimbursement. Total round-trip cost is personal.
-- Return options: Monday train (20924 Humsafar / 16337 Okha-ERS) or flight from AMD on Sunday night.
+- Team 583 qualified to the Grand Finale through the AssetFlow preliminary submission.
+- Preliminary module (AssetFlow) demonstrated: role-based access, conflict-prevention booking, maintenance Kanban, and analytics dashboards — all in Odoo 17 native stack.
+- Grand Finale module: development in progress (coding window: 5–6 Sep 2026).
 
-## Historical Decisions & Pivots
+## Current State
+
+Active. The Grand Finale coding window runs 5 Sep 2026 10:00 AM – 6 Sep 2026 10:00 AM. Presentations on 6 Sep 2026 at 1:00 PM. Result and feedback to be recorded post-event.
+
+## Decisions
+
 See the complete list of strategy and technical decisions in [[odoo-hackathon-decisions|Odoo Hackathon Decision Log]].
+

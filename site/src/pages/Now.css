@@ -1,0 +1,109 @@
+.now-section {
+  margin-bottom: var(--space-6);
+}
+
+.now-section__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-6);
+}
+
+.now-section__icon {
+  font-size: var(--text-2xl);
+}
+
+/* Projects list */
+.now-projects {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.now-project {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  transition: background var(--duration-fast) var(--ease-smooth);
+}
+
+.now-project:hover {
+  background: var(--bg-elevated);
+}
+
+.now-project__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-emerald);
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+}
+
+.now-project strong {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+
+.now-project__stack {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Tags */
+.now-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.now-tag {
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Log */
+.now-log {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.now-log__entry {
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--accent-violet);
+  background: var(--bg-tertiary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.now-log__date {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent-cyan);
+}
+
+.now-log__label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-left: var(--space-3);
+}
+
+.now-log__desc {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  line-height: 1.5;
+}

@@ -7,6 +7,7 @@ Parses core/wiki/projects/ and generates site/src/data/generated/portfolio.json.
 import os
 import sys
 import json
+import re
 from datetime import datetime, timezone
 from urllib.parse import urlparse
 
@@ -29,6 +30,42 @@ def repo_key_from_url(url):
         return None
     parts = urlparse(url).path.strip("/").split("/")
     return parts[1].lower() if len(parts) >= 2 else None
+
+
+def parse_decisions(filepath):
+    if not os.path.exists(filepath):
+        return []
+    with open(filepath, "r", encoding="utf-8", errors="ignore") as handle:
+        lines = handle.read().splitlines()
+    decisions = []
+    current = None
+    for line in lines:
+        header_match = re.match(r"^##\s+(\d{4}-\d{2}-\d{2})\s*[—–-]\s*(.+)", line)
+        if header_match:
+            if current:
+                decisions.append(current)
+            current = {
+                "date": header_match.group(1),
+                "title": header_match.group(2).strip(),
+                "context": "",
+                "decision": "",
+                "alternatives": "",
+                "status": "active",
+            }
+            continue
+        if not current:
+            continue
+        if line.startswith("**Context:**"):
+            current["context"] = line.replace("**Context:**", "").strip()
+        elif line.startswith("**Decision:**"):
+            current["decision"] = line.replace("**Decision:**", "").strip()
+        elif line.startswith("**Alternatives considered:**"):
+            current["alternatives"] = line.replace("**Alternatives considered:**", "").strip()
+        elif line.startswith("**Status:**"):
+            current["status"] = line.replace("**Status:**", "").strip()
+    if current:
+        decisions.append(current)
+    return decisions
 
 
 def main():
@@ -54,14 +91,33 @@ def main():
                 repo_key = repo_key_from_url(repo_ref) or proj_id.lower().replace("-", "")
                 repo_stats = telemetry.get(repo_key, {})
 
+                # Stack pills
+                raw_stack = fm.get("stack", "")
+                if isinstance(raw_stack, list):
+                    stack = [str(s).strip() for s in raw_stack]
+                elif isinstance(raw_stack, str) and raw_stack.strip():
+                    stack = [s.strip() for s in raw_stack.split(",") if s.strip()]
+                else:
+                    stack = []
+
+                # Decisions
+                slug = filename.replace(".md", "")
+                decisions_file = os.path.join(PROJECTS_DIR, f"{slug}-decisions.md")
+                decisions = parse_decisions(decisions_file)
+
                 compiled_projects.append({
                     "id": proj_id,
+                    "slug": slug,
                     "title": fm.get("title", proj_id.title()),
                     "status": fm.get("status", "active"),
                     "repo_reference": repo_ref or repo_stats.get("html_url"),
                     "stars": repo_stats.get("stars", 0),
                     "primary_language": repo_stats.get("primary_language"),
                     "last_verified": fm.get("last_verified"),
+                    "created": str(fm.get("created", "")),
+                    "stack": stack,
+                    "decisions": decisions,
+                    "decision_count": len(decisions),
                     "body_markdown": body,
                 })
 

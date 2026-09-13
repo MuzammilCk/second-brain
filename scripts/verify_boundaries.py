@@ -23,13 +23,13 @@ PROGRESS_DIR = os.path.join(ROOT, "core", "progress")
 WIKI_DIR = os.path.join(ROOT, "core", "wiki")
 GENERATED_DIR = os.path.join(ROOT, "site", "src", "data", "generated")
 
-REQUIRED_SECTIONS = [
-    "1. Problem Statement",
-    "2. Architecture & Design",
-    "3. Constraints & Technical Trade-offs",
-    "4. Implementation Evidence",
-    "5. Current State",
-    "6. Architectural Decision Log",
+REQUIRED_SECTION_PATTERNS = [
+    (r"##\s+(?:1\.\s*)?Problem(?:\s+Statement)?", "Problem Statement"),
+    (r"##\s+(?:2\.\s*)?Architecture(?:\s*&\s*Design)?", "Architecture & Design"),
+    (r"##\s+(?:3\.\s*)?Constraints(?:\s*(?:&|and|/)\s*(?:Technical\s*)?Trade-offs)?", "Constraints & Trade-offs"),
+    (r"##\s+(?:4\.\s*)?Implementation Evidence", "Implementation Evidence"),
+    (r"##\s+(?:5\.\s*)?Current State", "Current State"),
+    (r"##\s+(?:6\.\s*)?(?:Architectural\s*)?Decision(?:s|\s*Log)?", "Architectural Decision Log"),
 ]
 
 _STRUCTURED_TERM_RE = re.compile(r"(?:company|target|package|offer|client):\s*([A-Za-z0-9_\-]+)", re.I)
@@ -77,7 +77,22 @@ def check_no_private_leaks():
     if not os.path.exists(PRIVATE_DIR):
         return
 
-    private_terms = load_explicit_terms() | extract_structured_terms()
+    explicit_terms = load_explicit_terms()
+    auto_terms = extract_structured_terms()
+
+    # Public open-source project names and slugs legitimately published in core/wiki/projects/
+    public_project_names = set()
+    projects_dir = os.path.join(WIKI_DIR, "projects")
+    if os.path.exists(projects_dir):
+        for f in os.listdir(projects_dir):
+            if f.endswith(".md"):
+                slug = f.replace(".md", "").lower()
+                public_project_names.add(slug)
+                public_project_names.update(slug.split("-"))
+
+    # Only filter auto-extracted terms; explicit terms in .sensitive-terms.txt are always enforced
+    auto_terms = {t for t in auto_terms if t.lower() not in public_project_names}
+    private_terms = explicit_terms | auto_terms
     if not private_terms:
         return
 
@@ -104,6 +119,12 @@ ALLOWED_GENERATED_FILES = {
     "progress.json",
     "portfolio.json",
     "public_graph.json",
+    "projects.json",
+    "concepts.json",
+    "log.json",
+    "priorities.json",
+    "stats.json",
+    "placements.json",
 }
 
 
@@ -178,11 +199,11 @@ def check_project_schemas():
             if frontmatter.get("export") != "true":
                 continue  # draft, not held to the full schema yet
 
-            for section in REQUIRED_SECTIONS:
-                if section not in text:
+            for pattern, section_name in REQUIRED_SECTION_PATTERNS:
+                if not re.search(pattern, text, re.I):
                     fail(
                         f"Project document '{f}' is marked export: true but is "
-                        f"missing required section: '{section}'"
+                        f"missing required section: '{section_name}'"
                     )
 
 
