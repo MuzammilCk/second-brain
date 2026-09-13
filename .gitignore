@@ -18,6 +18,8 @@ site/dist/
 node_modules/
 __pycache__/
 *.pyc
+*.log
+*.jsonl
 
 # Environment secrets
 .env

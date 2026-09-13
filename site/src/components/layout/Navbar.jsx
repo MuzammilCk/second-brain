@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { path: '/', label: 'Home' },
-  { path: '/projects', label: 'Projects' },
+  { path: '/', label: 'Studio' },
+  { path: '/projects', label: 'Worlds' },
   { path: '/garden', label: 'Garden' },
   { path: '/now', label: 'Now' },
   { path: '/playground', label: 'Playground' },
@@ -30,23 +30,24 @@ export default function Navbar() {
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} id="main-nav">
       <div className="navbar__inner container">
         <Link to="/" className="navbar__logo" id="nav-logo">
-          <div className="navbar__logo-badge">&lt;C&gt;</div>
+          <div className="navbar__logo-badge">&lt;M&gt;</div>
           <div className="navbar__logo-text-group">
             <div className="navbar__logo-title-row">
-              <span className="navbar__logo-title">CODEX</span>
-              <span className="navbar__version-pill">V4.8</span>
+              <span className="navbar__logo-title">MUZAMMIL CK</span>
             </div>
-            <span className="navbar__logo-sub">A SECOND BRAIN IN PUBLIC</span>
+            <span className="navbar__logo-sub">SECOND BRAIN IN PUBLIC</span>
           </div>
         </Link>
 
+        {/* Live Studio Status Pill */}
         <div className="navbar__status-pill hidden-mobile" id="nav-status-pill">
           <span className="navbar__status-dot"></span>
-          <span>MUZAMMIL CK STUDIO ARCHIVE</span>
+          <span>Studio Active · Kerala Lab</span>
           <span className="navbar__status-divider">/</span>
-          <span className="navbar__status-latency">1.2ms</span>
+          <span className="navbar__status-location">2026</span>
         </div>
 
+        {/* Desktop Wayfinding Links */}
         <div className="navbar__links" id="nav-links">
           {NAV_LINKS.map(({ path, label }) => (
             <Link
@@ -67,6 +68,7 @@ export default function Navbar() {
           ))}
         </div>
 
+        {/* Secondary Action: GitHub Profile */}
         <div className="navbar__actions">
           <a
             href="https://github.com/MuzammilCk"
@@ -75,21 +77,24 @@ export default function Navbar() {
             className="navbar__connect-btn"
             id="nav-connect"
           >
-            <span>Let's Connect</span>
-            <span className="material-symbols-outlined navbar__connect-icon">arrow_forward</span>
+            <span>GitHub</span>
+            <span className="material-symbols-outlined navbar__connect-icon">north_east</span>
           </a>
         </div>
 
+        {/* Mobile Hamburger Button */}
         <button
           className={`navbar__hamburger ${mobileOpen ? 'navbar__hamburger--open' : ''}`}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle navigation"
           id="nav-hamburger"
+          type="button"
         >
           <span /><span /><span />
         </button>
       </div>
 
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -98,17 +103,36 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            id="nav-mobile-menu"
           >
-            {NAV_LINKS.map(({ path, label }) => (
-              <Link
-                key={path}
-                to={path}
-                className={`navbar__mobile-link ${location.pathname === path ? 'navbar__mobile-link--active' : ''}`}
-              >
-                {label}
-              </Link>
-            ))}
+            <div className="navbar__mobile-inner">
+              <div className="navbar__mobile-meta">
+                <span className="navbar__status-dot"></span>
+                <span>Studio Active · ThinkPad L13</span>
+              </div>
+
+              {NAV_LINKS.map(({ path, label }) => (
+                <Link
+                  key={path}
+                  to={path}
+                  className={`navbar__mobile-link ${location.pathname === path ? 'navbar__mobile-link--active' : ''}`}
+                >
+                  <span>{label}</span>
+                  <span className="material-symbols-outlined">arrow_forward</span>
+                </Link>
+              ))}
+
+              <div className="navbar__mobile-actions">
+                <a
+                  href="https://github.com/MuzammilCk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="navbar__mobile-connect"
+                >
+                  <span>View GitHub Repositories</span>
+                  <span className="material-symbols-outlined">north_east</span>
+                </a>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
