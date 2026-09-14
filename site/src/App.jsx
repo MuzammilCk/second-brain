@@ -13,16 +13,11 @@ import Radar from './pages/Radar';
 import Concepts from './pages/Concepts';
 import ConceptDetail from './pages/ConceptDetail';
 
-// Universal 3D WebGL Spatial Canvas Engine
-import SpatialCanvas3D from './components/three/SpatialCanvas3D';
-
 export default function App() {
   const location = useLocation();
 
   return (
     <div className="app">
-      {/* ── Persistent 3D WebGL Spatial Universe ── */}
-      <SpatialCanvas3D />
       <div className="blueprint-grid" aria-hidden="true" />
 
       <Navbar />
