@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import portfolioData from '../../data/generated/portfolio.json';
 import RevealFx from '../ui/RevealFx';
+import { tactileAudio } from '../../utils/tactileAudio';
 import styles from './MinimalShowcase.module.css';
 
 // Curated flagship projects for the home page showcase
@@ -10,31 +11,41 @@ const FLAGSHIP_IDS = ['assetflow', 'crisissignal', 'esg-audit-system'];
 const FLAGSHIP_METADATA = {
   assetflow: {
     category: 'DISTRIBUTED ERP // 2026',
+    rackSlot: 'RACK-SLOT 01 // 3U',
     tagline: 'Physical asset allocation engine with PostgreSQL double-allocation transaction guards and tsrange exclusion locks.',
     metricLabel: 'Zero Overlaps',
     metricVal: '100% ACID',
     highlightStack: ['PostgreSQL', 'Prisma', 'Supabase', 'React 19'],
     badge: 'GRAND FINALE FINALIST',
+    circuitId: 'GIST-99.98',
   },
   crisissignal: {
     category: 'FEDERATED ML // 2026',
+    rackSlot: 'RACK-SLOT 02 // 3U',
     tagline: 'Passive on-device mental health crisis prediction using LSTM Autoencoders & Flower federated network with zero egress.',
     metricLabel: 'Early Warning',
     metricVal: '5-7 Days Lead',
     highlightStack: ['PyTorch', 'TensorFlow Lite', 'Flower', 'Python 3.11'],
     badge: 'AI FOR GOOD 2026',
+    circuitId: 'FED-NODE-04',
   },
   'esg-audit-system': {
     category: 'CONFIDENTIAL COMPUTING // 2026',
+    rackSlot: 'RACK-SLOT 03 // 3U',
     tagline: 'Zero-trust multi-agent supply chain compliance auditing with AWS Nitro Enclaves and C2PA cryptographic provenance.',
     metricLabel: 'Security Boundary',
     metricVal: 'C2PA Enclave',
     highlightStack: ['AWS Nitro', 'LangGraph', 'Qdrant', 'FastAPI'],
     badge: 'CRYPTOGRAPHIC AUDIT',
+    circuitId: 'ENCLAVE-Z01',
   },
 };
 
-export default function MinimalShowcase({ onInspect }) {
+export default function MinimalShowcase({
+  activeSystemIndex = 0,
+  onSelectSystem,
+  onInspect,
+}) {
   const projects = useMemo(() => {
     const raw = portfolioData?.projects || [];
     return FLAGSHIP_IDS.map((id) => {
@@ -49,8 +60,8 @@ export default function MinimalShowcase({ onInspect }) {
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -5;
-    const rotateY = ((x - centerX) / centerX) * 5;
+    const rotateX = ((y - centerY) / centerY) * -4;
+    const rotateY = ((x - centerX) / centerX) * 4;
 
     e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
     e.currentTarget.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
@@ -61,8 +72,18 @@ export default function MinimalShowcase({ onInspect }) {
     e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
   };
 
+  const handleInspectClick = (project) => {
+    tactileAudio.playSwitchClunk(true);
+    if (onInspect) onInspect(project);
+  };
+
+  const handleSlotSelect = (idx) => {
+    tactileAudio.playKnobTick(1100 + idx * 150);
+    if (onSelectSystem) onSelectSystem(idx);
+  };
+
   return (
-    <section className={styles.showcaseSection} aria-label="Featured Systems">
+    <section className={styles.showcaseSection} aria-label="Featured Systems Eurorack">
       <div className={styles.container}>
         {/* Once UI Line Divider */}
         <div className={styles.lineDividerRow}>
@@ -74,44 +95,59 @@ export default function MinimalShowcase({ onInspect }) {
           <div className={styles.sectionHeader}>
             <div className={styles.eyebrowPill}>
               <span className={styles.eyebrowDot} />
-              <span>01 // CURATED ARCHITECTURES</span>
+              <span>01 // MODULAR EURORACK SPECIMENS</span>
             </div>
             <h2 className={styles.sectionTitle}>
               Engineered Invariants
             </h2>
             <p className={styles.sectionSubtitle}>
-              Three production systems built against deterministic constraints, privacy invariants, and cryptographic guarantees.
+              Three production systems mounted in precision instrument modules. Driven by deterministic database constraints, on-device edge ML, and confidential computing.
             </p>
           </div>
         </RevealFx>
 
-        {/* Flagship Specimen List with 3D Tilt */}
+        {/* Modular Rack Chassis with 3D Parallax */}
         <div className={styles.cardsGrid}>
           {projects.map((project, idx) => {
             const meta = FLAGSHIP_METADATA[project.id] || {
               category: 'SYSTEM ARCHITECTURE',
+              rackSlot: `RACK-SLOT 0${idx + 1} // 3U`,
               tagline: project.problem || 'Production system built under strict engineering constraints.',
               metricLabel: 'Decisions',
               metricVal: `${project.decision_count || 0} Logged`,
               highlightStack: project.stack?.slice(0, 4) || [],
               badge: 'VERIFIED',
+              circuitId: `MOD-${idx + 1}`,
             };
+
+            const isActiveInConsole = activeSystemIndex === idx;
 
             return (
               <RevealFx key={project.id} translateY={20} delay={0.15 + idx * 0.1}>
                 <article
-                  className={styles.card}
+                  className={`${styles.card} ${isActiveInConsole ? styles.activeRackUnit : ''}`}
                   onMouseMove={handleMouseMove}
                   onMouseLeave={handleMouseLeave}
+                  onClick={() => handleSlotSelect(idx)}
                   id={`flagship-card-${project.id}`}
                 >
+                  {/* Rack Mount Top Ears & Screws */}
+                  <div className={styles.rackHeader}>
+                    <div className={styles.rackScrewLeft} />
+                    <span className={styles.rackSlotLabel}>{meta.rackSlot}</span>
+                    <span className={styles.circuitId}>{meta.circuitId}</span>
+                    <div className={styles.rackScrewRight} />
+                  </div>
+
                   <div className={styles.cardGlowSheen} />
+
                   <div className={styles.cardInner}>
                     {/* Card Meta Row */}
                     <div className={styles.cardMetaRow}>
                       <span className={styles.projectIdx}>0{idx + 1}</span>
                       <span className={styles.categoryBadge}>{meta.category}</span>
                       <span className={styles.statusPill}>
+                        <span className={styles.statusLedDot} />
                         {project.status === 'shipped' ? 'SHIPPED' : 'ACTIVE'}
                       </span>
                     </div>
@@ -145,20 +181,35 @@ export default function MinimalShowcase({ onInspect }) {
                       <button
                         type="button"
                         className={styles.inspectBtn}
-                        onClick={() => onInspect && onInspect(project)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleInspectClick(project);
+                        }}
                         id={`inspect-btn-${project.id}`}
                       >
+                        <span className={styles.switchIndicator} />
                         <span>Inspect Invariants</span>
                         <span className={styles.btnIcon}>↗</span>
                       </button>
                       <Link
                         to={`/projects?inspect=${project.slug || project.id}`}
                         className={styles.detailLink}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          tactileAudio.playKeycapPress();
+                        }}
                       >
                         <span>View In Atlas</span>
                         <span className={styles.linkArrow}>→</span>
                       </Link>
                     </div>
+                  </div>
+
+                  {/* Rack Mount Bottom Screws */}
+                  <div className={styles.rackFooter}>
+                    <div className={styles.rackScrewLeft} />
+                    <div className={styles.rackAirVent} />
+                    <div className={styles.rackScrewRight} />
                   </div>
                 </article>
               </RevealFx>
@@ -167,30 +218,36 @@ export default function MinimalShowcase({ onInspect }) {
         </div>
 
         {/* Once UI Line Divider */}
-        <div className={styles.lineDividerRow} style={{ marginTop: '5rem' }}>
+        <div className={styles.lineDividerRow} style={{ marginTop: '5.5rem' }}>
           <div className={styles.lineSegment} />
         </div>
 
-        {/* Wayfinding Portals (Second Brain Navigator) */}
+        {/* Hardware Expansion Cartridges (Second Brain Navigator) */}
         <RevealFx translateY={14} delay={0.1}>
           <div className={styles.wayfindingHeader}>
             <div className={styles.eyebrowPill}>
               <span className={styles.eyebrowDot} />
-              <span>02 // ECOSYSTEM NAVIGATOR</span>
+              <span>02 // HARDWARE EXPANSION CARTRIDGES</span>
             </div>
-            <h3 className={styles.wayfindingTitle}>Second Brain Portals</h3>
+            <h3 className={styles.wayfindingTitle}>Second Brain Modules</h3>
             <p className={styles.wayfindingSubtitle}>
-              Direct gateways into the synchronized repositories, operational telemetry, and connected concept graph.
+              Direct bus expansion slots into synchronized git repositories, live telemetry meters, and connected mental models.
             </p>
           </div>
         </RevealFx>
 
         <div className={styles.wayfindingGrid}>
           <RevealFx translateY={16} delay={0.15}>
-            <Link to="/projects" className={styles.wayfindingCard} id="portal-projects">
+            <Link
+              to="/projects"
+              className={styles.wayfindingCard}
+              id="portal-projects"
+              onClick={() => tactileAudio.playKeycapPress()}
+            >
+              <div className={styles.cartridgePins} />
               <div className={styles.wayfindingTopRow}>
-                <div className={styles.wayfindingNumber}>01</div>
-                <span className={styles.wayfindingBadge}>12 SYSTEMS</span>
+                <div className={styles.wayfindingNumber}>MOD-01</div>
+                <span className={styles.wayfindingBadge}>12 SYSTEMS // ROM</span>
               </div>
               <div className={styles.wayfindingContent}>
                 <h4 className={styles.wayfindingName}>Engineering Atlas</h4>
@@ -199,17 +256,23 @@ export default function MinimalShowcase({ onInspect }) {
                 </p>
               </div>
               <div className={styles.wayfindingFooter}>
-                <span className={styles.wayfindingAction}>Explore Catalog</span>
+                <span className={styles.wayfindingAction}>Insert Cartridge</span>
                 <span className={styles.wayfindingArrow}>→</span>
               </div>
             </Link>
           </RevealFx>
 
           <RevealFx translateY={16} delay={0.25}>
-            <Link to="/radar" className={styles.wayfindingCard} id="portal-radar">
+            <Link
+              to="/radar"
+              className={styles.wayfindingCard}
+              id="portal-radar"
+              onClick={() => tactileAudio.playKeycapPress()}
+            >
+              <div className={styles.cartridgePins} />
               <div className={styles.wayfindingTopRow}>
-                <div className={styles.wayfindingNumber}>02</div>
-                <span className={styles.wayfindingBadge}>LIVE TELEMETRY</span>
+                <div className={styles.wayfindingNumber}>MOD-02</div>
+                <span className={styles.wayfindingBadge}>TELEMETRY BUS</span>
               </div>
               <div className={styles.wayfindingContent}>
                 <h4 className={styles.wayfindingName}>Production Radar</h4>
@@ -218,17 +281,23 @@ export default function MinimalShowcase({ onInspect }) {
                 </p>
               </div>
               <div className={styles.wayfindingFooter}>
-                <span className={styles.wayfindingAction}>View Telemetry</span>
+                <span className={styles.wayfindingAction}>Engage Telemetry</span>
                 <span className={styles.wayfindingArrow}>→</span>
               </div>
             </Link>
           </RevealFx>
 
           <RevealFx translateY={16} delay={0.35}>
-            <Link to="/concepts" className={styles.wayfindingCard} id="portal-concepts">
+            <Link
+              to="/concepts"
+              className={styles.wayfindingCard}
+              id="portal-concepts"
+              onClick={() => tactileAudio.playKeycapPress()}
+            >
+              <div className={styles.cartridgePins} />
               <div className={styles.wayfindingTopRow}>
-                <div className={styles.wayfindingNumber}>03</div>
-                <span className={styles.wayfindingBadge}>KNOWLEDGE GRAPH</span>
+                <div className={styles.wayfindingNumber}>MOD-03</div>
+                <span className={styles.wayfindingBadge}>SYNAPSE ROM</span>
               </div>
               <div className={styles.wayfindingContent}>
                 <h4 className={styles.wayfindingName}>Concepts &amp; Mind</h4>
@@ -237,7 +306,7 @@ export default function MinimalShowcase({ onInspect }) {
                 </p>
               </div>
               <div className={styles.wayfindingFooter}>
-                <span className={styles.wayfindingAction}>Open Mind Graph</span>
+                <span className={styles.wayfindingAction}>Patch Synapse</span>
                 <span className={styles.wayfindingArrow}>→</span>
               </div>
             </Link>

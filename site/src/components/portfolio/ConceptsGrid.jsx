@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import conceptsData from '../../data/generated/concepts.json';
+import { tactileAudio } from '../../utils/tactileAudio';
 import styles from './ConceptsGrid.module.css';
 
 // Extract clean introductory excerpt from markdown body
@@ -68,6 +69,7 @@ export default function ConceptsGrid() {
             key={concept.id}
             to={`/concepts/${concept.id}`}
             className={styles.conceptCard}
+            onClick={() => tactileAudio.playKeycapPress()}
             id={`concept-card-${concept.id}`}
           >
             <div className={styles.cardGlow} />

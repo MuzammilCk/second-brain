@@ -1,13 +1,24 @@
 import React, { useEffect, useRef } from 'react';
+import { tactileAudio } from '../../utils/tactileAudio';
 import './ArchitectureDrawer.css';
 
 export default function ArchitectureDrawer({ project, onClose }) {
   const drawerRef = useRef(null);
 
+  // Play mechanical clunk on drawer open
+  useEffect(() => {
+    tactileAudio.playSwitchClunk(true);
+  }, []);
+
+  const handleClose = () => {
+    tactileAudio.playSwitchClunk(false);
+    onClose();
+  };
+
   // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
@@ -103,7 +114,7 @@ export default function ArchitectureDrawer({ project, onClose }) {
   };
 
   return (
-    <div className="case-study-backdrop" onClick={onClose} id="case-study-drawer-overlay">
+    <div className="case-study-backdrop" onClick={handleClose} id="case-study-drawer-overlay">
       <aside
         ref={drawerRef}
         tabIndex={-1}
@@ -121,7 +132,7 @@ export default function ArchitectureDrawer({ project, onClose }) {
             <button
               type="button"
               className="case-study-close-btn"
-              onClick={onClose}
+              onClick={handleClose}
               aria-label="Close case study drawer"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

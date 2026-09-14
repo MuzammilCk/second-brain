@@ -1,5 +1,5 @@
 /* LivingRadar.module.css
-   Warm Architectural Light gallery theme for Living Radar & Algo Stats Panel
+   Oscilloscope Test Bench & Telemetry Gallery
 */
 
 .radarSection {
@@ -16,7 +16,7 @@
   align-items: flex-end;
   margin-bottom: 2.5rem;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   flex-wrap: wrap;
   gap: 1.5rem;
 }
@@ -29,9 +29,9 @@
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-amber, #b45309);
+  color: #b45309;
   margin-bottom: 0.5rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .statusDot {
@@ -48,9 +48,17 @@
   50% { opacity: 0.4; transform: scale(1.3); }
 }
 
+.pulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d97706;
+  box-shadow: 0 0 6px rgba(217, 119, 6, 0.8);
+}
+
 .title {
-  font-family: var(--font-sans, 'Geist', sans-serif);
-  font-size: 2rem;
+  font-family: var(--font-display, 'Sora', sans-serif);
+  font-size: 2.25rem;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: #09090b;
@@ -58,12 +66,12 @@
 }
 
 .subtitle {
-  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-family: var(--font-body, 'Geist', sans-serif);
   font-size: 0.95rem;
-  color: #475569;
+  color: #52525b;
   margin: 0;
-  max-width: 600px;
-  line-height: 1.5;
+  max-width: 620px;
+  line-height: 1.55;
 }
 
 .headerMeta {
@@ -73,13 +81,17 @@
 }
 
 .metaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.72rem;
-  color: #475569;
-  background: #f8fafc;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #334155;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
+  font-weight: 600;
 }
 
 .linkBtn {
@@ -88,16 +100,17 @@
   color: #ffffff;
   background: #09090b;
   border: 1px solid #09090b;
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.95rem;
   border-radius: 6px;
   text-decoration: none;
   transition: all 0.2s ease;
+  font-weight: 600;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .linkBtn:hover {
-  background: var(--color-amber, #b45309);
-  border-color: var(--color-amber, #b45309);
+  background: #b45309;
+  border-color: #b45309;
 }
 
 /* ── Main Radar Grid ── */
@@ -110,64 +123,149 @@
 
 @media (min-width: 1024px) {
   .radarGrid {
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1.15fr 0.85fr;
   }
 }
 
 .chartCard {
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  padding: 1.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  position: relative;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
 }
 
-.cardHeader {
+/* ── Oscilloscope Calibration Header ── */
+.scopeHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  padding: 8px 16px;
+  background: #181a1f;
+  border-bottom: 1px solid #282c35;
+  color: #cbd5e1;
 }
 
 .cardLabel {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  color: #09090b;
+  letter-spacing: 0.08em;
+  color: #cbd5e1;
   text-transform: uppercase;
+  font-weight: 700;
+}
+
+.scopeFrequency {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  color: #d97706;
   font-weight: 600;
 }
 
-.chartContainer {
+/* CRT Display Bed with Scanlines */
+.crtContainer {
   width: 100%;
-  height: 340px;
+  height: 330px;
   position: relative;
+  background: radial-gradient(circle at center, #ffffff 0%, #f8fafc 100%);
 }
 
-.chartLegend {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 1rem;
+.crtScanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.02) 0px,
+    rgba(0, 0, 0, 0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 1;
+}
+
+/* ── Segmented LED VU Meters Panel (21st Energy Meter #24473) ── */
+.segmentedMetersPanel {
+  padding: 1.25rem 1.5rem 1.5rem;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.meterPanelTitle {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.72rem;
+  font-size: 10px;
+  font-weight: 700;
   color: #64748b;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
 }
 
-.legendItem {
+.meterGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .meterGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.meterRow {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+  cursor: pointer;
 }
 
-.legendColor {
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-  background: #b45309;
+.meterRow:hover,
+.meterRowActive {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.meterLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  color: #334155;
+  font-weight: 500;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.segmentLeds {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.ledBlock {
+  width: 10px;
+  height: 6px;
+  border-radius: 1px;
+  background: #cbd5e1;
+}
+
+.ledBlockFilled {
+  background: #d97706;
+  box-shadow: 0 0 5px rgba(217, 119, 6, 0.8);
+}
+
+.meterScore {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: #b45309;
+  width: 24px;
+  text-align: right;
 }
 
 /* ── Focus & Domains Column ── */
@@ -179,11 +277,18 @@
 
 .focusCard {
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1.5rem;
   flex: 1;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
 }
 
 .threadList {
@@ -195,87 +300,95 @@
 
 .threadItem {
   background: #f8fafc;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-left: 3px solid var(--color-amber, #b45309);
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid #b45309;
   border-radius: 6px;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.threadItem:hover {
+  transform: translateX(3px);
+  border-color: #d97706;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .threadHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
 }
 
 .threadName {
   font-family: var(--font-sans, 'Geist', sans-serif);
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #09090b;
   margin: 0;
 }
 
 .threadBadge {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.68rem;
-  color: #64748b;
+  font-size: 10px;
+  font-weight: 700;
+  color: #b45309;
+  background: rgba(180, 83, 9, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .threadDesc {
-  font-family: var(--font-sans, 'Geist', sans-serif);
-  font-size: 0.8rem;
-  color: #475569;
+  font-family: var(--font-body, 'Geist', sans-serif);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #52525b;
   margin: 0;
-  line-height: 1.4;
 }
 
 .domainsList {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  gap: 8px;
 }
 
 .domainChip {
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.72rem;
-  color: #334155;
-  background: #f1f5f9;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 6px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: #334155;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.domainChip:hover {
+  border-color: #d97706;
+  background: #fffdfa;
+  color: #b45309;
 }
 
 .domainDot {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: #0284c7;
+  background: #059669;
 }
 
 /* ── Bottom Panel: algo_stats ── */
 .algoPanel {
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
-  padding: 1.75rem 2rem;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
-}
-
-.algoPanelGlow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #059669, transparent);
-  opacity: 0.7;
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
 }
 
 .algoHeader {
@@ -284,134 +397,131 @@
   align-items: center;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 10px;
 }
 
 .algoTitleGroup {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 10px;
+}
+
+.scopeIndicatorDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
 }
 
 .algoTitle {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.82rem;
   letter-spacing: 0.08em;
+  font-weight: 700;
   color: #09090b;
-  text-transform: uppercase;
 }
 
 .algoPlatformBadge {
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.68rem;
-  padding: 0.2rem 0.55rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: #d97706;
+  background: rgba(217, 119, 6, 0.08);
+  border: 1px solid rgba(217, 119, 6, 0.25);
+  padding: 2px 7px;
   border-radius: 4px;
-  background: rgba(5, 150, 105, 0.08);
-  border: 1px solid rgba(5, 150, 105, 0.25);
-  color: #059669;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .algoTimestamp {
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.72rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 10.5px;
   color: #64748b;
 }
 
-/* Empty State */
-.algoEmptyState {
-  padding: 2rem;
-  text-align: center;
-  background: #f8fafc;
-  border: 1px dashed rgba(0, 0, 0, 0.12);
-  border-radius: 8px;
-}
-
-.algoEmptyIcon {
-  font-size: 1.5rem;
-  color: #94a3b8;
-  margin-bottom: 0.5rem;
-}
-
-.algoEmptyText {
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.82rem;
-  color: #475569;
-  margin: 0 0 0.35rem 0;
-}
-
-.algoEmptySubtext {
-  font-family: var(--font-sans, 'Geist', sans-serif);
-  font-size: 0.78rem;
-  color: #94a3b8;
-  margin: 0;
-}
-
-/* Algo Metrics Row */
 .algoMetricsRow {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1.25rem;
-  margin-bottom: 1.75rem;
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .algoMetricCard {
   background: #f8fafc;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 1rem;
-  text-align: center;
+  padding: 1rem 1.5rem;
+  min-width: 140px;
 }
 
 .metricNumber {
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 1.6rem;
+  font-family: var(--font-display, 'Sora', sans-serif);
+  font-size: 1.75rem;
   font-weight: 700;
   color: #09090b;
-  line-height: 1;
-  margin-bottom: 0.35rem;
 }
 
 .metricRatingNumber {
-  color: var(--color-amber, #b45309);
+  color: #b45309;
 }
 
 .metricSublabel {
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono, monospace);
+  font-size: 10.5px;
   color: #64748b;
   text-transform: uppercase;
-  font-weight: 500;
+  margin-top: 2px;
 }
 
-/* Category Breakdown Bars */
 .categoryBreakdown {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .categoryItem {
-  background: #f8fafc;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 6px;
-  padding: 0.65rem 0.85rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 8px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
 }
 
 .categoryName {
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.72rem;
   color: #475569;
 }
 
 .categoryCount {
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.8rem;
+  font-weight: 700;
+  color: #09090b;
+}
+
+.algoEmptyState {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+}
+
+.algoEmptyIcon {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.algoEmptyText {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.88rem;
   font-weight: 600;
-  color: #059669;
+  color: #334155;
+  margin: 0 0 0.4rem;
+}
+
+.algoEmptySubtext {
+  font-family: var(--font-body, 'Geist', sans-serif);
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+  max-width: 480px;
+  margin: 0 auto;
 }

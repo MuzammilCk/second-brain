@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom';
 import RevealFx from '../ui/RevealFx';
+import TactileConsole3D from '../three/TactileConsole3D';
 import styles from './MinimalHero.module.css';
 
-export default function MinimalHero() {
+export default function MinimalHero({
+  activeSystemIndex = 0,
+  onSelectSystem,
+  onInspect,
+}) {
   return (
     <section className={styles.heroSection} aria-label="Muzammil CK Engineering Studio">
       <div className={styles.heroContainer}>
@@ -30,8 +35,19 @@ export default function MinimalHero() {
           </p>
         </RevealFx>
 
+        {/* ── 3D TACTILE HARDWARE SYNTHESIZER CONSOLE (Teenage Engineering Precision Unit) ── */}
+        <RevealFx translateY={20} delay={0.3}>
+          <div className={styles.consoleContainer}>
+            <TactileConsole3D
+              activeSystemIndex={activeSystemIndex}
+              onSelectSystem={onSelectSystem}
+              onInspect={onInspect}
+            />
+          </div>
+        </RevealFx>
+
         {/* Action Group */}
-        <RevealFx translateY={16} delay={0.35}>
+        <RevealFx translateY={16} delay={0.4}>
           <div className={styles.actionRow}>
             <Link to="/projects" className={styles.primaryBtn} id="hero-explore-work-btn">
               <span>Explore Engineering Atlas</span>

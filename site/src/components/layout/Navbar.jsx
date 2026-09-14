@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { tactileAudio } from '../../utils/tactileAudio';
 import './Navbar.css';
 
 const NAV_LINKS = [
@@ -39,6 +40,7 @@ export default function Navbar() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isAudioMuted, setIsAudioMuted] = useState(() => tactileAudio.isMuted());
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -55,12 +57,24 @@ export default function Navbar() {
     return location.pathname.startsWith(path);
   };
 
+  const handleNavClick = () => {
+    tactileAudio.playKeycapPress();
+  };
+
+  const handleToggleAudio = () => {
+    const muted = tactileAudio.toggleMute();
+    setIsAudioMuted(muted);
+    if (!muted) {
+      tactileAudio.playKnobTick(1200);
+    }
+  };
+
   return (
     <header className={`navbar-wrapper ${scrolled ? 'navbar-wrapper--scrolled' : ''}`} id="main-nav">
       <div className="navbar__container">
         {/* Left: Identity & Live Location/Time Ticker */}
         <div className="navbar__left">
-          <Link to="/" className="navbar__identity" id="nav-identity">
+          <Link to="/" className="navbar__identity" id="nav-identity" onClick={handleNavClick}>
             <span className="navbar__identity-avatar">M</span>
             <div className="navbar__identity-text">
               <span className="navbar__identity-name">Muzammil CK</span>
@@ -74,7 +88,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Center: Once UI Floating Segmented Pill */}
+        {/* Center: Precision Instrument Floating Segmented Dock */}
         <nav className="navbar__center-dock" aria-label="Main Navigation">
           <div className="navbar__dock-pill">
             {NAV_LINKS.map(({ path, label, icon }) => {
@@ -84,6 +98,7 @@ export default function Navbar() {
                   key={path}
                   to={path}
                   className={`navbar__dock-item ${active ? 'navbar__dock-item--active' : ''}`}
+                  onClick={handleNavClick}
                   id={`nav-link-${label.toLowerCase()}`}
                 >
                   <span className="navbar__dock-icon" aria-hidden="true">{icon}</span>
@@ -101,8 +116,19 @@ export default function Navbar() {
           </div>
         </nav>
 
-        {/* Right: Telemetry Status & External Transmission Link */}
+        {/* Right: Telemetry Status, Audio Toggle & GitHub Link */}
         <div className="navbar__right">
+          {/* Audio Haptic Feedback Toggle */}
+          <button
+            type="button"
+            className={`navbar__audio-btn ${isAudioMuted ? 'navbar__audio-btn--muted' : ''}`}
+            onClick={handleToggleAudio}
+            title={isAudioMuted ? 'Unmute Tactile Synthesizer Audio' : 'Mute Tactile Audio'}
+            id="nav-audio-toggle"
+          >
+            <span>{isAudioMuted ? '🔇' : '🔊'}</span>
+          </button>
+
           <div className="navbar__status-badge" title="All Systems Operating Under Verified Invariants">
             <span className="navbar__status-dot" />
             <span className="navbar__status-label">Nominal</span>
@@ -114,6 +140,7 @@ export default function Navbar() {
             rel="noopener noreferrer"
             className="navbar__action-btn"
             id="nav-github-btn"
+            onClick={handleNavClick}
           >
             <span>GitHub</span>
             <span className="navbar__action-arrow">↗</span>
@@ -154,6 +181,7 @@ export default function Navbar() {
                     key={path}
                     to={path}
                     className={`navbar__mobile-item ${isActive(path) ? 'navbar__mobile-item--active' : ''}`}
+                    onClick={handleNavClick}
                   >
                     <span className="navbar__mobile-item-icon">{icon}</span>
                     <span className="navbar__mobile-item-label">{label}</span>
@@ -168,6 +196,7 @@ export default function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="navbar__mobile-github"
+                  onClick={handleNavClick}
                 >
                   <span>MuzammilCk on GitHub</span>
                   <span>↗</span>

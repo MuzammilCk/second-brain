@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import RevealFx from '../ui/RevealFx';
+import { tactileAudio } from '../../utils/tactileAudio';
 import styles from './TerminalDispatch.module.css';
 
 const CONNECT_LINKS = [
@@ -13,18 +14,29 @@ export default function TerminalDispatch() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle | transmitting | success
 
+  const handleInputChange = (e) => {
+    setEmail(e.target.value);
+    tactileAudio.playKeycapPress();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !email.includes('@')) return;
+    tactileAudio.playSwitchClunk(true);
     setStatus('transmitting');
     setTimeout(() => {
+      tactileAudio.playTransmissionBeep();
       setStatus('success');
       setEmail('');
-    }, 800);
+    }, 850);
+  };
+
+  const handleChannelClick = () => {
+    tactileAudio.playKeycapPress();
   };
 
   return (
-    <section className={styles.dispatchSection} aria-label="Terminal Dispatch & Transmission">
+    <section className={styles.dispatchSection} aria-label="Field Teletype Transceiver & Dispatch">
       <div className={styles.container}>
         {/* Once UI Line Divider */}
         <div className={styles.lineDividerRow}>
@@ -33,10 +45,20 @@ export default function TerminalDispatch() {
 
         <RevealFx translateY={16} delay={0.1}>
           <div className={styles.dispatchCard}>
+            {/* Field Teletype Unit Top Header */}
+            <div className={styles.teletypeHeader}>
+              <div className={styles.teletypeLedGroup}>
+                <span className={styles.teletypeLedAmber} />
+                <span className={styles.teletypeLedGreen} />
+              </div>
+              <span className={styles.teletypeModel}>TELETYPE TX/RX // MODEL 26</span>
+              <span className={styles.teletypeBaud}>BAUD: 115200 8N1</span>
+            </div>
+
             <div className={styles.cardHeader}>
               <div className={styles.eyebrowPill}>
                 <span className={styles.eyebrowDot} />
-                <span>03 // DIRECT TRANSMISSION</span>
+                <span>03 // CRYPTOGRAPHIC FIELD DISPATCH</span>
               </div>
               <h3 className={styles.dispatchTitle}>
                 Dispatch Ledger &amp; Alignment
@@ -46,27 +68,28 @@ export default function TerminalDispatch() {
               </p>
             </div>
 
-            {/* Transmission Form */}
+            {/* Field Teletype Form */}
             <form className={styles.formRow} onSubmit={handleSubmit}>
               <div className={styles.inputWrapper}>
-                <span className={styles.inputPrefix}>$</span>
+                <span className={styles.inputPrefix}>$ dispatch --addr=</span>
                 <input
                   type="email"
                   placeholder="engineer@domain.com"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleInputChange}
                   className={styles.inputField}
                   disabled={status === 'success'}
                   required
                 />
+                <span className={styles.terminalCursor} />
               </div>
               <button
                 type="submit"
                 className={styles.submitBtn}
                 disabled={status === 'transmitting' || status === 'success'}
               >
-                {status === 'idle' && <span>Transmit Note →</span>}
-                {status === 'transmitting' && <span>Encrypting...</span>}
+                {status === 'idle' && <span>Transmit Signal →</span>}
+                {status === 'transmitting' && <span>Encrypting PGP...</span>}
                 {status === 'success' && <span>Signal Verified ✓</span>}
               </button>
             </form>
@@ -77,9 +100,9 @@ export default function TerminalDispatch() {
               </p>
             )}
 
-            {/* Quick Connect Dock */}
+            {/* Direct Channel Transceiver Ports */}
             <div className={styles.connectDock}>
-              <div className={styles.dockTitle}>DIRECT CHANNELS &amp; VERIFIED SIGNALS</div>
+              <div className={styles.dockTitle}>DIRECT HARDWARE BUS CHANNELS &amp; VERIFIED SIGNALS</div>
               <div className={styles.linksGrid}>
                 {CONNECT_LINKS.map((link) => (
                   <a
@@ -88,6 +111,7 @@ export default function TerminalDispatch() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.connectPill}
+                    onClick={handleChannelClick}
                   >
                     <span className={styles.linkIcon}>{link.icon}</span>
                     <span className={styles.linkName}>{link.name}</span>

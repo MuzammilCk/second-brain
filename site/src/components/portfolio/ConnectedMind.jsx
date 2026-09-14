@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { tactileAudio } from '../../utils/tactileAudio';
 import './ConnectedMind.css';
 
 // Semantic constellation graph defining the actual intellectual links in Muzammil's world
@@ -324,9 +325,15 @@ export default function ConnectedMind({ variant = 'full' }) {
                     left: `${(node.x / 1000) * 100}%`,
                     top: `${(node.y / 600) * 100}%`
                   }}
-                  onMouseEnter={() => setHoveredNodeId(node.id)}
+                  onMouseEnter={() => {
+                    setHoveredNodeId(node.id);
+                    tactileAudio.playKnobTick(1500);
+                  }}
                   onMouseLeave={() => setHoveredNodeId(null)}
-                  onClick={() => setSelectedNodeId(node.id)}
+                  onClick={() => {
+                    tactileAudio.playKnobTick(1200);
+                    setSelectedNodeId(node.id);
+                  }}
                   aria-label={`${node.category || 'Node'}: ${node.label}`}
                 >
                   <div className="connected-mind__star-body">
@@ -352,7 +359,11 @@ export default function ConnectedMind({ variant = 'full' }) {
             <p className="connected-mind__insight-text">{activeNode.summary}</p>
             
             {activeNode.link && (
-              <Link to={activeNode.link} className="connected-mind__insight-link">
+              <Link
+                to={activeNode.link}
+                className="connected-mind__insight-link"
+                onClick={() => tactileAudio.playKeycapPress()}
+              >
                 <span>Investigate {activeNode.type === 'project' ? 'World' : 'Concept'}</span>
                 <span className="material-symbols-outlined">arrow_forward</span>
               </Link>

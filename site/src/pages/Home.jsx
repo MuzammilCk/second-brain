@@ -7,6 +7,7 @@ import portfolioData from '../data/generated/portfolio.json';
 import './Home.css';
 
 export default function Home() {
+  const [activeSystemIndex, setActiveSystemIndex] = useState(0);
   const [inspectedProject, setInspectedProject] = useState(null);
 
   const enrichedProjects = useMemo(() => {
@@ -31,13 +32,21 @@ export default function Home() {
   return (
     <div className="home-studio" id="home-studio">
       <div className="home-spatial-content">
-        {/* Act I: Genesis & Monumental Identity */}
-        <MinimalHero />
+        {/* Act I: Genesis, Monumental Identity & 3D Tactile Synthesizer Console */}
+        <MinimalHero
+          activeSystemIndex={activeSystemIndex}
+          onSelectSystem={setActiveSystemIndex}
+          onInspect={handleInspect}
+        />
 
-        {/* Act II & III: Curated Systems Showcase & Second Brain Portals */}
-        <MinimalShowcase onInspect={handleInspect} />
+        {/* Act II & III: Curated Systems Showcase (Eurorack Rack Mount) & Second Brain Portals */}
+        <MinimalShowcase
+          activeSystemIndex={activeSystemIndex}
+          onSelectSystem={setActiveSystemIndex}
+          onInspect={handleInspect}
+        />
 
-        {/* Act VI: Terminal Dispatch & Transmission */}
+        {/* Act VI: Rugged Field Teletype Dispatch & Transmission */}
         <TerminalDispatch />
       </div>
 

@@ -203,6 +203,31 @@
   letter-spacing: 0.02em;
 }
 
+.navbar__audio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.navbar__audio-btn:hover {
+  background: rgba(180, 83, 9, 0.1);
+  border-color: rgba(180, 83, 9, 0.3);
+  transform: scale(1.08);
+}
+
+.navbar__audio-btn--muted {
+  opacity: 0.6;
+  filter: grayscale(1);
+}
+
 .navbar__action-btn {
   display: inline-flex;
   align-items: center;

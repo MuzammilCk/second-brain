@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import portfolioData from '../../data/generated/portfolio.json';
+import { tactileAudio } from '../../utils/tactileAudio';
 import styles from './SystemShowcase.module.css';
 
 // System domain classifications for filtering
@@ -181,7 +182,10 @@ export default function SystemShowcase({ mode = 'full', onInspect }) {
               <button
                 type="button"
                 className={`${styles.pillBtn} ${filter === 'all' ? styles.pillBtnActive : ''}`}
-                onClick={() => setFilter('all')}
+                onClick={() => {
+                  tactileAudio.playKeycapPress();
+                  setFilter('all');
+                }}
               >
                 <span>ALL</span>
                 <span className={styles.pillCount}>({counts.all})</span>
@@ -189,7 +193,10 @@ export default function SystemShowcase({ mode = 'full', onInspect }) {
               <button
                 type="button"
                 className={`${styles.pillBtn} ${filter === 'ai' ? styles.pillBtnActive : ''}`}
-                onClick={() => setFilter('ai')}
+                onClick={() => {
+                  tactileAudio.playKeycapPress();
+                  setFilter('ai');
+                }}
               >
                 <span>AI / ML</span>
                 <span className={styles.pillCount}>({counts.ai})</span>
@@ -197,7 +204,10 @@ export default function SystemShowcase({ mode = 'full', onInspect }) {
               <button
                 type="button"
                 className={`${styles.pillBtn} ${filter === 'fullstack' ? styles.pillBtnActive : ''}`}
-                onClick={() => setFilter('fullstack')}
+                onClick={() => {
+                  tactileAudio.playKeycapPress();
+                  setFilter('fullstack');
+                }}
               >
                 <span>FULLSTACK</span>
                 <span className={styles.pillCount}>({counts.fullstack})</span>
@@ -205,7 +215,10 @@ export default function SystemShowcase({ mode = 'full', onInspect }) {
               <button
                 type="button"
                 className={`${styles.pillBtn} ${filter === 'shipped' ? styles.pillBtnActive : ''}`}
-                onClick={() => setFilter('shipped')}
+                onClick={() => {
+                  tactileAudio.playKeycapPress();
+                  setFilter('shipped');
+                }}
               >
                 <span>SHIPPED</span>
                 <span className={styles.pillCount}>({counts.shipped})</span>
@@ -284,7 +297,10 @@ export default function SystemShowcase({ mode = 'full', onInspect }) {
                   <button
                     type="button"
                     className={styles.inspectBtn}
-                    onClick={() => onInspect(project)}
+                    onClick={() => {
+                      tactileAudio.playSwitchClunk(true);
+                      onInspect(project);
+                    }}
                     aria-label={`View technical trade-offs for ${project.title}`}
                   >
                     <span>+ View Technical Trade-offs</span>
@@ -293,6 +309,7 @@ export default function SystemShowcase({ mode = 'full', onInspect }) {
                 <Link
                   to={`/projects/${project.slug}`}
                   className={styles.detailLink}
+                  onClick={() => tactileAudio.playKeycapPress()}
                   aria-label={`Read case study for ${project.title}`}
                 >
                   <span>Case Study →</span>
@@ -425,13 +442,20 @@ export default function SystemShowcase({ mode = 'full', onInspect }) {
                           <button
                             type="button"
                             className={styles.miniBtn}
-                            onClick={() => onInspect(project)}
+                            onClick={() => {
+                              tactileAudio.playSwitchClunk(true);
+                              onInspect(project);
+                            }}
                             style={{ marginRight: '0.4rem' }}
                           >
                             <span>Inspect</span>
                           </button>
                         )}
-                        <Link to={`/projects/${project.slug}`} className={styles.miniBtn}>
+                        <Link
+                          to={`/projects/${project.slug}`}
+                          className={styles.miniBtn}
+                          onClick={() => tactileAudio.playKeycapPress()}
+                        >
                           <span>Open</span>
                         </Link>
                       </td>
