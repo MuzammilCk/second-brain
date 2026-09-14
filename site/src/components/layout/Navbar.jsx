@@ -4,12 +4,36 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { path: '/', label: 'Studio' },
-  { path: '/projects', label: 'Worlds' },
-  { path: '/garden', label: 'Garden' },
-  { path: '/now', label: 'Now' },
-  { path: '/playground', label: 'Playground' },
+  { path: '/', label: 'Studio', icon: '🏛️' },
+  { path: '/projects', label: 'Atlas', icon: '📂' },
+  { path: '/radar', label: 'Radar', icon: '📡' },
+  { path: '/concepts', label: 'Concepts', icon: '🧠' },
 ];
+
+function TimeDisplay({ timeZone = 'Asia/Kolkata' }) {
+  const [currentTime, setCurrentTime] = useState('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const options = {
+        timeZone,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      };
+      const timeString = new Intl.DateTimeFormat('en-GB', options).format(now);
+      setCurrentTime(timeString);
+    };
+
+    updateTime();
+    const intervalId = setInterval(updateTime, 1000);
+    return () => clearInterval(intervalId);
+  }, [timeZone]);
+
+  return <span className="navbar__time-text">{currentTime || '13:45:00'} IST</span>;
+}
 
 export default function Navbar() {
   const location = useLocation();
@@ -26,116 +50,133 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [location.pathname]);
 
+  const isActive = (path) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
+
   return (
-    <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} id="main-nav">
-      <div className="navbar__inner container">
-        <Link to="/" className="navbar__logo" id="nav-logo">
-          <div className="navbar__logo-badge">&lt;M&gt;</div>
-          <div className="navbar__logo-text-group">
-            <div className="navbar__logo-title-row">
-              <span className="navbar__logo-title">MUZAMMIL CK</span>
+    <header className={`navbar-wrapper ${scrolled ? 'navbar-wrapper--scrolled' : ''}`} id="main-nav">
+      <div className="navbar__container">
+        {/* Left: Identity & Live Location/Time Ticker */}
+        <div className="navbar__left">
+          <Link to="/" className="navbar__identity" id="nav-identity">
+            <span className="navbar__identity-avatar">M</span>
+            <div className="navbar__identity-text">
+              <span className="navbar__identity-name">Muzammil CK</span>
+              <div className="navbar__location-pill">
+                <span className="navbar__location-pin">📍</span>
+                <span>Kerala, IN</span>
+                <span className="navbar__ticker-sep">·</span>
+                <TimeDisplay />
+              </div>
             </div>
-            <span className="navbar__logo-sub">SECOND BRAIN IN PUBLIC</span>
+          </Link>
+        </div>
+
+        {/* Center: Once UI Floating Segmented Pill */}
+        <nav className="navbar__center-dock" aria-label="Main Navigation">
+          <div className="navbar__dock-pill">
+            {NAV_LINKS.map(({ path, label, icon }) => {
+              const active = isActive(path);
+              return (
+                <Link
+                  key={path}
+                  to={path}
+                  className={`navbar__dock-item ${active ? 'navbar__dock-item--active' : ''}`}
+                  id={`nav-link-${label.toLowerCase()}`}
+                >
+                  <span className="navbar__dock-icon" aria-hidden="true">{icon}</span>
+                  <span className="navbar__dock-label">{label}</span>
+                  {active && (
+                    <motion.div
+                      className="navbar__dock-active-indicator"
+                      layoutId="dock-active-pill"
+                      transition={{ type: 'spring', stiffness: 500, damping: 38 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
           </div>
-        </Link>
+        </nav>
 
-        {/* Live Studio Status Pill */}
-        <div className="navbar__status-pill hidden-mobile" id="nav-status-pill">
-          <span className="navbar__status-dot"></span>
-          <span>Studio Active · Kerala Lab</span>
-          <span className="navbar__status-divider">/</span>
-          <span className="navbar__status-location">2026</span>
-        </div>
+        {/* Right: Telemetry Status & External Transmission Link */}
+        <div className="navbar__right">
+          <div className="navbar__status-badge" title="All Systems Operating Under Verified Invariants">
+            <span className="navbar__status-dot" />
+            <span className="navbar__status-label">Nominal</span>
+          </div>
 
-        {/* Desktop Wayfinding Links */}
-        <div className="navbar__links" id="nav-links">
-          {NAV_LINKS.map(({ path, label }) => (
-            <Link
-              key={path}
-              to={path}
-              className={`navbar__link ${location.pathname === path ? 'navbar__link--active' : ''}`}
-              id={`nav-link-${label.toLowerCase()}`}
-            >
-              {label}
-              {location.pathname === path && (
-                <motion.div
-                  className="navbar__link-indicator"
-                  layoutId="nav-indicator"
-                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                />
-              )}
-            </Link>
-          ))}
-        </div>
-
-        {/* Secondary Action: GitHub Profile */}
-        <div className="navbar__actions">
           <a
             href="https://github.com/MuzammilCk"
             target="_blank"
             rel="noopener noreferrer"
-            className="navbar__connect-btn"
-            id="nav-connect"
+            className="navbar__action-btn"
+            id="nav-github-btn"
           >
             <span>GitHub</span>
-            <span className="material-symbols-outlined navbar__connect-icon">north_east</span>
+            <span className="navbar__action-arrow">↗</span>
           </a>
-        </div>
 
-        {/* Mobile Hamburger Button */}
-        <button
-          className={`navbar__hamburger ${mobileOpen ? 'navbar__hamburger--open' : ''}`}
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle navigation"
-          id="nav-hamburger"
-          type="button"
-        >
-          <span /><span /><span />
-        </button>
+          {/* Mobile Hamburger Button */}
+          <button
+            className={`navbar__hamburger ${mobileOpen ? 'navbar__hamburger--open' : ''}`}
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle navigation"
+            id="nav-hamburger"
+            type="button"
+          >
+            <span /><span /><span />
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="navbar__mobile"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
+            className="navbar__mobile-dock"
+            initial={{ opacity: 0, y: -16, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -16, scale: 0.98 }}
+            transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <div className="navbar__mobile-inner">
-              <div className="navbar__mobile-meta">
-                <span className="navbar__status-dot"></span>
-                <span>Studio Active · ThinkPad L13</span>
+            <div className="navbar__mobile-content">
+              <div className="navbar__mobile-location">
+                <span className="navbar__status-dot" />
+                <span>Kerala Lab · <TimeDisplay /></span>
               </div>
 
-              {NAV_LINKS.map(({ path, label }) => (
-                <Link
-                  key={path}
-                  to={path}
-                  className={`navbar__mobile-link ${location.pathname === path ? 'navbar__mobile-link--active' : ''}`}
-                >
-                  <span>{label}</span>
-                  <span className="material-symbols-outlined">arrow_forward</span>
-                </Link>
-              ))}
+              <div className="navbar__mobile-links">
+                {NAV_LINKS.map(({ path, label, icon }) => (
+                  <Link
+                    key={path}
+                    to={path}
+                    className={`navbar__mobile-item ${isActive(path) ? 'navbar__mobile-item--active' : ''}`}
+                  >
+                    <span className="navbar__mobile-item-icon">{icon}</span>
+                    <span className="navbar__mobile-item-label">{label}</span>
+                    <span className="navbar__mobile-item-arrow">→</span>
+                  </Link>
+                ))}
+              </div>
 
               <div className="navbar__mobile-actions">
                 <a
                   href="https://github.com/MuzammilCk"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="navbar__mobile-connect"
+                  className="navbar__mobile-github"
                 >
-                  <span>View GitHub Repositories</span>
-                  <span className="material-symbols-outlined">north_east</span>
+                  <span>MuzammilCk on GitHub</span>
+                  <span>↗</span>
                 </a>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </header>
   );
 }

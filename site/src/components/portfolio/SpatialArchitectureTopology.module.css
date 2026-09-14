@@ -1,0 +1,235 @@
+/* SpatialArchitectureTopology.module.css */
+
+.topologyCard {
+  background: rgba(22, 22, 24, 0.75);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(226, 168, 84, 0.25);
+  border-radius: 12px;
+  padding: 1.75rem;
+  margin: 2rem 0;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.livePulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: var(--color-sage, #34d399);
+  box-shadow: 0 0 10px var(--color-sage, #34d399);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.topologyTag {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-amber, #e2a854);
+}
+
+.verifiedBadge {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-sage, #34d399);
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+.diagramContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.invariantTitle {
+  font-family: var(--font-display, 'Sora', sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.codeTerminal {
+  background: rgba(14, 14, 17, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 3px solid var(--color-amber, #e2a854);
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.codeLine {
+  color: rgba(240, 238, 233, 0.85);
+}
+
+.kw {
+  color: var(--color-amber, #e2a854);
+  font-weight: 600;
+}
+
+.waterfallTrack {
+  display: flex;
+  height: 36px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(14, 14, 17, 0.8);
+}
+
+.segVad, .segStt, .segTts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  font-weight: 600;
+  color: #131315;
+}
+
+.segVad {
+  background: var(--color-cyan, #38bdf8);
+}
+
+.segStt {
+  background: var(--color-amber, #e2a854);
+}
+
+.segTts {
+  background: var(--color-sage, #34d399);
+}
+
+.dagFlow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.dagNode {
+  background: rgba(28, 27, 31, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.dagNodeTag {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 9px;
+  color: var(--color-amber, #e2a854);
+  letter-spacing: 0.1em;
+}
+
+.dagNodeName {
+  font-family: var(--font-display, 'Sora', sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.dagNodeSub {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  color: rgba(240, 238, 233, 0.5);
+}
+
+.dagArrow {
+  color: var(--color-amber, #e2a854);
+  font-size: 16px;
+}
+
+.telemetryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.telemetryBox {
+  background: rgba(28, 27, 31, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.telemetryLabel {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: rgba(240, 238, 233, 0.5);
+}
+
+.telemetryVal {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.valAmber {
+  color: var(--color-amber, #e2a854);
+}
+
+.valCyan {
+  color: var(--color-cyan, #38bdf8);
+}
+
+.valGreen {
+  color: var(--color-sage, #34d399);
+}
+
+.telemetrySub {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  color: rgba(240, 238, 233, 0.55);
+}
+
+@media (max-width: 768px) {
+  .telemetryGrid {
+    grid-template-columns: 1fr;
+  }
+  .dagFlow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .dagArrow {
+    text-align: center;
+    transform: rotate(90deg);
+  }
+}

@@ -1,89 +1,110 @@
 /* ══════════════════════════════════════════════════════════
-   Codex Vault — Design System
-   Dark, glassmorphism, bold experimental aesthetic
+   Codex Vault — Design System (Warm Architectural Light)
+   Museum gallery minimalist, high-contrast, editorial aesthetic
    ══════════════════════════════════════════════════════════ */
 
 /* ── Google Fonts ──────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&family=Sora:wght@300;400;500;600;700;800&display=swap');
 
 /* ── CSS Custom Properties ─────────────────── */
 :root {
-  /* Builder's Studio — Warm Earth & Cinematic Palette */
-  --color-void: #0B0B0C;
-  --color-graphite: #1A1A1B;
-  --color-graphite-light: #242426;
-  --color-stone: #2E2A25;
-  --color-stone-dim: #1F1C18;
-  --color-sand: #C9B8A0;
-  --color-sand-dim: #8F8271;
-  --color-amber: #D4A373;
-  --color-amber-glow: #E6BA8E;
-  --color-sage: #7A9E7E;
-  --color-sage-glow: #8EBD92;
-  --color-deep-blue: #2A4B6B;
+  /* Warm Architectural Light — Alabaster Paper, Deep Carbon & Tuscan Ochre */
+  --color-void: #fafaf9;
+  --color-canvas: #fafaf9;
+  --color-graphite: #ffffff;
+  --color-graphite-light: #f8fafc;
+  --color-stone: rgba(0, 0, 0, 0.08);
+  --color-stone-dim: #e4e4e7;
+  --color-sand: #3f3f46;
+  --color-sand-dim: #71717a;
+  --color-amber: #b45309;
+  --color-amber-glow: #d97706;
+  --color-sage: #059669;
+  --color-sage-glow: #10b981;
+  --color-deep-blue: #0284c7;
+  --color-cyan: #0284c7;
 
-  /* Atelier Dark & Architectural Monograph Mappings */
-  --color-canvas: var(--color-void);
-  --color-surface: var(--color-graphite);
-  --color-surface-hover: var(--color-graphite-light);
-  --color-surface-subtle: var(--color-stone-dim);
-  --color-border-hairline: var(--color-stone);
-  --color-border-visible: rgba(46, 42, 37, 0.8);
-  --color-border-hover: var(--color-amber);
-  --color-text-primary: #FAF6F0;
-  --color-text-secondary: var(--color-sand);
-  --color-text-muted: var(--color-sand-dim);
-  --color-accent-amber: var(--color-amber);
-  --color-accent-emerald: var(--color-sage);
-  --color-accent-cyan: #4A90E2;
+  /* Surface Hierarchy */
+  --color-surface: #ffffff;
+  --color-surface-hover: #f4f4f5;
+  --color-surface-subtle: #f1f5f9;
+  --color-border-hairline: rgba(0, 0, 0, 0.07);
+  --color-border-visible: rgba(0, 0, 0, 0.12);
+  --color-border-hover: rgba(180, 83, 9, 0.45);
+  --color-text-primary: #09090b;
+  --color-text-secondary: #3f3f46;
+  --color-text-muted: #71717a;
+  --color-accent-amber: #b45309;
+  --color-accent-emerald: #059669;
+  --color-accent-cyan: #0284c7;
+
+  /* Once UI / Magic Portfolio Tokens */
+  --brand: #b45309;
+  --brand-alpha-weak: rgba(180, 83, 9, 0.08);
+  --brand-alpha-medium: rgba(180, 83, 9, 0.18);
+  --brand-alpha-strong: rgba(180, 83, 9, 0.35);
+  --brand-medium: #b45309;
+  --brand-strong: #92400e;
+  --brand-background-strong: #78350f;
+  
+  --neutral-alpha-weak: rgba(0, 0, 0, 0.06);
+  --neutral-alpha-medium: rgba(0, 0, 0, 0.12);
+  --neutral-alpha-strong: rgba(0, 0, 0, 0.22);
+  --neutral-weak: #71717a;
+  --neutral-strong: #09090b;
+  --neutral-on-background-weak: #71717a;
+
+  --surface-translucent: rgba(255, 255, 255, 0.85);
+  --surface-dock: rgba(255, 255, 255, 0.92);
+  --radius-pill: 9999px;
 
   /* Interoperability Mappings */
-  --bg-void: var(--color-void);
-  --bg-primary: var(--color-void);
-  --bg-secondary: var(--color-graphite);
-  --bg-tertiary: var(--color-stone-dim);
-  --bg-elevated: #242426;
-  --bg-card: var(--color-graphite);
-  --surface-mid: var(--color-graphite);
-  --surface-high: var(--color-stone-dim);
-  --surface-hover: var(--color-graphite-light);
+  --bg-void: var(--color-canvas);
+  --bg-primary: var(--color-canvas);
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f8fafc;
+  --bg-elevated: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --surface-mid: #ffffff;
+  --surface-high: #f8fafc;
+  --surface-hover: #f4f4f5;
 
-  --border-subtle: var(--color-stone);
-  --border-grid: rgba(46, 42, 37, 0.45);
-  --border-glow-amber: rgba(212, 163, 115, 0.3);
-  --border-glow-emerald: rgba(122, 158, 126, 0.3);
+  --border-subtle: rgba(0, 0, 0, 0.07);
+  --border-grid: rgba(0, 0, 0, 0.035);
+  --border-glow-amber: rgba(180, 83, 9, 0.3);
+  --border-glow-emerald: rgba(5, 150, 105, 0.3);
 
-  --text-primary: #FAF6F0;
-  --text-prominent: #FFFFFF;
-  --text-secondary: var(--color-sand);
-  --text-muted: var(--color-sand-dim);
-  --text-subtle: #685E52;
-  --text-accent: var(--color-amber);
+  --text-primary: #09090b;
+  --text-prominent: #000000;
+  --text-secondary: #3f3f46;
+  --text-muted: #71717a;
+  --text-subtle: #a1a1aa;
+  --text-accent: #b45309;
 
   /* Semantic Accents */
-  --accent-amber: var(--color-amber);
-  --accent-amber-light: var(--color-amber-glow);
-  --accent-emerald: var(--color-sage);
-  --accent-cyan: #4A90E2;
-  --accent-violet: #A28497;
-  --accent-magenta: #C27D88;
+  --accent-amber: #b45309;
+  --accent-amber-light: #d97706;
+  --accent-emerald: #059669;
+  --accent-cyan: #0284c7;
+  --accent-violet: #7c3aed;
+  --accent-magenta: #db2777;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #FAF6F0 0%, #C9B8A0 100%);
-  --gradient-telemetry: linear-gradient(135deg, #7A9E7E 0%, #D4A373 100%);
-  --gradient-subtle: linear-gradient(135deg, rgba(212, 163, 115, 0.08) 0%, rgba(122, 158, 126, 0.06) 100%);
-  --gradient-glow: radial-gradient(ellipse at center, rgba(212, 163, 115, 0.12) 0%, transparent 70%);
-  --gradient-card-border: linear-gradient(135deg, rgba(212, 163, 115, 0.18), rgba(46, 42, 37, 0.1));
+  --gradient-primary: linear-gradient(135deg, #09090b 0%, #3f3f46 100%);
+  --gradient-telemetry: linear-gradient(135deg, #b45309 0%, #059669 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(180, 83, 9, 0.06) 0%, rgba(2, 132, 199, 0.04) 100%);
+  --gradient-glow: radial-gradient(ellipse at center, rgba(180, 83, 9, 0.1) 0%, transparent 70%);
+  --gradient-card-border: linear-gradient(135deg, rgba(180, 83, 9, 0.25), rgba(0, 0, 0, 0.06));
 
   /* Glass / Surfaces */
-  --glass-bg: rgba(26, 26, 27, 0.92);
-  --glass-border: var(--color-stone);
+  --glass-border: rgba(0, 0, 0, 0.08);
   --glass-blur: 16px;
-  --glass-hover-bg: rgba(36, 36, 38, 0.95);
+  --glass-hover-bg: rgba(255, 255, 255, 0.98);
 
   /* Typography */
   --font-display: 'Sora', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-body: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --font-handwritten: 'Caveat', cursive;
 
@@ -121,12 +142,12 @@
   --radius-xl: 24px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 30px rgba(212, 163, 115, 0.15);
-  --shadow-glow-strong: 0 0 60px rgba(212, 163, 115, 0.25);
+  /* Shadows (Museum Grade Light Ambient Elevation) */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 6px 16px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 16px 36px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 30px rgba(180, 83, 9, 0.12);
+  --shadow-glow-strong: 0 0 60px rgba(180, 83, 9, 0.2);
 
   /* Motion */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -159,10 +180,10 @@ html {
 body {
   font-family: var(--font-body);
   background-color: var(--color-void);
-  background-image: radial-gradient(rgba(212, 163, 115, 0.04) 1px, transparent 0);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 0);
   background-size: 24px 24px;
   background-attachment: fixed;
-  color: #E8E2D9;
+  color: var(--color-text-primary);
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
@@ -174,10 +195,10 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #111112;
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-stone);
+  background: rgba(0, 0, 0, 0.18);
   border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -186,13 +207,41 @@ body {
 
 /* Selection */
 ::selection {
-  background: var(--color-amber);
-  color: var(--color-void);
+  background: #fef3c7;
+  color: #09090b;
 }
 
-/* Atmospheric Effects */
+/* Atmospheric & Spatial Effects */
+.blueprint-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  opacity: 0.7;
+}
+
+.spatial-glass {
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06);
+}
+
+.spatial-glass-subtle {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+}
+
 .grain {
-  background-image: radial-gradient(rgba(212, 163, 115, 0.04) 1px, transparent 0);
+  background-image: radial-gradient(rgba(226, 168, 84, 0.05) 1px, transparent 0);
   background-size: 24px 24px;
 }
 
@@ -253,20 +302,22 @@ code, pre {
 }
 
 code {
-  background: var(--bg-elevated);
+  background: #f1f5f9;
   padding: 2px 6px;
   border-radius: var(--radius-sm);
   font-size: var(--text-sm);
-  color: var(--accent-cyan);
+  color: #b45309;
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 pre {
-  background: var(--bg-secondary);
-  border: 1px solid var(--glass-border);
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--radius-md);
   padding: var(--space-4);
   overflow-x: auto;
   font-size: var(--text-sm);
+  color: #0f172a;
 }
 
 /* ── Layout Utilities ──────────────────────── */

@@ -1,25 +1,11 @@
-# .github/workflows/live-sync.yml
-#
-# CI pipeline for the second-brain codex repo.
-# Enforces data-boundary security, compiles wiki content to JSON, and deploys
-# the portfolio site to GitHub Pages.
-#
-# Permissions: contents:read only — nothing in this workflow commits back to
-# the repo. GitHub Pages deployment uses its own pages/deployments token via
-# the actions/deploy-pages action.
-#
-# Pipeline order (non-negotiable):
-#   1. verify (pre)       — block any boundary violations before touching anything
-#   2. compile            — compile_telemetry, compile_progress, compile_portfolio
-#   3. verify (post)      — confirm nothing leaked into generated JSON
-#   4. build              — npm build-content -> site/dist
-#   5. deploy             — push site/dist to GitHub Pages
-
-name: Live Sync
+name: Verify, Compile & Deploy
 
 on:
+  schedule:
+    - cron: '0 */6 * * *'
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -28,82 +14,61 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: 'pages'
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  verify-and-build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      - name: Checkout
+      - name: Checkout Codebase
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.11'
 
-      - name: Set up Node
+      - name: Execute Boundary & Schema Verification (pre-compile)
+        run: python scripts/verify_boundaries.py
+
+      - name: Compile Data Pipelines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/compile_telemetry.py
+          python scripts/compile_progress.py
+          python scripts/compile_portfolio.py
+          python scripts/compile_concepts.py
+
+      - name: Re-Verify Public Artifact Invariants (post-compile)
+        run: python scripts/verify_boundaries.py
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: '20'
+          cache: 'npm'
           cache-dependency-path: site/package-lock.json
 
-      # ── Step 1: Pre-compile boundary verification ─────────────────────────
-      - name: Verify boundaries (pre-compile)
-        run: python scripts/verify_boundaries.py
-
-      # ── Step 2: Compile wiki content to JSON ──────────────────────────────
-      - name: Compile telemetry
+      - name: Build Web Application
         run: |
-          if [ -f scripts/compile_telemetry.py ]; then
-            python scripts/compile_telemetry.py
-          else
-            echo "[CI] compile_telemetry.py not yet present — skipping."
-          fi
+          cd site
+          npm ci
+          npm run build
 
-      - name: Compile progress
-        run: |
-          if [ -f scripts/compile_progress.py ]; then
-            python scripts/compile_progress.py
-          else
-            echo "[CI] compile_progress.py not yet present — skipping."
-          fi
-
-      - name: Compile portfolio
-        run: python scripts/compile_portfolio.py
-
-      # ── Step 3: Post-compile boundary verification ────────────────────────
-      - name: Verify boundaries (post-compile)
-        run: python scripts/verify_boundaries.py
-
-      # ── Step 4: Build site ────────────────────────────────────────────────
-      - name: Install site dependencies
-        run: npm ci
-        working-directory: site
-
-      - name: Build site content
-        run: node scripts/build-content.js
-        working-directory: site
-
-      - name: Build site bundle
-        run: npm run build
-        working-directory: site
-
-      # ── Step 5: Deploy to GitHub Pages ───────────────────────────────────
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload Pages artifact
+      - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: site/dist
 
+  deploy:
+    needs: verify-and-build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

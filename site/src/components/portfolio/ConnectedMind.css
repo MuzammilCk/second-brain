@@ -1,12 +1,11 @@
 /* ══════════════════════════════════════════════════════════
-   ConnectedMind — Cognitive Constellation & Ecosystem
-   Atmospheric radial nodes with dynamic path filaments
+   ConnectedMind — Cognitive Constellation & Ecosystem (Light Mode)
    ══════════════════════════════════════════════════════════ */
 
 .connected-mind {
   position: relative;
   padding: 6rem 2rem;
-  border-bottom: 1px solid rgba(46, 42, 37, 0.4);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   max-width: 1440px;
   margin: 0 auto;
   overflow: hidden;
@@ -30,7 +29,7 @@
 
 .connected-mind__annotation-text {
   font-size: 1.5rem;
-  color: var(--color-amber);
+  color: var(--color-amber, #b45309);
   font-weight: 400;
 }
 
@@ -40,13 +39,14 @@
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.22em;
-  color: var(--color-amber);
+  color: var(--color-amber, #b45309);
   text-transform: uppercase;
   margin-bottom: 0.75rem;
   padding: 4px 12px;
   border-radius: 4px;
-  border: 1px solid var(--color-stone);
-  background: var(--color-graphite);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 .connected-mind__title {
@@ -54,14 +54,14 @@
   font-size: clamp(2rem, 3.5vw, 3rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #FFFFFF;
+  color: #09090b;
   margin: 0.5rem 0 1rem 0;
 }
 
 .connected-mind__subtitle {
   font-family: var(--font-body);
   font-size: 1.05rem;
-  color: rgba(201, 184, 160, 0.8);
+  color: #475569;
   line-height: 1.6;
   margin: 0 auto 1.75rem auto;
   max-width: 640px;
@@ -72,8 +72,8 @@
   display: inline-flex;
   gap: 0.5rem;
   padding: 4px;
-  background: rgba(26, 26, 27, 0.8);
-  border: 1px solid var(--color-stone);
+  background: #f1f5f9;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 999px;
 }
 
@@ -85,7 +85,7 @@
   border-radius: 999px;
   border: none;
   background: transparent;
-  color: var(--color-sand-dim);
+  color: #64748b;
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.05em;
@@ -98,12 +98,12 @@
 }
 
 .connected-mind__toggle-btn:hover {
-  color: var(--color-sand);
+  color: #09090b;
 }
 
 .connected-mind__toggle-btn--active {
-  background: var(--color-stone);
-  color: var(--color-amber);
+  background: #09090b;
+  color: #ffffff;
   font-weight: 600;
 }
 
@@ -113,11 +113,11 @@
   max-width: 1120px;
   min-height: 640px;
   margin: 0 auto;
-  background: radial-gradient(circle at 50% 50%, rgba(30, 28, 26, 0.6) 0%, rgba(11, 11, 12, 0.95) 75%);
-  border-radius: 28px;
-  border: 1px solid rgba(46, 42, 37, 0.8);
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   padding: 2rem;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
   overflow: hidden;
 }
 
@@ -132,16 +132,15 @@
 
 .connected-mind__path {
   fill: none;
-  stroke: rgba(212, 163, 115, 0.2);
+  stroke: rgba(0, 0, 0, 0.1);
   stroke-width: 1.2;
   transition: all 0.3s ease;
 }
 
 .connected-mind__path--active {
-  stroke: var(--color-amber);
+  stroke: var(--color-amber, #b45309);
   stroke-width: 2.2;
   stroke-opacity: 0.95;
-  filter: drop-shadow(0 0 6px rgba(212, 163, 115, 0.6));
 }
 
 /* ── Interactive Stars ────────────────────────────────────── */
@@ -178,23 +177,23 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--color-sand);
-  box-shadow: 0 0 10px rgba(201, 184, 160, 0.5);
+  background: #64748b;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
   transition: all 0.25s ease;
 }
 
 .connected-mind__star--origin .connected-mind__star-core {
   width: 18px;
   height: 18px;
-  background: var(--color-amber);
-  box-shadow: 0 0 20px rgba(212, 163, 115, 0.9);
+  background: var(--color-amber, #b45309);
+  box-shadow: 0 0 16px rgba(180, 83, 9, 0.6);
 }
 
 .connected-mind__star-pulse {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  border: 1px solid var(--color-amber);
+  border: 1px solid var(--color-amber, #b45309);
   animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
 
@@ -205,64 +204,64 @@
 }
 
 .connected-mind__star--project .connected-mind__star-core {
-  background: var(--color-amber);
-  box-shadow: 0 0 12px rgba(212, 163, 115, 0.6);
+  background: var(--color-amber, #b45309);
+  box-shadow: 0 0 10px rgba(180, 83, 9, 0.4);
 }
 
 .connected-mind__star--concept .connected-mind__star-core {
-  background: var(--color-sand);
-  border: 1px solid var(--color-amber);
+  background: #334155;
+  border: 1px solid var(--color-amber, #b45309);
 }
 
 .connected-mind__star--decision .connected-mind__star-core {
-  background: var(--color-sage);
+  background: #059669;
   width: 8px;
   height: 8px;
-  box-shadow: 0 0 8px rgba(122, 158, 126, 0.6);
+  box-shadow: 0 0 6px rgba(5, 150, 105, 0.5);
 }
 
 .connected-mind__star-label {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(26, 26, 27, 0.85);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(46, 42, 37, 0.7);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   padding: 3px 8px;
   border-radius: 4px;
   white-space: nowrap;
   pointer-events: none;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .connected-mind__star-title {
   font-family: var(--font-display);
   font-size: 11px;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #09090b;
   letter-spacing: -0.01em;
 }
 
 .connected-mind__star-sub {
   font-family: var(--font-mono);
   font-size: 8.5px;
-  color: var(--color-sand-dim);
+  color: #64748b;
   letter-spacing: 0.04em;
 }
 
 .connected-mind__star--linked .connected-mind__star-label {
-  border-color: rgba(212, 163, 115, 0.6);
-  background: rgba(36, 36, 38, 0.95);
+  border-color: rgba(180, 83, 9, 0.4);
+  background: #ffffff;
 }
 
 .connected-mind__star--selected .connected-mind__star-label {
-  border-color: var(--color-amber);
-  background: rgba(46, 42, 37, 0.95);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  border-color: var(--color-amber, #b45309);
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(180, 83, 9, 0.15);
 }
 
 .connected-mind__star--dim {
-  opacity: 0.4;
+  opacity: 0.35;
 }
 
 /* ── Persistent In-Canvas Insight Dock ────────────────────── */
@@ -271,16 +270,15 @@
   bottom: 1.5rem;
   left: 2rem;
   right: 2rem;
-  background: rgba(26, 26, 27, 0.9);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--color-stone);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   padding: 1.25rem 1.75rem;
   z-index: 10;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 
 .connected-mind__insight-badge {
@@ -291,7 +289,7 @@
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.15em;
-  color: var(--color-amber);
+  color: var(--color-amber, #b45309);
   text-transform: uppercase;
 }
 
@@ -299,14 +297,14 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--color-amber);
+  background: var(--color-amber, #b45309);
 }
 
 .connected-mind__insight-title {
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #09090b;
   margin: 0;
 }
 
@@ -314,7 +312,7 @@
   font-family: var(--font-body);
   font-size: 0.9rem;
   line-height: 1.55;
-  color: rgba(201, 184, 160, 0.85);
+  color: #475569;
   margin: 0;
   max-width: 800px;
 }
@@ -325,7 +323,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: var(--color-amber);
+  color: var(--color-amber, #b45309);
   text-decoration: none;
   font-family: var(--font-mono);
   font-size: 11px;
@@ -336,7 +334,7 @@
 
 .connected-mind__insight-link:hover {
   gap: 0.6rem;
-  color: var(--color-amber-glow);
+  color: #92400e;
 }
 
 .connected-mind__insight-link span.material-symbols-outlined {
@@ -356,19 +354,20 @@
 }
 
 .connected-mind__index-card {
-  background: var(--color-graphite);
-  border: 1px solid var(--color-stone);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 14px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .connected-mind__index-card:hover {
-  border-color: rgba(212, 163, 115, 0.4);
-  background: var(--color-graphite-light);
+  border-color: rgba(180, 83, 9, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .connected-mind__index-card-header {
@@ -382,21 +381,21 @@
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.15em;
-  color: var(--color-amber);
+  color: var(--color-amber, #b45309);
   text-transform: uppercase;
 }
 
 .connected-mind__index-sub {
   font-family: var(--font-mono);
   font-size: 9.5px;
-  color: var(--color-sand-dim);
+  color: #64748b;
 }
 
 .connected-mind__index-name {
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #09090b;
   margin: 0;
 }
 
@@ -404,7 +403,7 @@
   font-family: var(--font-body);
   font-size: 0.88rem;
   line-height: 1.55;
-  color: rgba(201, 184, 160, 0.75);
+  color: #475569;
   margin: 0;
   flex: 1;
 }
@@ -413,18 +412,18 @@
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
-  color: var(--color-amber);
+  color: var(--color-amber, #b45309);
   text-decoration: none;
   align-self: flex-start;
   transition: color 0.2s ease;
 }
 
 .connected-mind__index-door:hover {
-  color: var(--color-amber-glow);
+  color: #92400e;
 }
 
 .connected-mind__index-door--disabled {
-  color: var(--color-sand-dim);
+  color: #94a3b8;
   font-style: italic;
 }
 
@@ -444,40 +443,40 @@
   gap: 0.5rem;
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--color-sand-dim);
+  color: #64748b;
 }
 
 .connected-mind__footer-dot {
-  color: var(--color-sage);
+  color: #059669;
 }
 
 .connected-mind__cta-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--color-sand);
+  color: #ffffff;
   text-decoration: none;
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.05em;
-  padding: 8px 16px;
+  padding: 8px 18px;
   border-radius: 999px;
-  border: 1px solid var(--color-stone);
-  background: var(--color-graphite);
+  border: 1px solid #09090b;
+  background: #09090b;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .connected-mind__cta-btn:hover {
-  border-color: var(--color-amber);
-  color: var(--color-amber);
+  background: var(--color-amber, #b45309);
+  border-color: var(--color-amber, #b45309);
 }
 
 .connected-mind__cta-btn span.material-symbols-outlined {
   font-size: 16px;
 }
 
-/* ── Responsive Behavior ─────────────────────────────────── */
 @media (max-width: 768px) {
   .connected-mind {
     padding: 4rem 1rem;

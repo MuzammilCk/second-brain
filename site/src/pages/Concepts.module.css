@@ -1,0 +1,64 @@
+/* Concepts.module.css
+   Warm Architectural Light gallery theme for /concepts page
+*/
+
+.pageContainer {
+  min-height: 100vh;
+  padding-top: 5rem;
+  background: transparent;
+  color: #09090b;
+  position: relative;
+  z-index: 1;
+  overflow-x: hidden;
+}
+
+.heroHeader {
+  max-width: 1320px;
+  margin: 1.5rem auto 2rem auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+.headerInner {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding-bottom: 1.5rem;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-amber, #b45309);
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-amber, #b45309);
+  box-shadow: 0 0 8px rgba(180, 83, 9, 0.5);
+}
+
+.title {
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #09090b;
+  margin: 0 0 0.5rem 0;
+}
+
+.subtitle {
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 1rem;
+  color: #475569;
+  margin: 0;
+  max-width: 700px;
+  line-height: 1.5;
+}

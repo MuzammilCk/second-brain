@@ -1,7 +1,5 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import conceptsData from '../../data/generated/concepts.json';
-import portfolioData from '../../data/generated/portfolio.json';
 import './ConnectedMind.css';
 
 // Semantic constellation graph defining the actual intellectual links in Muzammil's world
@@ -89,7 +87,7 @@ const CONSTELLATION_NODES = [
     color: 'amber',
     connectedTo: ['origin', 'proj-metatune'],
     summary: 'Dataset-aware Bayesian hyperparameter sweeps and neural meta-learners. Applied in MetaTune to scale parameter search.',
-    link: '/garden/automl'
+    link: '/concepts/automl'
   },
   {
     id: 'concept-video',
@@ -103,7 +101,7 @@ const CONSTELLATION_NODES = [
     color: 'sand',
     connectedTo: ['origin', 'proj-ytclfr'],
     summary: 'Signal census architecture partitioning media analysis to avoid expensive spatial/temporal neural processing on silent tracks.',
-    link: '/garden/video-intelligence'
+    link: '/concepts/video-intelligence'
   },
   {
     id: 'concept-physics',
@@ -117,7 +115,7 @@ const CONSTELLATION_NODES = [
     color: 'deep-blue',
     connectedTo: ['origin'],
     summary: 'Verlet numerical integration modeling paper physics and interactive diary page flips without velocity overhead.',
-    link: '/garden/three-physics'
+    link: '/concepts/three-physics'
   },
   {
     id: 'concept-skillopt',
@@ -131,7 +129,7 @@ const CONSTELLATION_NODES = [
     color: 'sage',
     connectedTo: ['origin'],
     summary: 'Validation-gated offline optimization for coding agents. Local audit and sleep-cycle synthesis on ThinkPad hardware.',
-    link: '/garden/skillopt'
+    link: '/concepts/skillopt'
   },
 
   // ── TURNING POINTS & INVARIANTS (Bottom Arc) ──
@@ -173,7 +171,7 @@ const CONSTELLATION_NODES = [
   }
 ];
 
-export default function ConnectedMind() {
+export default function ConnectedMind({ variant = 'full' }) {
   const [selectedNodeId, setSelectedNodeId] = useState('origin');
   const [hoveredNodeId, setHoveredNodeId] = useState(null);
   const [viewMode, setViewMode] = useState('constellation'); // 'constellation' | 'index'
@@ -241,10 +239,10 @@ export default function ConnectedMind() {
         </div>
 
         <div className="connected-mind__pill">
-          02 // THE CONNECTED MIND
+          {variant === 'mini' ? '04 // CONSTELLATION PREVIEW' : '02 // THE CONNECTED MIND'}
         </div>
         <h2 className="connected-mind__title">
-          An ecosystem of thought, systems & pivots.
+          {variant === 'mini' ? 'Systems & Concepts Constellation' : 'An ecosystem of thought, systems & pivots.'}
         </h2>
         <p className="connected-mind__subtitle">
           Projects are not standalone items. They grow out of research concepts, hit physical constraints, force turning points, and leave durable invariants.
@@ -394,8 +392,8 @@ export default function ConnectedMind() {
           <span className="connected-mind__footer-dot">●</span>
           <span>Interactive Cognitive Constellation · Grounded in real wiki markdowns & decisions</span>
         </div>
-        <Link to="/garden" className="connected-mind__cta-btn">
-          <span>Explore Digital Garden</span>
+        <Link to="/concepts" className="connected-mind__cta-btn">
+          <span>Explore All Concepts & Garden</span>
           <span className="material-symbols-outlined">arrow_forward</span>
         </Link>
       </div>

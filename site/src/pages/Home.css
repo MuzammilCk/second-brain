@@ -1,111 +1,14 @@
-/* ══════════════════════════════════════════════
-   Home Studio: Builder's Studio Experience
-   ══════════════════════════════════════════════ */
-
 .home-studio {
-  background-color: var(--color-void);
+  background-color: var(--color-canvas, #fafaf9);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
 }
 
-.grain-overlay {
-  position: fixed;
-  inset: 0;
-  background-image: radial-gradient(rgba(212, 163, 115, 0.04) 1px, transparent 0);
-  background-size: 24px 24px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ── Secondary Sections Wrapper (Pivots, ThinkingLab, Ledger) ── */
-.home-secondary-sections {
+.home-spatial-content {
   position: relative;
   z-index: 1;
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 4rem 2rem 6rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 5rem;
-}
-
-/* ── Section Label Shared ────────────────────── */
-.section-label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: var(--color-sand-dim);
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(46, 42, 37, 0.6);
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-}
-
-.section-link {
-  color: var(--color-sand);
-  text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  transition: color 0.2s ease;
-}
-
-.section-link:hover {
-  color: var(--color-amber);
-}
-
-/* ── Home Ledger Teaser ──────────────────────── */
-.home-ledger {
-  position: relative;
-}
-
-.home-ledger__table {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(46, 42, 37, 0.85);
-  background: var(--color-graphite);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-}
-
-.home-ledger__cta {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.btn-archive {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 28px;
-  background: var(--color-graphite);
-  border: 1px solid var(--color-stone);
-  border-radius: 9999px;
-  color: var(--color-sand);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  transition: all 0.25s ease;
-}
-
-.btn-archive:hover {
-  background: var(--color-amber);
-  border-color: var(--color-amber);
-  color: var(--color-void);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(212, 163, 115, 0.2);
-}
-
-@media (max-width: 768px) {
-  .home-secondary-sections {
-    padding: 2.5rem 1rem 4rem 1rem;
-    gap: 3.5rem;
-  }
+  width: 100%;
 }

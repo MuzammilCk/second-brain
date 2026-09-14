@@ -114,16 +114,13 @@ def check_no_private_leaks():
                         )
 
 
+# Allowlist of generated files. During Phase 1-3 transition, legacy files are allowed
+# so that the old site remains operable until the new one is verified.
 ALLOWED_GENERATED_FILES = {
     "telemetry.json",
     "progress.json",
     "portfolio.json",
-    "projects.json",
     "concepts.json",
-    "log.json",
-    "priorities.json",
-    "stats.json",
-    "placements.json",
 }
 
 

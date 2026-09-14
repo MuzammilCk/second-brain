@@ -1,0 +1,214 @@
+/* ConceptDetail.module.css
+   Warm Architectural Light / Gallery Minimalist edition
+*/
+
+.pageContainer {
+  min-height: 100vh;
+  padding-top: 5rem;
+  background: transparent;
+  color: #09090b;
+  position: relative;
+  z-index: 1;
+  overflow-x: hidden;
+}
+
+.articleContainer {
+  max-width: 860px;
+  margin: 2rem auto 5rem auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-bottom: 2rem;
+}
+
+.breadcrumbLink {
+  color: #b45309;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.breadcrumbLink:hover {
+  color: #92400e;
+  text-decoration: underline;
+}
+
+.breadcrumbSep {
+  color: #94a3b8;
+}
+
+.conceptBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  background: rgba(180, 83, 9, 0.08);
+  border: 1px solid rgba(180, 83, 9, 0.25);
+  color: #b45309;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-family: var(--font-display, 'Sora', sans-serif);
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #09090b;
+  margin: 0 0 0.85rem 0;
+  line-height: 1.25;
+}
+
+.metaBar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.75rem;
+  color: #64748b;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.contentCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  padding: 2.5rem;
+  line-height: 1.75;
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 1rem;
+  color: #334155;
+}
+
+/* ── Markdown & Math Styling ── */
+.markdownBody h1 {
+  display: none; /* Already rendered in page title */
+}
+
+.markdownBody h2 {
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #09090b;
+  margin: 2.25rem 0 1rem 0;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.markdownBody h3 {
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 1.75rem 0 0.75rem 0;
+}
+
+.markdownBody p {
+  margin: 0 0 1.25rem 0;
+  color: #334155;
+}
+
+.markdownBody strong {
+  color: #09090b;
+  font-weight: 600;
+}
+
+.markdownBody ul, .markdownBody ol {
+  margin: 0 0 1.5rem 1.25rem;
+  padding-left: 0.5rem;
+}
+
+.markdownBody li {
+  margin-bottom: 0.5rem;
+  color: #334155;
+}
+
+.markdownBody code {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.85em;
+  background: #f4f4f5;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  color: #b45309;
+}
+
+.markdownBody pre {
+  background: #fafaf9;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.markdownBody pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #09090b;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  display: block;
+}
+
+.markdownBody blockquote {
+  border-left: 3px solid #b45309;
+  background: #fffdfa;
+  padding: 0.75rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  color: #475569;
+}
+
+/* Math formula block styling */
+.mathBlock {
+  background: #fafaf9;
+  border: 1px solid rgba(180, 83, 9, 0.2);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  text-align: center;
+  font-family: 'Cambria Math', 'Latin Modern Math', KaTeX_Math, serif;
+  font-size: 1.15rem;
+  color: #b45309;
+  overflow-x: auto;
+}
+
+.mathInline {
+  font-family: 'Cambria Math', 'Latin Modern Math', KaTeX_Math, serif;
+  color: #b45309;
+  background: rgba(180, 83, 9, 0.08);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+}
+
+/* Error card */
+.errorCard {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}

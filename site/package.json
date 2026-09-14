@@ -4,9 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build:content": "node scripts/build-content.js",
-    "dev": "node scripts/build-content.js && vite",
-    "build": "node scripts/build-content.js && vite build",
+    "dev": "vite",
+    "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -14,7 +13,6 @@
     "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
     "framer-motion": "^13.1.1",
-    "gray-matter": "^4.0.3",
     "marked": "^18.0.10",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

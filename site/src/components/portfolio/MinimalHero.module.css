@@ -1,0 +1,261 @@
+.heroSection {
+  position: relative;
+  min-height: 82vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6.5rem 1.5rem 4rem;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.heroContainer {
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ── Once UI Featured Work Badge Pill ── */
+.featuredBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 16px 5px 12px;
+  background: rgba(180, 83, 9, 0.06);
+  border: 1px solid rgba(180, 83, 9, 0.22);
+  border-radius: var(--radius-pill, 9999px);
+  text-decoration: none;
+  margin-bottom: 2.2rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 10px rgba(180, 83, 9, 0.05);
+  transition: all 0.22s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.featuredBadge:hover {
+  background: rgba(180, 83, 9, 0.12);
+  border-color: rgba(180, 83, 9, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(180, 83, 9, 0.12);
+}
+
+.featuredTag {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #b45309;
+}
+
+.badgeDivider {
+  width: 1px;
+  height: 14px;
+  background: rgba(180, 83, 9, 0.25);
+}
+
+.featuredTitle {
+  font-family: var(--font-body, 'Geist', sans-serif);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #27272a;
+}
+
+.badgeArrow {
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  color: #b45309;
+  transition: transform 0.18s ease;
+}
+
+.featuredBadge:hover .badgeArrow {
+  transform: translateX(3px);
+}
+
+/* ── Monumental Headline ── */
+.headline {
+  font-family: var(--font-display, 'Sora', sans-serif);
+  font-size: clamp(2.6rem, 5.8vw, 4.8rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #09090b;
+  margin-bottom: 1.75rem;
+  text-wrap: balance;
+}
+
+.editorialItalic {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-amber, #b45309);
+  background: linear-gradient(135deg, #d97706 0%, #b45309 60%, #92400e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-right: 0.08em;
+}
+
+/* ── Ethos Subline ── */
+.ethos {
+  font-family: var(--font-body, 'Geist', sans-serif);
+  font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+  line-height: 1.68;
+  color: #52525b;
+  max-width: 680px;
+  margin-bottom: 2.75rem;
+  font-weight: 400;
+  text-wrap: balance;
+}
+
+/* ── Action Row ── */
+.actionRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 3.25rem;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1.85rem;
+  background: #09090b;
+  color: #ffffff;
+  font-family: var(--font-body, 'Geist', sans-serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border-radius: var(--radius-pill, 9999px);
+  text-decoration: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.primaryBtn:hover {
+  background: #18181b;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.btnArrow {
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  transition: transform 0.2s ease;
+}
+
+.primaryBtn:hover .btnArrow {
+  transform: translateX(4px);
+}
+
+.ghostBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  background: #ffffff;
+  color: #09090b;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius-pill, 9999px);
+  text-decoration: none;
+  backdrop-filter: blur(12px);
+  transition: all 0.22s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.ghostBtn:hover {
+  border-color: var(--color-amber, #b45309);
+  color: var(--color-amber, #b45309);
+  background: #fffdfa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(180, 83, 9, 0.1);
+}
+
+.ghostIcon {
+  font-size: 12px;
+}
+
+/* ── Minimalist Live Status Bar ── */
+.statusTicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: #71717a;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  padding-top: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tickerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.tickerDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #059669;
+  box-shadow: 0 0 6px rgba(5, 150, 105, 0.5);
+}
+
+.tickerSep {
+  color: #cbd5e1;
+  opacity: 0.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 5rem 1.25rem 3rem;
+    min-height: 75vh;
+  }
+
+  .headline {
+    font-size: 2.4rem;
+  }
+
+  .featuredBadge {
+    flex-direction: column;
+    padding: 8px 14px;
+    gap: 4px;
+    border-radius: 14px;
+  }
+
+  .badgeDivider {
+    display: none;
+  }
+
+  .actionRow {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .primaryBtn,
+  .ghostBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .statusTicker {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .tickerSep {
+    display: none;
+  }
+}

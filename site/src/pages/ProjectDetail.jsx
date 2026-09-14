@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import projectsData from '../data/generated/projects.json';
+import SpatialArchitectureTopology from '../components/portfolio/SpatialArchitectureTopology';
 import portfolioData from '../data/generated/portfolio.json';
 import './ProjectDetail.css';
 
-// Parse raw markdown into structured 10-Act Narrative sections
+// Parse raw markdown into structured 6-section case study
 function parseNarrativeActs(markdown = '') {
   const sections = {
     overview: '',
@@ -91,26 +91,33 @@ function renderFormattedMarkdown(text = '') {
 }
 
 export default function ProjectDetail() {
-  const { slug } = useParams();
+  const { id, slug } = useParams();
+  const projectKey = id || slug;
+
+  const allProjects = useMemo(() => {
+    return (portfolioData?.projects || []).map((p) => ({
+      ...p,
+      slug: p.slug || p.id,
+      contentMd: p.body_markdown || '',
+    }));
+  }, []);
 
   const currentIndex = useMemo(() => {
-    return projectsData.findIndex(p => p.slug === slug);
-  }, [slug]);
+    return allProjects.findIndex(p => p.slug === projectKey || p.id === projectKey);
+  }, [allProjects, projectKey]);
 
-  const rawProject = projectsData[currentIndex];
-  const portMeta = (portfolioData?.projects || []).find(p => p.id === slug) || {};
-  const project = rawProject ? { ...rawProject, ...portMeta } : null;
+  const project = currentIndex >= 0 ? allProjects[currentIndex] : null;
 
   // Previous and next project navigation
   const prevProject = useMemo(() => {
-    if (currentIndex > 0) return projectsData[currentIndex - 1];
-    return projectsData[projectsData.length - 1];
-  }, [currentIndex]);
+    if (currentIndex > 0) return allProjects[currentIndex - 1];
+    return allProjects[allProjects.length - 1] || {};
+  }, [allProjects, currentIndex]);
 
   const nextProject = useMemo(() => {
-    if (currentIndex < projectsData.length - 1) return projectsData[currentIndex + 1];
-    return projectsData[0];
-  }, [currentIndex]);
+    if (currentIndex < allProjects.length - 1) return allProjects[currentIndex + 1];
+    return allProjects[0] || {};
+  }, [allProjects, currentIndex]);
 
   const acts = useMemo(() => {
     return parseNarrativeActs(project?.body_markdown || project?.contentMd || '');
@@ -183,6 +190,9 @@ export default function ProjectDetail() {
               <span key={tech} className="project-narrative__stack-tag">{tech}</span>
             ))}
           </div>
+
+          {/* ── Spatial Topology & Invariant Verification Diagram ── */}
+          <SpatialArchitectureTopology project={project} />
         </div>
       </header>
 

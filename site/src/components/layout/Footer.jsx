@@ -8,34 +8,34 @@ export default function Footer() {
         <div className="footer__grid">
           <div className="footer__brand">
             <Link to="/" className="footer__logo">
-              <span className="gradient-text">◆</span> codex
+              <span className="footer__logo-title">MUZAMMIL CK</span>
             </Link>
-            <p className="footer__tagline">Building systems that think.</p>
+            <p className="footer__tagline">
+              Autonomous distributed runtimes, sub-400ms voice transport, and confidential machine learning.
+            </p>
           </div>
 
           <div className="footer__col">
-            <h4 className="footer__heading">Navigate</h4>
-            <Link to="/projects" className="footer__link">Projects</Link>
-            <Link to="/garden" className="footer__link">Garden</Link>
-            <Link to="/now" className="footer__link">Now</Link>
-            <Link to="/playground" className="footer__link">Playground</Link>
+            <h4 className="footer__heading">Wayfinding</h4>
+            <Link to="/projects" className="footer__link">Projects Atlas</Link>
+            <Link to="/radar" className="footer__link">Telemetry Radar</Link>
+            <Link to="/concepts" className="footer__link">Concepts</Link>
           </div>
 
           <div className="footer__col">
-            <h4 className="footer__heading">Connect</h4>
+            <h4 className="footer__heading">Vault</h4>
             <a href="https://github.com/MuzammilCk" target="_blank" rel="noopener noreferrer" className="footer__link">
-              GitHub
+              GitHub Profile ↗
             </a>
+            <span className="footer__status-tag">● Deterministic Vault</span>
           </div>
         </div>
 
         <div className="footer__bottom">
           <p className="footer__copy">
-            © {new Date().getFullYear()} Muzammil Ck — Powered by the Codex Vault
+            © {new Date().getFullYear()} Muzammil Ck. Built with mathematical rigor &amp; physical invariants.
           </p>
-          <p className="footer__built">
-            <span className="footer__pulse" /> Built with curiosity
-          </p>
+          <span className="footer__pulse-note">Kerala Lab // 2026</span>
         </div>
       </div>
     </footer>

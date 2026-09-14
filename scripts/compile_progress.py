@@ -17,6 +17,7 @@ from datetime import datetime, timezone
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 INVENTORY_FILE = os.path.join(ROOT, "core", "progress", "stack-inventory.json")
 SPRINT_FILE = os.path.join(ROOT, "core", "progress", "current-sprint.md")
+ALGO_STATS_FILE = os.path.join(ROOT, "core", "progress", "algo-stats.json")
 OUTPUT_FILE = os.path.join(ROOT, "site", "src", "data", "generated", "progress.json")
 
 # Keep this in sync with the QUADRANTS array in TechRadar.tsx.
@@ -63,6 +64,15 @@ def main():
         with open(SPRINT_FILE, "r", encoding="utf-8") as handle:
             lines = [line.strip() for line in handle.readlines() if line.strip() and not line.startswith("#")]
             payload["current_sprint_summary"] = " ".join(lines[:4])
+
+    # Algorithm stats: deliberately a SEPARATE, hand-maintained file, never
+    # derived from core/private/interviews/dsa-tracker.md. This is the
+    # actual boundary control for what used to be a live read of
+    # placements.json — physical separation, not runtime filtering.
+    payload["algo_stats"] = {}
+    if os.path.exists(ALGO_STATS_FILE):
+        with open(ALGO_STATS_FILE, "r", encoding="utf-8") as handle:
+            payload["algo_stats"] = json.load(handle)
 
     os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
     with open(OUTPUT_FILE, "w", encoding="utf-8") as handle:

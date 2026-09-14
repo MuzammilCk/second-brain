@@ -1,0 +1,203 @@
+/* ConceptsGrid.module.css
+   Warm Architectural Light gallery theme for the concepts grid
+*/
+
+.conceptsSection {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-amber, #b45309);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-amber, #b45309);
+  box-shadow: 0 0 8px rgba(180, 83, 9, 0.5);
+}
+
+.title {
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #09090b;
+  margin: 0 0 0.5rem 0;
+}
+
+.subtitle {
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 0.95rem;
+  color: #475569;
+  margin: 0;
+  max-width: 640px;
+  line-height: 1.5;
+}
+
+.headerCount {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.75rem;
+  color: #475569;
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.conceptCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.conceptCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(180, 83, 9, 0.4);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.cardGlow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-amber, #b45309), transparent);
+  opacity: 0.7;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cardId {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cardBadge {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.68rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(180, 83, 9, 0.08);
+  border: 1px solid rgba(180, 83, 9, 0.2);
+  color: var(--color-amber, #b45309);
+  font-weight: 500;
+}
+
+.cardTitle {
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #09090b;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.3;
+}
+
+.cardExcerpt {
+  font-family: var(--font-sans, 'Geist', sans-serif);
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.55;
+  margin: 0 0 1.5rem 0;
+  flex: 1;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.cardTags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.tagPill {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: #f1f5f9;
+  color: #334155;
+  font-weight: 500;
+}
+
+.openLink {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-amber, #b45309);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: transform 0.2s ease;
+}
+
+.conceptCard:hover .openLink {
+  transform: translateX(4px);
+}

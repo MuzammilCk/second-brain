@@ -1,0 +1,445 @@
+.showcaseSection {
+  position: relative;
+  padding: 4rem 1.5rem 6rem;
+  z-index: 2;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Once UI Line Divider ── */
+.lineDividerRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3.5rem;
+}
+
+.lineSegment {
+  width: 56px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+/* ── Section Header ── */
+.sectionHeader {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 3.5rem;
+}
+
+.eyebrowPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #b45309;
+  background: rgba(180, 83, 9, 0.06);
+  border: 1px solid rgba(180, 83, 9, 0.2);
+  border-radius: var(--radius-pill, 9999px);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.eyebrowDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #b45309;
+}
+
+.sectionTitle {
+  font-family: var(--font-display, 'Sora', sans-serif);
+  font-size: clamp(2rem, 3.6vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #09090b;
+  margin-bottom: 0.85rem;
+}
+
+.sectionSubtitle {
+  font-family: var(--font-body, 'Geist', sans-serif);
+  font-size: 1rem;
+  line-height: 1.62;
+  color: #52525b;
+  text-wrap: balance;
+}
+
+/* ── 3D Multi-Layer Parallax Cards Grid ── */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  perspective: 1200px;
+}
+
+.card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.15s ease-out, border-color 0.25s ease, box-shadow 0.25s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card:hover {
+  border-color: rgba(180, 83, 9, 0.4);
+  box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.09), 0 0 20px rgba(180, 83, 9, 0.06);
+}
+
+.cardGlowSheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 20px;
+  background: radial-gradient(
+    circle 320px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(180, 83, 9, 0.07),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.card:hover .cardGlowSheen {
+  opacity: 1;
+}
+
+.cardInner {
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  z-index: 2;
+  transform-style: preserve-3d;
+}
+
+/* ── Card Meta Row ── */
+.cardMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.projectIdx {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: #a1a1aa;
+}
+
+.categoryBadge {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #71717a;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 3px 8px;
+  border-radius: 6px;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.statusPill {
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #059669;
+  background: rgba(5, 150, 105, 0.08);
+  border: 1px solid rgba(5, 150, 105, 0.2);
+  padding: 2px 7px;
+  border-radius: var(--radius-pill, 9999px);
+}
+
+/* ── Title & Tagline ── */
+.projectTitle {
+  font-family: var(--font-display, 'Sora', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #09090b;
+  margin-bottom: 0.65rem;
+  line-height: 1.25;
+}
+
+.projectTagline {
+  font-family: var(--font-body, 'Geist', sans-serif);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #52525b;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+/* ── Metric & Accolade Badge ── */
+.metricContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+}
+
+.metricBadge {
+  display: flex;
+  flex-direction: column;
+}
+
+.metricValue {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 13px;
+  font-weight: 700;
+  color: #b45309;
+}
+
+.metricLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: #71717a;
+  text-transform: uppercase;
+}
+
+.accoladeBadge {
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #09090b;
+  background: #ffffff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Stack Row ── */
+.stackRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1.75rem;
+}
+
+.stackChip {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: #3f3f46;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 3px 9px;
+  border-radius: var(--radius-pill, 9999px);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* ── Card Action Row ── */
+.cardActionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.inspectBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: #09090b;
+  color: #ffffff;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-pill, 9999px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.inspectBtn:hover {
+  background: #27272a;
+  transform: translateY(-1px);
+}
+
+.btnIcon {
+  font-size: 11px;
+}
+
+.detailLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #52525b;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.detailLink:hover {
+  color: #b45309;
+}
+
+.linkArrow {
+  transition: transform 0.15s ease;
+}
+
+.detailLink:hover .linkArrow {
+  transform: translateX(3px);
+}
+
+/* ── Wayfinding Portals ── */
+.wayfindingHeader {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 3rem;
+}
+
+.wayfindingTitle {
+  font-family: var(--font-display, 'Sora', sans-serif);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: #09090b;
+  margin-bottom: 0.65rem;
+}
+
+.wayfindingSubtitle {
+  font-family: var(--font-body, 'Geist', sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #52525b;
+  text-wrap: balance;
+}
+
+.wayfindingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.wayfindingCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  padding: 1.75rem;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+  transition: all 0.22s cubic-bezier(0.25, 0.1, 0.25, 1);
+  height: 100%;
+}
+
+.wayfindingCard:hover {
+  border-color: rgba(180, 83, 9, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.08);
+}
+
+.wayfindingTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.wayfindingNumber {
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  font-weight: 700;
+  color: #b45309;
+}
+
+.wayfindingBadge {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  color: #71717a;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill, 9999px);
+}
+
+.wayfindingName {
+  font-family: var(--font-display, 'Sora', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #09090b;
+  margin-bottom: 0.5rem;
+}
+
+.wayfindingDesc {
+  font-family: var(--font-body, 'Geist', sans-serif);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #52525b;
+  margin-bottom: 1.5rem;
+}
+
+.wayfindingFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.wayfindingAction {
+  font-family: var(--font-mono, monospace);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #09090b;
+}
+
+.wayfindingArrow {
+  font-size: 14px;
+  color: #b45309;
+  transition: transform 0.18s ease;
+}
+
+.wayfindingCard:hover .wayfindingArrow {
+  transform: translateX(4px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .wayfindingGrid {
+    grid-template-columns: 1fr;
+  }
+}
