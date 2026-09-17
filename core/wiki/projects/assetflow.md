@@ -12,6 +12,11 @@ sources:
 related: []
 created: 2026-08-03
 last-updated: 2026-08-03
+tier: hackathon
+health: completed
+visibility: public
+current_milestone: "Odoo Hackathon 2026 Asset Tracker Monorepo"
+next_action: "Retain as transaction scheduling reference implementation"
 ---
 
 # AssetFlow

@@ -14,6 +14,11 @@ sources:
 related: []
 created: 2026-02-28
 last-updated: 2026-08-03
+tier: flagship
+health: on-track
+visibility: public
+current_milestone: "Staged video-intelligence pipeline end-to-end extraction"
+next_action: "Test Stage A S3 fallback wrapper on sample compilation videos"
 ---
 
 # YouTube Content Lifter and Field Recognizer (ytclfr)

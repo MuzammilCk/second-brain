@@ -14,6 +14,11 @@ sources:
 related: []
 created: 2026-03-27
 last-updated: 2026-08-03
+tier: client
+health: on-track
+visibility: public
+current_milestone: "Modular monolithic MLM checkout engine"
+next_action: "Enforce strict catalog concurrency guards in checkout pipeline"
 ---
 
 # Hadi Perfumes Backend

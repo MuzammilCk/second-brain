@@ -13,6 +13,11 @@ sources:
 related: []
 created: 2026-08-03
 last-updated: 2026-08-03
+tier: client
+health: on-track
+visibility: public
+current_milestone: "Custom Next.js visual and mechanical overlay design"
+next_action: "Finalize sound calibration portfolio showcase pages"
 ---
 
 # Viva Business Team Website

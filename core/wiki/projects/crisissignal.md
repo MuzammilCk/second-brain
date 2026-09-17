@@ -12,6 +12,11 @@ sources:
 related: []
 created: 2026-07-10
 last-updated: 2026-08-03
+tier: hackathon
+health: dormant
+visibility: public
+current_milestone: "Federated on-device AI early crisis warning model"
+next_action: "Benchmark TFLite model inference on mobile device battery life"
 ---
 
 # CrisisSignal

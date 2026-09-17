@@ -2,6 +2,9 @@
 
 Chronological log of significant changes and decisions in this vault.
 
+- **2026-09-17 - briefing ran**: 0 events; 3 active projects; placement prep & DSA active
+- **2026-09-17 - project tracker upgrade**: Integrated all 34 GitHub repositories into core/wiki/projects/ with agile tracker frontmatter and companion decision logs. Deployed scripts/sync_github_tracker.py for zero-mirroring GitHub telemetry. Rebuilt projects/index.md into an Obsidian-native Map of Content.
+- **2026-09-17 - briefing ran**: Calendar connector not available; 3 active projects (ytclfr, MetaTune, AI Invoice Studio); placement prep & offline AI active.
 - **2026-08-25 - briefing ran**: Calendar connector unavailable; DSA heavy rotation this week; vault active.
 - **2026-08-24 - vault refactoring & frontmatter standardization**: Refactored all project and concept frontmatters into valid, strictly-typed YAML block lists. Resolved all broken wikilinks across the vault (including residual self-referential people links and navigation indexes). Ensured 100% parity between project overviews and append-only decision logs. Hardened automation scripts and validated zero lint warnings.
 - **2026-08-24 - github sync**: Extracted metadata, READMEs, and commit history for 31 GitHub repositories

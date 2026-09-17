@@ -14,6 +14,11 @@ sources:
 related: []
 created: 2026-06-01
 last-updated: 2026-08-03
+tier: flagship
+health: on-track
+visibility: public
+current_milestone: "Local offline-first voice billing app migration"
+next_action: "Verify local Flask STT sidecar with Ollama qwen3:8b"
 ---
 
 # AI Invoice Studio

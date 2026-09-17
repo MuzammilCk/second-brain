@@ -12,6 +12,11 @@ sources:
 related: []
 created: 2026-08-03
 last-updated: 2026-08-03
+tier: incubation
+health: dormant
+visibility: public
+current_milestone: "Multi-role healthcare portal with real-time triage"
+next_action: "Audit httpOnly JWT token rotation across client views"
 ---
 
 # HealthSync

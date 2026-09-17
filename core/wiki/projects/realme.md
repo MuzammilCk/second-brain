@@ -13,6 +13,11 @@ sources:
 related: []
 created: 2026-07-28
 last-updated: 2026-08-03
+tier: flagship
+health: on-track
+visibility: public
+current_milestone: "Narrative 3D web experience with Verlet physics"
+next_action: "Optimize gyro camera interactions and cloth shader render loop"
 ---
 
 # RealMe (3D Portfolio)

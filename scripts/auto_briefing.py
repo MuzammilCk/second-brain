@@ -47,10 +47,11 @@ def get_latest_decision(decisions_file: Path) -> str:
 
 def generate_morning_briefing() -> str:
     today_str = datetime.now().strftime("%Y-%m-%d")
+    core_dir = VAULT_ROOT / "core" if (VAULT_ROOT / "core").exists() else VAULT_ROOT
     priorities_file = VAULT_ROOT / "priorities.md"
-    wiki_projects_dir = VAULT_ROOT / "wiki" / "projects"
-    log_file = VAULT_ROOT / "wiki" / "log.md"
-    journal_dir = VAULT_ROOT / "journal" / "briefings"
+    wiki_projects_dir = core_dir / "wiki" / "projects"
+    log_file = core_dir / "wiki" / "log.md"
+    journal_dir = core_dir / "journal" / "briefings"
     journal_dir.mkdir(parents=True, exist_ok=True)
 
     # 1. Read priorities

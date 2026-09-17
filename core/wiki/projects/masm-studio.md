@@ -13,6 +13,11 @@ sources:
 related: []
 created: 2026-08-03
 last-updated: 2026-08-03
+tier: flagship
+health: on-track
+visibility: public
+current_milestone: "Deterministic 16-bit 8086 Assembly cloud IDE"
+next_action: "Expand Monaco syntax autocompletions for register trace mapping"
 ---
 
 # MASM Studio

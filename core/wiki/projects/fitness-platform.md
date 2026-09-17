@@ -13,6 +13,11 @@ sources:
 related: []
 created: 2026-06-15
 last-updated: 2026-08-03
+tier: incubation
+health: stalled
+visibility: public
+current_milestone: "Type-safe FitTech tracking monorepo (useMe)"
+next_action: "Refactor Drizzle ORM queries for workout log aggregation"
 ---
 
 # Fitness Platform (useMe)

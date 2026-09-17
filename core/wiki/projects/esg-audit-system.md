@@ -12,6 +12,11 @@ sources:
 related: []
 created: 2026-08-03
 last-updated: 2026-08-03
+tier: flagship
+health: on-track
+visibility: public
+current_milestone: "LangGraph multi-agent ESG audit coordination"
+next_action: "Validate Presidio PII anonymization in isolated enclave"
 ---
 
 # Zero-Trust Multiagent ESG Audit System

@@ -4,25 +4,23 @@
 
 ---
 
-## 🏛️ Vault Architecture: The 3-Tier Boundary Model
+## 🏛️ Vault Architecture: The 4-Tier Boundary Model (Obsidian Vault in `core/`)
 
 ```
 d:\projects\codex\
-├── raw/               <-- 🔒 Read-Only: Immutable data exports (Claude, ChatGPT, Notion)
-├── mirror/            <-- 🔄 Refreshable: Project mirrors (CLAUDE.md/context.md) & GitHub syncs
-│   └── project-sync/  <-- Auto-synced context & commit history across all 30+ project repos
-├── wiki/              <-- ✍️ Curated Second Brain: Interconnected notes with [[wiki-links]]
-│   ├── projects/      <-- Project overviews (<slug>.md) & Decision logs (<slug>-decisions.md)
-│   ├── concepts/      <-- Atomic technical concepts (AutoML, Video Intelligence, Three.js, etc.)
-│   ├── placements/    <-- Placement trackers, DSA matrix, company pipelines, mock logs
-│   ├── people/        <-- Directory of external mentors, contacts, and collaborators
-│   ├── index.md       <-- Master table of contents & entrypoint
-│   └── log.md         <-- Vault audit journal & running daily log
-├── journal/           <-- 📅 Daily morning briefings & time-ordered snapshots
-├── priorities.md      <-- 🎯 Root steering file: P.A.R.A (Projects, Areas, Resources, Archive)
-├── people.md          <-- 👤 Private Key People file (Gitignored)
-├── scripts/           <-- ⚡ Automation controllers & launcher scripts (Gitignored)
-└── .docs/             <-- 📚 Archived build ledgers, audit guides, and task trackers (Gitignored)
+├── core/                  <-- 📓 Obsidian Vault Root (Open this folder in Obsidian)
+│   ├── journal/           <-- 📅 Daily morning briefings, temporal logs, and reflection notes
+│   │   └── briefings/     <-- Daily automated briefings (YYYY-MM-DD.md)
+│   ├── private/           <-- 🔒 Tier 1 (RESTRICTED): Student dossiers, placement interviews, scratchpad
+│   ├── progress/          <-- 📊 Tier 2 (CONFIDENTIAL): Stack inventory & GitHub repository telemetry
+│   └── wiki/              <-- 🧠 Tier 3 (CONFIDENTIAL): Curated projects MOC, concept deep-dives, log.md
+│       ├── projects/      <-- 34 Project overviews & Decision logs (<slug>-decisions.md)
+│       └── concepts/      <-- Atomic technical deep dives
+├── site/                  <-- 🌐 Tier 4 (PUBLIC): React 19 / Vite static showcase (reads generated data)
+├── priorities.md          <-- 🎯 Root steering file: P.A.R.A (Projects, Areas, Resources, Archive)
+├── people.md              <-- 👤 Private Key People file (Gitignored)
+├── scripts/               <-- ⚡ Automation controllers & sync scripts
+└── .docs/                 <-- 📚 Archived build ledgers and specifications
 ```
 
 ---

@@ -13,6 +13,11 @@ sources:
 related: []
 created: 2026-08-03
 last-updated: 2026-08-03
+tier: flagship
+health: on-track
+visibility: public
+current_milestone: "Dual-gear CodeQL & Gemini repository security analyzer"
+next_action: "Tune rate compliance cache for large codebase indexing"
 ---
 
 # Repo Mind
