@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 OUTPUT_FILE = os.path.abspath(os.path.join(
     os.path.dirname(__file__), "..", "site", "src", "data", "generated", "telemetry.json"
 ))
-GITHUB_USER = "muzammil-ck"
+GITHUB_USER = "MuzammilCk"
 
 
 def fetch_json(url):
