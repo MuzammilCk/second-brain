@@ -4,8 +4,8 @@ title: AI Invoice Studio
 type: project
 status: active
 export: "true"
-repo_reference: https://github.com/MuzammilCk/invoice-studio
-last_verified: 2026-08-03
+repo_reference: https://github.com/MuzammilCk/invoice
+last_verified: 2026-09-21
 stack: React 19, Vite, TypeScript, TailwindCSS v4, Zustand, Express.js, Decimal.js, jsonwebtoken, bcryptjs, Python, Flask, faster-whisper, OpenAI SDK
 sources:
   - mirror/project-sync/invoice/context.md
@@ -13,7 +13,7 @@ sources:
   - mirror/project-sync/invoice/README.md
 related: []
 created: 2026-06-01
-last-updated: 2026-08-03
+last-updated: 2026-09-21
 tier: flagship
 health: on-track
 visibility: public

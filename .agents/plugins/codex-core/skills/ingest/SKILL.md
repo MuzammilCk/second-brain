@@ -8,7 +8,10 @@ description: Ingest new material from raw/ and mirror/ (incl. pulled) into wiki/
 Ingest new material into the personal wiki from local directories.
 
 ## Flow
-1. Read unprocessed or new files from `raw/` (all subfolders), `mirror/project-sync/` (all subfolders), and `mirror/pulled/` (all subfolders). Under no circumstances should you edit `raw/` or `mirror/` (these are read-only).
+1. Read unprocessed or new files from `raw/` (all subfolders). Under no
+   circumstances should you edit `raw/` (read-only). Per AGENTS.md,
+   `mirror/` is permanently deprecated -- if it still exists on disk from
+   before that ban, treat it as archive only, never as an ingest source.
 2. For each file to process:
    - Extract content, metadata, and key entities (projects, concepts, people, decisions).
    - Before creating a new page in the wiki, use Grep to search `wiki/` frontmatter titles for an existing page matching the same title to avoid duplicate notes.

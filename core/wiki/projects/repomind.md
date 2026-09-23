@@ -4,15 +4,15 @@ title: Repo Mind
 type: project
 status: active
 export: "true"
-repo_reference: https://github.com/MuzammilCk/repomind-cli
-last_verified: 2026-08-03
+repo_reference: https://github.com/MuzammilCk/repo_mind
+last_verified: 2026-09-21
 stack: FastAPI, Python, Google Gemini, FAISS, SeaGOAT, CodeQL CLI, GitPython
 sources:
   - mirror/project-sync/cli/README.md
   - mirror/project-sync/cli/context.md
 related: []
 created: 2026-08-03
-last-updated: 2026-08-03
+last-updated: 2026-09-21
 tier: flagship
 health: on-track
 visibility: public

@@ -14,3 +14,8 @@ Chronological record of design decisions and security implementations.
 **Context:** Local developers frequently lack stable internet access, or need to run automated integration code without exhausting sandbox rate thresholds or requiring external Stripe requests.
 **Decision:** Scaffolded an offline-first mock checkout router. The client detects the `NODE_ENV` environment variable; if set to `development` and credentials are omitted, it routes transaction payloads to a local simulated gateway that instantly returns mock success responses, updating the MongoDB billing state.
 **Status:** active
+
+## 2026-09-21 — repo_reference corrected
+`repo_reference` was pointing at a dead/renamed URL (`healthsync`); corrected to `https://github.com/MuzammilCk/HealthCare` after confirming it is the same project continued under its real GitHub name, not a coincidentally-similar different repo.
+**Status:** active
+

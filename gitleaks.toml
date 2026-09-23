@@ -1,0 +1,19 @@
+# .gitleaks.toml
+#
+# Minimal on purpose: this doesn't override gitleaks' own default
+# ruleset (150+ patterns) -- [extend] useDefault = true means "use the
+# built-ins as-is." Add an allowlist entry below only once a real run
+# has actually produced a false positive -- don't pre-guess entries for
+# strings that might never trigger.
+#
+# Example shape, if ever needed (boundary_policy.py's test examples use
+# AWS's own well-known fake documentation key, AKIAIOSFODNN7EXAMPLE,
+# which gitleaks' default allowlist already knows about -- this is just
+# the pattern to follow for a genuinely new false positive):
+#
+# [[rules.allowlist]]
+#   regexes = ['''AKIAIOSFODNN7EXAMPLE''']
+#   paths = ['''scripts/antigravity_boundary_hook\.py''']
+
+[extend]
+useDefault = true

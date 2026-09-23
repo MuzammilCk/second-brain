@@ -163,7 +163,36 @@ def lint_wiki() -> int:
             if not exists:
                 errors.append(f"[{rel_path}] Broken wikilink: [[{target}]]")
 
-    # 5. Output Summary
+    # 5. Check for project pages orphaned from core/wiki/index.md
+    index_path = WIKI_DIR / "index.md"
+    if index_path.exists():
+        index_content = index_path.read_text(encoding="utf-8", errors="replace")
+        # Collect all wikilink targets referenced from index.md
+        linked_slugs = set()
+        for target, _ in WIKILINK_PATTERN.findall(index_content):
+            # Normalize: strip leading wiki/, projects/, take the stem
+            t = target.strip().lstrip("/")
+            if t.startswith("wiki/"):
+                t = t[5:]
+            if t.startswith("projects/"):
+                t = t[9:]
+            linked_slugs.add(t.split("|")[0].strip())  # handle [[slug|alias]]
+            linked_slugs.add(os.path.splitext(t.split("|")[0].strip())[0])
+
+        # Check every non-decisions, non-index project page
+        if projects_dir.exists():
+            for f in sorted(projects_dir.iterdir()):
+                if f.suffix != ".md":
+                    continue
+                if f.name in ("index.md",) or f.name.endswith("-decisions.md"):
+                    continue
+                slug = f.stem
+                if slug not in linked_slugs:
+                    warnings.append(
+                        f"[projects/{slug}.md] Not linked from wiki/index.md — orphaned page."
+                    )
+
+    # 6. Output Summary
     print("=" * 60)
     if warnings:
         print(f"ÔÜá´©Å  {len(warnings)} Warning(s):")

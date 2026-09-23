@@ -4,8 +4,8 @@ title: HealthSync
 type: project
 status: active
 export: "true"
-repo_reference: https://github.com/MuzammilCk/healthsync
-last_verified: 2026-08-03
+repo_reference: https://github.com/MuzammilCk/HealthCare
+last_verified: 2026-09-21
 stack: React, Vite, Tailwind CSS, Express, Node.js, MongoDB, Socket.IO, Stripe, OpenRouter
 sources:
   - mirror/project-sync/HealthCare-main/README.md

@@ -13,3 +13,8 @@ Decision journal and architectural audit trail for the Fitness Platform (useMe) 
 **Decision:** Wrote a unified global exception filter in `apps/api` mapping standard HTTP errors, raw `ZodError` payloads, and `nestjs-zod` wrapped exceptions into a consistent container layout containing `success`, `data`, and `error` parameters.
 **Alternatives considered:** Handling exceptions individually inside each controller endpoint (rejected; violates DRY principles and creates audit/conformity issues).
 **Status:** active
+
+## 2026-09-21 — repo_reference corrected
+`repo_reference` was pointing at a dead/renamed URL (`fitness-platform`); corrected to `https://github.com/MuzammilCk/useMe` after confirming it is the same project continued under its real GitHub name, not a coincidentally-similar different repo.
+**Status:** active
+

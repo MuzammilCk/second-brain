@@ -1,0 +1,50 @@
+#!/bin/bash
+# .githooks/pre-commit
+#
+# Real secret scanning at commit time -- the authoritative layer.
+# boundary_policy.py's SECRET_PATTERNS (used by the real-time Antigravity
+# hook) is a deliberately small, dependency-free tripwire; this is the
+# actual scanner it was always meant to sit alongside, not replace.
+#
+# One-time setup (per clone/machine -- core.hooksPath is a per-machine
+# git config, it does not "just work" after cloning):
+#   1. Install gitleaks:
+#        winget install Gitleaks.Gitleaks      (Windows)
+#        brew install gitleaks                  (macOS)
+#      or grab a binary from
+#        https://github.com/gitleaks/gitleaks/releases
+#   2. git config core.hooksPath .githooks
+#
+# That's it. From then on, on this machine, git runs this file before
+# every commit.
+
+set -euo pipefail
+
+if ! command -v gitleaks &> /dev/null; then
+  echo "----------------------------------------------------------------"
+  echo "ERROR: gitleaks is not installed (or not on PATH)."
+  echo "This repo's pre-commit hook requires it -- see the setup"
+  echo "instructions in the comment at the top of .githooks/pre-commit."
+  echo ""
+  echo "To bypass ONCE, only if you are certain this commit has no"
+  echo "secrets in it:"
+  echo "    SKIP_GITLEAKS=1 git commit ..."
+  echo "----------------------------------------------------------------"
+  exit 1
+fi
+
+if [ "${SKIP_GITLEAKS:-0}" != "0" ]; then
+  echo "[pre-commit] SKIP_GITLEAKS is set -- skipping the gitleaks scan for this commit."
+  exit 0
+fi
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+CONFIG_ARGS=()
+if [ -f "$REPO_ROOT/.gitleaks.toml" ]; then
+  CONFIG_ARGS=(--config "$REPO_ROOT/.gitleaks.toml")
+fi
+
+# --staged: scans exactly what's about to be committed, not the whole
+# working tree or history. --redact: don't print the actual matched
+# secret value into your terminal/scrollback.
+gitleaks protect --staged --redact "${CONFIG_ARGS[@]}"

@@ -16,6 +16,8 @@ import re
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from frontmatter_utils import parse_frontmatter_and_body  # noqa: E402
+from verify_repo_reference_integrity import check_repo_references  # noqa: E402
+from check_skill_parity import check_skill_parity  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PRIVATE_DIR = os.path.join(ROOT, "core", "private")
@@ -215,6 +217,23 @@ def main():
     check_no_private_leaks()
     check_stack_inventory_evidence()
     check_project_schemas()
+
+    errors, warnings = check_repo_references()
+    for w in warnings:
+        print(f"[WARN] {w}")
+    if errors:
+        for e in errors:
+            print(f"[CRITICAL BOUNDARY ERROR] {e}", file=sys.stderr)
+        sys.exit(1)
+
+    skill_errors, skill_warnings = check_skill_parity()
+    for w in skill_warnings:
+        print(f"[WARN] {w}")
+    if skill_errors:
+        for e in skill_errors:
+            print(f"[CRITICAL BOUNDARY ERROR] {e}", file=sys.stderr)
+        sys.exit(1)
+
     print("[SUCCESS] All security boundaries and schemas verified.")
 
 

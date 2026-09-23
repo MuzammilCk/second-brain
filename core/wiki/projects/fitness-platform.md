@@ -4,8 +4,8 @@ title: Fitness Platform
 type: project
 status: active
 export: "true"
-repo_reference: https://github.com/MuzammilCk/fitness-platform
-last_verified: 2026-08-03
+repo_reference: https://github.com/MuzammilCk/useMe
+last_verified: 2026-09-21
 stack: Next.js 15, NestJS, Turborepo, pnpm, Drizzle ORM, PostgreSQL, Zod, Vitest
 sources:
   - mirror/project-sync/useMe/context.md

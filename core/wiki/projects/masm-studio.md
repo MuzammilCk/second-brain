@@ -4,15 +4,15 @@ title: MASM Studio
 type: project
 status: active
 export: "true"
-repo_reference: https://github.com/MuzammilCk/MasM8086
-last_verified: 2026-08-03
+repo_reference: https://github.com/MuzammilCk/Masm_16-bit_8086
+last_verified: 2026-09-21
 stack: React, Monaco Editor, Express, Node.js, TypeScript, MongoDB, Redis, Gemini, LangChain
 sources:
   - mirror/project-sync/MasM8086/README.md
   - mirror/project-sync/MasM8086/CLAUDE.md
 related: []
 created: 2026-08-03
-last-updated: 2026-08-03
+last-updated: 2026-09-21
 tier: flagship
 health: on-track
 visibility: public

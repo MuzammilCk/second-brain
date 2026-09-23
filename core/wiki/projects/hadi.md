@@ -4,8 +4,8 @@ title: Hadi Perfumes
 type: project
 status: active
 export: "true"
-repo_reference: https://github.com/MuzammilCk/hadi-perfumes
-last_verified: 2026-08-03
+repo_reference: https://github.com/MuzammilCk/hadi
+last_verified: 2026-09-21
 stack: NestJS, TypeScript, PostgreSQL, TypeORM, BullMQ, Redis, Stripe, SQLite
 sources:
   - mirror/project-sync/hadi/context.md

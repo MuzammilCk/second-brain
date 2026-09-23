@@ -44,3 +44,22 @@ Append-only decision log. Each entry must use this schema:
 ```
 
 Never delete an entry, even a superseded one. Mark it superseded and link forward to the new decision. The history of why something changed is the entire point.
+
+## Flagship Tier Criteria
+
+`tier: flagship` is a claim, not a label — it says "put this in front of a
+recruiter." Before setting or keeping it, all of the following must hold:
+
+- `export: true`, and the page actually satisfies the 6-part schema
+  AGENTS.md requires for exported pages (not just present, populated).
+- `repo_reference` resolves to a repo that `core/progress/github-telemetry.json`
+  shows as `active_7d` or `recent_30d` for the matching slug, OR there's a
+  dated note in Current State explaining why a dormant repo is still the
+  right one to show.
+- `last-updated` is within the last 30 days, or the project's `status` is
+  `completed`/`shipped` (a finished flagship doesn't need weekly touches;
+  an `active` one claiming flagship status but going stale does).
+
+Run `/lint` after any tier change — a flagship failing these checks should
+read as an error, not a warning, precisely because this is the tier that's
+shown to other people.

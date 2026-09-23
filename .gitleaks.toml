@@ -1,0 +1,54 @@
+# .gitleaks.toml
+# Gitleaks configuration for the Codex second-brain repo.
+#
+# Purpose: tuned to suppress false-positives that are inherent to a
+# *knowledge vault* (which contains raw conversation exports with
+# example token strings, code snippets with placeholder keys, and
+# wiki notes referencing environment-variable names) while keeping
+# all real-credential patterns active.
+#
+# Ref: https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
+# Extend the upstream default ruleset and layer overrides below.
+
+title = "Codex Vault Gitleaks Config"
+
+[extend]
+# Use the upstream built-in rules as the base.
+useDefault = true
+
+# ---------------------------------------------------------------------------
+# Allowlists: patterns that are definitionally safe in this repo.
+# These are repository-wide. If you ever need a per-file carve-out,
+# add a `[[rules.allowlists]]` block on the specific rule instead.
+# ---------------------------------------------------------------------------
+
+[allowlist]
+description = "Codex vault safe patterns"
+
+# Raw conversation exports and wiki notes regularly contain example/placeholder
+# tokens that look like secrets but are not.
+regexes = [
+    # AWS example keys used in documentation
+    "EXAMPLE",
+    "PLACEHOLDER",
+    "your[_-]?key",
+    "your[_-]?token",
+    "your[_-]?secret",
+    # Env-var references (e.g. $OPENAI_API_KEY, ${GEMINI_KEY}) -- not values
+    "\\$\\{?[A-Z][A-Z0-9_]+\\}?",
+    # Template / format strings that look like secrets in wiki notes
+    "<[A-Z_]+>",
+]
+
+# Files that are safe to skip entirely (generated outputs, lock files).
+paths = [
+    # Compiled frontend bundles -- never checked in, but belt-and-suspenders
+    '''site/dist/''',
+    # Lock files contain hashes that false-positive on entropy rules
+    '''package-lock\.json''',
+    '''yarn\.lock''',
+    '''pnpm-lock\.yaml''',
+    # The diagnostic log from the Antigravity hook -- contains tool args
+    # that can superficially resemble tokens
+    '''scripts/diagnostic-log\.jsonl''',
+]

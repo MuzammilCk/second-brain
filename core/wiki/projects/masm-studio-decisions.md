@@ -10,3 +10,9 @@ Chronological track of design decisions and architectural pivots.
 **Alternatives considered:** 
 - Running containerized DOSBox instances in the cloud (rejected because hosting and scaling thousands of interactive DOS environments is financially prohibitive).
 **Status:** active
+
+## 2026-09-21 — Reconcile Canonical Repo Reference to Masm_16-bit_8086
+**Context:** The `repo_reference` in `core/wiki/projects/masm-studio.md` pointed to `https://github.com/MuzammilCk/MasM8086`, which is a dead link (HTTP 404). Telemetry confirms the active repository is `https://github.com/MuzammilCk/Masm_16-bit_8086`.
+**Decision:** Updated `repo_reference` in `core/wiki/projects/masm-studio.md` to `https://github.com/MuzammilCk/Masm_16-bit_8086` and refreshed `last_verified` to 2026-09-21.
+**Alternatives considered:** Keeping the historical name `MasM8086` (rejected because the GitHub repo was renamed to `Masm_16-bit_8086` and the old URL 404s).
+**Status:** active

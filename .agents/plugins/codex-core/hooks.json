@@ -32,7 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python scripts/diagnostic_hook.py",
+            "command": "python scripts/antigravity_boundary_hook.py",
             "timeout": 15
           }
         ]

@@ -4,11 +4,12 @@ import sys
 import os
 from datetime import datetime, timezone
 
-LOG_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "diagnostic-log.jsonl")
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..")) if ".agents" in os.path.abspath(__file__) else os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+LOG_PATH = os.path.join(ROOT, "scripts", "diagnostic-log.jsonl")
 
 def main():
     raw = sys.stdin.read()
-    entry = {'captured_at': datetime.now(timezone.utc).isoformat(), 'raw_stdin': raw}
+    entry = {'captured_at': datetime.now(timezone.utc).isoformat(), 'cwd': os.getcwd(), 'raw_stdin': raw}
     try:
         entry['parsed'] = json.loads(raw)
     except Exception as exc:

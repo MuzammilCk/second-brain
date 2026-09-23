@@ -26,8 +26,13 @@ Decision journal and architectural audit trail for the Hadi Perfumes project.
 **Alternatives considered:** Sticking with the P2P marketplace and implementing Stripe Connect Custom accounts (rejected due to compliance overhead and development complexity).
 **Status:** active
 
-## 2026-04-01 — DR-HADI-05: Atomic Inventory Concurrency Guards
+## 2026-04-01 - DR-HADI-05: Atomic Inventory Concurrency Guards
 **Context:** Under high traffic, concurrent order checkout attempts can lead to double-selling (overselling) inventory when using read-modify-write patterns.
 **Decision:** Implemented atomic database updates (`UPDATE inventory_items SET available_qty = available_qty - X WHERE available_qty >= X`) combined with a 15-minute checkout reservation TTL.
 **Alternatives considered:** Redis distributed locks (rejected; adds infrastructure complexity and overhead); database row-level locking (`SELECT FOR UPDATE`) - rejected due to deadlock risks during busy carts.
 **Status:** active
+
+## 2026-09-21 — repo_reference corrected
+`repo_reference` was pointing at a dead/renamed URL (`hadi-perfumes`); corrected to `https://github.com/MuzammilCk/hadi` after confirming it is the same project continued under its real GitHub name, not a coincidentally-similar different repo.
+**Status:** active
+

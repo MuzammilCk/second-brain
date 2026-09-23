@@ -25,3 +25,9 @@ Decision journal and architectural audit trail for the AI Invoice Studio project
 **Decision:** Migrated all calculations in `src/lib/calculations.ts` and `src/lib/utils.ts` to `Decimal.js` internals, forcing total amounts to remain precise decimal strings.
 **Alternatives considered:** Handling integers (converting all amounts to cents) - rejected because currency rates and fractional tax percentages can still introduce precision anomalies.
 **Status:** active
+
+## 2026-09-21 — DR-INV-05: Reconcile Canonical Repo Reference to invoice
+**Context:** The `repo_reference` in `core/wiki/projects/invoice-studio.md` pointed to `https://github.com/MuzammilCk/invoice-studio`, which returns HTTP 404. GitHub telemetry and repository audit confirmed the project is hosted under the repo name `https://github.com/MuzammilCk/invoice`.
+**Decision:** Updated `repo_reference` in `core/wiki/projects/invoice-studio.md` to `https://github.com/MuzammilCk/invoice` and refreshed `last_verified` to 2026-09-21.
+**Alternatives considered:** Renaming the remote GitHub repository (rejected to avoid breaking local remotes); maintaining the unverified slug (rejected as it produces broken links on the portfolio site).
+**Status:** active

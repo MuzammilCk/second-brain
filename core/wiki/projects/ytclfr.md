@@ -4,8 +4,8 @@ title: YouTube Content Lifter and Field Recognizer
 type: project
 status: active
 export: "true"
-repo_reference: https://github.com/MuzammilCk/ytclfr
-last_verified: 2026-08-03
+repo_reference: https://github.com/MuzammilCk/theytclfr
+last_verified: 2026-09-21
 stack: Python 3.13, FastAPI, Celery, Redis, PostgreSQL, MongoDB, Docker, yt-dlp, faster-whisper, PaddleOCR, Ollama, Groq API, Pydantic v2
 sources:
   - raw/claude-exports/ytclfr.md
@@ -13,7 +13,7 @@ sources:
   - raw/claude-exports/Ytclfr-v3-audit-and-performance-optimization-plan-review.md
 related: []
 created: 2026-02-28
-last-updated: 2026-08-03
+last-updated: 2026-09-21
 tier: flagship
 health: on-track
 visibility: public

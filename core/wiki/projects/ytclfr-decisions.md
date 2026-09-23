@@ -37,3 +37,11 @@ Decision journal and architectural audit trail for the YouTube Content Lifter an
 **Decision:** Implemented an S3 download fallback wrapper inside the Stage A manager, utilizing a `TempStorageManager` block to download files into a temporary `video_probe.mp4` location and clean it up in a `finally` block.
 **Alternatives considered:** Keeping all media files locally (rejected; disk constraints on ThinkPad L13 development host are too tight).
 **Status:** active
+
+## 2026-09-21 — DR-V2-07: Transition Canonical Repo Reference to theytclfr
+**Context:** Verification of repository telemetry and boundary integrity identified that the canonical repo reference for ytclfr (`https://github.com/MuzammilCk/ytclfr`) had diverged from active development: `ytclfr` has been dormant for 193 days, whereas the successor codebase `https://github.com/MuzammilCk/theytclfr` contains active commits within the last 30 days (`recent_30d`). Both repositories map to the vault slug `ytclfr` in `sync_github_tracker.py` telemetry aliases, but portfolio compilation directly pulls the unverified frontmatter reference, exposing a dormant link to recruiters and visitors.
+**Decision:** Updated `repo_reference` in `core/wiki/projects/ytclfr.md` to point to `https://github.com/MuzammilCk/theytclfr` and refreshed `last_verified` to 2026-09-21. Retained historical decision logs and context while anchoring future CI/telemetry verification to the active repository.
+**Alternatives considered:** 
+- Retaining `https://github.com/MuzammilCk/ytclfr`: Rejected because it serves stale code, triggers boundary verification errors under the Flagship Tier Criteria, and conceals active pipeline engineering.
+- Silently auto-updating the link in compilation scripts: Rejected because two repositories sharing a telemetry slug cannot be assumed identical without explicit human confirmation.
+**Status:** active
