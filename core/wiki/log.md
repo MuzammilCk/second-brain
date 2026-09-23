@@ -2,6 +2,7 @@
 
 Chronological log of significant changes and decisions in this vault.
 
+- **2026-09-23 - briefing ran**: 0 events; 3 active projects; placement prep & DSA active
 - **2026-09-22 - briefing ran**: 0 events; 3 active projects; placement prep & DSA active
 - **2026-09-21 - briefing ran**: 0 events; 3 active projects; placement prep & DSA active
 - **2026-09-20 - briefing ran**: 0 events; 3 active projects; placement prep & DSA active
